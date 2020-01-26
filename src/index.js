@@ -5,6 +5,8 @@ import App from "./App";
 
 import "./assets/css/index.css";
 
+import './assets/fonts/나눔스퀘어 Regular.ttf';
+
 // import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById("root"));

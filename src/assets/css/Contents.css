@@ -1,0 +1,47 @@
+html,
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+
+  /* font-size: 12pt; */
+  font-family: '나눔스퀘어';
+}
+
+div[class^="contents"] {
+  /* position: absolute; */
+  /* width: 90%; */
+  /* top: 5%; */
+  margin: 5%;
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  
+}
+
+[id^='title'] {
+  width: 100%;
+  height: 10%;
+  outline: none;
+  border: none;
+  font-size: 20pt;
+}
+
+[id^='subtitle'] {
+  width: 100%;
+  height: 10%;
+  outline: none;
+  border: none;
+  font-size: 20pt;
+}
+
+[id^='body'] {
+  width: 100%;
+  height: 10%;
+  outline: none;
+  border: none;
+  align-items: baseline;
+  text-align: start;
+  font-size: 20pt;
+}
+
