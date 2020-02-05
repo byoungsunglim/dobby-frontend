@@ -12,7 +12,7 @@ div[class^="contents"] {
   /* position: absolute; */
   /* width: 90%; */
   /* top: 5%; */
-  margin: 5%;
+  margin: 2%;
   /* top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); */
@@ -24,7 +24,7 @@ div[class^="contents"] {
   height: 10%;
   outline: none;
   border: none;
-  font-size: 20pt;
+  font-size: 14pt;
 }
 
 [id^='subtitle'] {
@@ -32,7 +32,7 @@ div[class^="contents"] {
   height: 10%;
   outline: none;
   border: none;
-  font-size: 20pt;
+  font-size: 14pt;
 }
 
 [id^='body'] {
@@ -40,8 +40,6 @@ div[class^="contents"] {
   height: 10%;
   outline: none;
   border: none;
-  align-items: baseline;
-  text-align: start;
-  font-size: 20pt;
+  font-size: 14pt;
 }
 

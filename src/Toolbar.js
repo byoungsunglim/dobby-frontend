@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import tools from "./assets/utils/tools.js";
+import tools from "./utils/tools.js";
 
 import "./assets/css/Toolbar.css";
 
@@ -8,6 +8,8 @@ class Toolbar extends Component {
   handleCmd = (e) => {
     console.log(e.target.id);
     this.props.setCmd(e.target.id);
+
+    //TODO: enable only when contents are made inside block
   };
 
   render() {

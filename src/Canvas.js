@@ -1,5 +1,8 @@
-import React, { Component } from "react";
 import { Textfit } from "react-textfit";
+import React, { Component } from "react";
+import TextareaAutosize from 'react-textarea-autosize';
+
+import { getLineBreak } from './utils/getLineBreak.js';
 
 import "./assets/css/Canvas.css";
 
@@ -11,50 +14,101 @@ class Canvas extends Component {
   }
 
   state = {
-    t: this.props.contents.title,
-    s: this.props.contents.subtitle,
-    b: this.props.contents.title,
-
     design: null
   }
 
   componentWillMount() {
     console.log(this.props.contents);
-    this.getDesign();
+    this.getDesign(this.props.contents);
   }
 
-  getDesign() {
-    var dt = (
-      <div className="dtitle">
-        <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
-          {this.state.t}
-        </Textfit>
-      </div>
-    )
+  getDesign(contents) {
+    let title = contents.title.split("\n");
+    let subtitle = contents.subtitle.split("\n");
+    let body = contents.body.split("/");
 
-    if (this.state.t.length > 14 && this.state.t.indexOf(" ") > 0) {
-      var break_idx = this.state.t.indexOf("", this.state.t.length / 2);
-      var first = this.state.t.substring(0, break_idx + 1).trim();
-      var second = this.state.t.substring(break_idx + 1, this.state.t.length).trim();
-      dt = (
-        <div className="dtitle">
-          <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
-            {first}<br/>{second}
-          </Textfit>
-        </div>
-      );
+    let dt = [];
+    let ds = [];
+    let db = [];
+
+    title.forEach((t) => {
+      if (t.length > 30) {
+        alert("제목이 너무 깁니다");
+        //TODO: case check
+      }
+      else {
+        let elements = getLineBreak('title', t)
+        for (let i = 0; i < elements.length; i++) {
+          dt.push(elements[i]);
+          if (i < elements.length - 1) {
+            dt.push(<br></br>);
+          }
+        }
+      }
+    })
+
+    for (let j = 0; j < subtitle.length; j++) {
+      ds.push(subtitle[j]);
+      if (j < subtitle.length - 1) {
+        ds.push(<br></br>);
+      }
     }
 
-    var ds = (
-      <div className="dsubtitle">
-        <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
-          {this.state.s}
+    for (let k = 0; k < body.length; k++) {
+      db.push(
+        <Textfit id={`dbody_${k}`} mode="multi" >
+          {body[k]}
         </Textfit>
-      </div>
-    );
+      )
+    }
+
+    // var dt = (
+    //   <div className="dtitle">
+    //     <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
+    //       {contents.title}
+    //     </Textfit>
+    //   </div>
+    // )
+
+    // console.log("enter", contents.title.indexOf("\n"))
+
+    // if (contents.title.length > 14 && contents.title.indexOf(" ") > 0) {
+    //   var break_idx = contents.title.indexOf(" ", contents.title.length / 2);
+    //   var first = contents.title.substring(0, break_idx + 1).trim();
+    //   var second = contents.title.substring(break_idx + 1, contents.title.length).trim();
+    //   dt = (
+    //     <div className="dtitle">
+    //       <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
+    //         {first}<br/>{second}
+    //       </Textfit>
+    //     </div>
+    //   );
+    // }
+
+    // var ds = (
+    //   <div className="dsubtitle">
+    //     <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
+    //       {this.state.s}
+    //     </Textfit>
+    //   </div>
+    // );
 
     this.setState({
-      design: [dt, ds]
+      design: [
+        <div className="dtitle">
+          <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
+            {dt}
+          </Textfit>
+        </div>,
+        <div className="dsubtitle">
+          <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
+            {ds}
+          </Textfit>
+        </div>,
+        <div className="dbody">
+          {db}
+        </div>
+      ]
     })
   };
   
