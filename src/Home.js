@@ -20,12 +20,11 @@ class Home extends Component {
 
   state = {
     view: null,
-    current_page: 0,
+    cur_page: 0,
     index: [{
-      block: 0,
+      id: "1",
       title: "",
       pages: [],
-      index: []
     }],
     contents: [{
       page: 0,
@@ -38,9 +37,15 @@ class Home extends Component {
     cmd: null
   };
 
-  setView() {
+  setView = () => {
     this.setState({
       view: this.state.view === "document" ? "design" : "document",
+    })
+  }
+
+  setPage = (cur_page) => {
+    this.setState({
+      cur_page: cur_page
     })
   }
 
@@ -55,14 +60,14 @@ class Home extends Component {
   //   })
   // }
 
-  setIndex = (handle, data) => {
+  setIndex = (handle, id, data) => {
     const { index } = this.state;
     switch (handle) {
       case 'update':
         this.setState({
           index: index.map(
-            idx => data.block === idx.block
-              ? { ...idx, ...data.value }
+            idx => id === idx.id
+              ? { ...idx, ...data }
               : idx
           )
         })
@@ -70,11 +75,15 @@ class Home extends Component {
       case 'add':
         this.setState({
           index: index.concat({
-            block: index.length,
+            id: id,
             title: data.title,
             pages: data.pages,
-            index: data.index
           })
+        })
+        break;
+      case 'remove':
+        this.setState({
+          index: index.filter(idx => idx.id !== id)
         })
         break;
       case 'set':
@@ -119,6 +128,11 @@ class Home extends Component {
           })
         })
         break;
+      case 'remove':
+        this.setState({
+          contents: contents.filter(content => content.page !== data.page)
+        })
+        break;
       case 'set':
       default:     
     }
@@ -153,7 +167,7 @@ class Home extends Component {
     return (
       <div className="home">
         <Preview view={this.state.view} setView={this.setView} setContents={this.setContents}/>
-        {this.state.view === "document" ? <Document {...this} {...this.state}/> : <Canvas contents={this.state.contents[this.state.current_page]}/>}
+        {this.state.view === "document" ? <Document {...this} {...this.state}/> : <Canvas contents={this.state.contents[this.state.cur_page]}/>}
         <Toolbar setCmd={this.setCmd}/>
       </div>
     );

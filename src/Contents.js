@@ -5,17 +5,6 @@ import "./assets/css/Contents.css";
 
 class Contents extends Component {
   handleChange = (e) => {
-    // const t = document.querySelectorAll('[id^=title]');
-    // const s = document.querySelectorAll('[id^=subtitle]');
-    // const b = document.querySelectorAll('[id^=body]');
-
-    // let contents = [];
-
-    // for (let page = 0; page < t.length; page++) {
-    //   contents.push({page: page, title: t[page].value, subtitle: s[page].value, body: b[page].value});
-    // }
-    // console.log(e.target);
-
     let [id, page] = e.target.id.split("_");
     let data = {
       page: parseInt(page),
@@ -25,16 +14,33 @@ class Contents extends Component {
     }
 
     this.props.setContents('update', data);
+    this.props.setPage(parseInt(page));
   }
 
   handleKeyDown = (e) => {
-    // if (e.key === 'Tab') {
-    //   e.preventDefault();
-    //   let page = parseInt(e.target.id.substring(e.target.id.length));
-    //   this.props.setContents()
-    //   console.log(e.target);
-    //   document.getElementById(e.target.id).innerText.replace('1234r53')
-    // }
+    let value = e.target.value
+    switch (e.key) {
+      case 'Enter':
+        if (value.substr(value.lastIndexOf("\n")+1).includes('\u2022')) {
+          value += '\u2022';
+        }
+        break;
+      case 'Tab':
+        e.preventDefault();
+        let values = value.split("\n");
+        console.log(values[values.length - 1])
+        if (values[values.length - 1].includes('\u2022')) {
+          console.log("##")
+          e.target.value += '\t';
+        }
+        else {
+          e.target.value += `&#9679`;
+        }
+        break;
+      case 'Backspace':        
+        break;
+      default:
+    }
   }
 
   render() {

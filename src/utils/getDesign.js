@@ -1,51 +1,73 @@
-import React, { Component } from "react";
 import { Textfit } from "react-textfit";
+import React from "react";
 
-function getDesign() {
-    const t = document.getElementById("title").value;
-    const s = document.getElementById("subtitle").value;
-    const b = document.getElementById("body").value;
+import { getLineBreak } from './getLineBreak.js';
 
-    var dt = (
-      <div className="dtitle">
-        <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
-          {t}
-        </Textfit>
-      </div>
-    );
+export const getDesign = (contents) => {
+  let design = null;
+  
+  switch (contents.page) {
+    case 0:
+      let title = contents.title.split("\n");
+      let subtitle = contents.subtitle.split("\n");
+      let body = contents.body.split("\n");
+    
+      let dt = [];
+      let ds = [];
+      let db = [];
+    
+      title.forEach((t) => {
+        if (t.length > 30) {
+          alert("제목이 너무 깁니다");
+          //TODO: case check
+        }
+        else {
+          let elements = getLineBreak('title', t)
+          for (let i = 0; i < elements.length; i++) {
+            dt.push(elements[i]);
+            if (i < elements.length - 1) {
+              dt.push(<br></br>);
+            }
+          }
+        }
+      })
+    
+      for (let j = 0; j < subtitle.length; j++) {
+        ds.push(subtitle[j]);
+        if (j < subtitle.length - 1) {
+          ds.push(<br></br>);
+        }
+      }
+    
+      for (let k = 0; k < body.length; k++) {
+        db.push(body[k]);
+        if (k < body.length - 1) {
+          db.push(<br></br>);
+        }
+      }
 
-    if (t.length > 14) {
-      var break_idx = t.indexOf("", t.length / 2);
-      var first = t.substring(0, break_idx + 1).trim();
-      var second = t.substring(break_idx + 1, t.length).trim();
-      dt = (
-        <div className="dtitle">
+      design = [
+        <div className={`dtitle_${contents.page}`}>
           <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
-            {first}<br/>{second}
+            {dt}
+          </Textfit>
+        </div>,
+        <div className={`dsubtitle_${contents.page}`}>
+          <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
+            {ds}
+          </Textfit>
+        </div>,
+        <div className={`dbody_${contents.page}`}>
+          <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
+            {db}
           </Textfit>
         </div>
-      );
+      ]
+      break;
+    case 1:
+      
+    default:  
+  }
 
-      console.log(first);
-      console.log(second);
-    }
-
-    var ds = (
-      <div className="dsubtitle">
-        <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
-          {s}
-        </Textfit>
-      </div>
-    )
-
-    this.design = [dt, ds];
-
-    this.setState({
-      title: t,
-      subtitle: s,
-      body: b,
-
-      canvas: this.design,
-      toggleBtn: this.contentsBtn
-    });
+  return design;
 }

@@ -31,7 +31,7 @@ class Document extends Component {
       case 'tools_pagination':
         this.setState({
           total_page: this.state.total_page + 1,
-          document: this.state.document.concat(<hr/>).concat(<Contents contents={{title: "", subtitle: "", body: ""}} setContents={this.props.setContents} placeholder={this.state.placeholder} page={this.state.total_page}/>)
+          document: this.state.document.concat(<hr/>).concat(<Contents contents={{title: "", subtitle: "", body: ""}} setContents={this.props.setContents} setPage={this.props.setPage} placeholder={this.state.placeholder} page={this.state.total_page}/>)
         })
 
         this.props.setCmd(null);
@@ -39,8 +39,8 @@ class Document extends Component {
       // case 'setBlocks':
       //   console.log(this.props)
       //   break;
-        default:
-      }
+      default:
+    }
   }
 
   setBlocks() {
@@ -50,7 +50,7 @@ class Document extends Component {
       let block = [];
 
       this.props.index[b].pages.forEach((p) => {
-        block.push(<Contents contents={this.props.contents[p]} setContents={this.props.setContents} placeholder={this.state.placeholder} page={p} key={`contents_${p}`}/>);
+        block.push(<Contents contents={this.props.contents[p]} setContents={this.props.setContents} setPage={this.props.setPage} placeholder={this.state.placeholder} page={p} key={`contents_${p}`}/>);
       })
       
       document.push(
@@ -72,7 +72,7 @@ class Document extends Component {
     return (
       <div className="document">
         <div className="title">
-          <Contents contents={this.props.contents[0]} setContents={this.props.setContents} placeholder={{
+          <Contents contents={this.props.contents[0]} setContents={this.props.setContents} setPage={this.props.setPage} placeholder={{
             title: '제목을 입력해주세요.',
             subtitle: '부제목을 입력해주세요.',
             body: '소속/팀원/날짜등을 입력해주세요.'

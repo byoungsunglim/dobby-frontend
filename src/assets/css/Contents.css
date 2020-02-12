@@ -5,6 +5,7 @@ html,
   box-sizing: border-box;
 
   /* font-size: 12pt; */
+  resize: none;
   font-family: '나눔스퀘어';
 }
 

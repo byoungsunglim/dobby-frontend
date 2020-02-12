@@ -33,9 +33,9 @@ html,
 
 }
 
-.dtitle {
+.dtitle_0 {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
@@ -43,9 +43,9 @@ html,
   text-align: center;
 }
 
-.dsubtitle {
+.dsubtitle_0 {
   position: absolute;
-  top: 70%;
+  top: 62.5%;
   left: 50%;
   transform: translate(-50%, -70%);
   width: 60%;
@@ -53,13 +53,16 @@ html,
   text-align: center;
 }
 
-.dbody {
+.dbody_0 {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  top: 70%;
+  right: 10%;
+  width: 40%;
+  height: 20%;
+  text-align: right;
 }
-
-#dbody_0 {
+/* 
+#dbody_0_0 {
   position: absolute;
   top: 5%;
   right: 3%;
@@ -68,7 +71,7 @@ html,
   text-align: right;
 }
 
-#dbody_1 {
+#dbody_0_1 {
   position: absolute;
   bottom: 5%;
   left: 3%;
@@ -77,11 +80,11 @@ html,
   text-align: left;
 }
 
-#dbody_2 {
+#dbody_0_2 {
   position: absolute;
   bottom: 5%;
   right: 3%;
   width: 15%;
   height: 5%;
   text-align: right;
-}
+} */
