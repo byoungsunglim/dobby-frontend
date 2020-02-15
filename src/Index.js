@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import { getIndexTitle } from './utils/getIndexTitle.js'; 
 import { getPropById } from './utils/getPropById.js';
+import { replaceAll } from './utils/replaceAll.js'; 
 
 import "./assets/css/Index.css";
 
@@ -22,9 +22,15 @@ class Index extends Component {
     let index = [];
     for (let idx = 0; idx < this.props.index.length; idx++) {
       let id = this.props.index[idx].id;
-      let title = this.props.index[idx].title.replace(id+".", "").trim();
-      let index_title = getIndexTitle(id, title);
-      index.push(<input id={`index_title_${id}`} defaultValue={index_title} autoFocus></input>)
+      let title = this.props.index[idx].title;
+      // let title = this.props.index[idx].title.replace(id+".", "").trim();
+      // let index_title = getIndexTitle(id, title);
+      // index.push(<input id={`index_title_${id}`} defaultValue={index_title} autoFocus></input>)
+      index.push(
+        <li id={`index_list_item_${id}`} value={id+'. '} indent={replaceAll(id, ".", "").length}>
+          <input id={id} defaultValue={title} autoFocus></input>
+        </li>
+      )
     }
     
     this.setState({
@@ -34,17 +40,20 @@ class Index extends Component {
 
   addIndex = (id, title) => {
     this.setState({
-      index: this.state.index.concat(<input id={`index_title_${id}`} defaultValue={title} autoFocus></input>)
+      index: this.state.index.concat(
+      <li id={`index_list_item_${id}`} value={id+'. '} indent={replaceAll(id, ".", "").length}>
+        <input id={id} defaultValue={title} autoFocus></input>
+      </li>
+    )
     })
   }
 
   handleChange = (e) => {
-    const t = e.target.id.split("_");
-    let id = t[2];
+    // let id = `${e.target.id}`.substring(16, e.target.id.length)
+    let id = e.target.id;
     let data = {
       title: e.target.value
     }
-
     let pages = getPropById(id, 'pages', this.props.index);
     
     if (pages.length === 0)
@@ -57,7 +66,8 @@ class Index extends Component {
   }
 
   handleKeyDown = (e) => {
-    let cur_id = `${e.target.id}`.substring(12, e.target.id.length);
+    // let cur_id = `${e.target.id}`.substring(16, e.target.id.length);
+    let cur_id = e.target.id;
     switch (e.key) {
       case 'Enter':
         let levels = cur_id.split(".");
@@ -66,12 +76,18 @@ class Index extends Component {
         // let next_id = `${e.target.id}`.substring(12, e.target.id.length); + (parseInt(e.target.id[e.target.id.length -1]) + 1).toString();
 
         try {
-          document.getElementById(`index_title_${cur_id}`).nextSibling.focus();
-          // document.getElementById(`index_title_${next_id}`).focus()
+          // console.log("try")
+
+          // console.log(document.getElementById(`index_list_item_${cur_id}`).nextSibling.childNodes);
+          document.getElementById(`index_list_item_${cur_id}`).nextSibling.childNodes[0].focus();
+          // document.getElementById(`index_list_item_${cur_id}`).nextSibling.focus();
+          // document.getElementById(`index_list_item_${cur_id}`).nextSibling.textContent.focus();
+          // document.getElementById(`index_list_item_${next_id}`).focus()
         }
         catch {
-          let index_title = getIndexTitle(next_id, "");
-          this.addIndex(next_id, index_title);
+          // console.log("catch")
+          // let index_title = getIndexTitle(next_id, "");
+          this.addIndex(next_id, "");
           // this.setState({
           //   index: this.state.index.concat(<input id={`index_title_${next_id}`} defaultValue={index_title} autoFocus></input>)
           // })
@@ -82,25 +98,23 @@ class Index extends Component {
       case 'Tab':
         e.preventDefault();
         
-        console.log(cur_id);
-        let value = "";
-        if (e.target.value.includes(cur_id)) {
-          value = e.target.value.split(cur_id + '.')[1].trim();
-        }
+        if (cur_id !== "1" && e.target.value.length === 0 && e.target.id.length < 9) {
+          // let levels = cur_id.split(".");
+          // let level = levels[levels.length - 1];
+          // let next_id = cur_id.substring(0, cur_id.length - level.length) + (parseInt(level) - 1).toString() + '.1';
 
-        if (cur_id !== "1" && value.length === 0) {
-          let prev_id = document.getElementById(`index_title_${cur_id}`).previousSibling.id;
-          prev_id = prev_id.substring(12, prev_id.length);
-          console.log(prev_id);
+          // console.log(document.getElementById(`index_list_item_${cur_id}`).previousSibling);
+          let prev_id = document.getElementById(`index_list_item_${cur_id}`).previousSibling.childNodes[0].id;
+          // prev_id = prev_id.substring(12, prev_id.length);
           let next_id = prev_id + '.1'
-          let index_title = getIndexTitle(next_id, "");
+          // let index_title = getIndexTitle(next_id, "");
    
           // this.setState({
           //   index: this.state.index.filter(idx => idx.props.id !== `index_title_${cur_id}`).concat(<input id={`index_title_${next_id}`} defaultValue={index_title} autoFocus></input>)
           // })
           this.setState({
-            index: this.state.index.filter(idx => idx.props.id !== `index_title_${cur_id}`)
-          }, () => this.addIndex(next_id, index_title))
+            index: this.state.index.filter(idx => idx.props.id !== `index_list_item_${cur_id}`)
+          }, () => this.addIndex(next_id, ""))
 
    
           // this.setState({
@@ -132,13 +146,15 @@ class Index extends Component {
         if (e.target.value.length === 0) {
           try {
             e.preventDefault();
-            document.getElementById(`index_title_${cur_id}`).previousSibling.focus();
+            document.getElementById(`index_list_item_${cur_id}`).previousSibling.childNodes[0].focus();
             let pages = getPropById(cur_id, 'pages', this.props.index);
             pages.forEach((page) => {
               this.props.setContents("remove", {page: page});
             })
             this.props.setIndex("remove", cur_id, );
-         
+            this.setState({
+              index: this.state.index.filter(idx => idx.props.id !== `index_list_item_${cur_id}`)
+            });
             e.unbind();
           }
           catch {
@@ -155,9 +171,9 @@ class Index extends Component {
     return (
         <div className="index" onChange={this.handleChange} onKeyDown={this.handleKeyDown}>
           <b style={{fontSize: '14pt'}}>목차</b>
-          <div className="index_title">
+          <ol className="index_list">
             {this.state.index}
-          </div>  
+          </ol>
         </div>
     );
   }

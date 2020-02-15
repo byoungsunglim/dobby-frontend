@@ -7,8 +7,42 @@ html,
   font-family: '나눔스퀘어';
 }
 
-ol.idx {
-    list-style-type: decimal;
+ol.index_list {
+    /* margin: 0;
+    padding: 0; */
+    list-style-type: none;
+    width: 100%;
+}
+
+/* .index_list_item {
+    width: 100%;
+} */
+
+.index_list li::before {
+    content: attr(value);
+}
+
+[indent="1"] { --indent: 0; }
+[indent="2"] { --indent: 1; }
+[indent="3"] { --indent: 2; }
+[indent="4"] { --indent: 3; }
+[indent="5"] { --indent: 4; }
+
+li[id^='index_list_item'] {
+    display: flex;
+    align-items: center; 
+    margin-left: calc(30px * var(--indent));
+    /* justify-content: center; */
+}
+
+li[id^='index_list_item'] input {
+    outline: none;
+    border: none;
+    /* width: calc(100% - 30px); */
+    flex: 1;
+    margin-left: 5px;
+    font-size: 14pt;
+    background-color: inherit;
 }
 
 .index {
@@ -22,11 +56,11 @@ ol.idx {
     padding: 2%;
 }
 
-[id^='index_title'] {
+div[class^='index_title_'] {
     width: 100%;
     /* height: 14pt; */
-    outline: none;
+    /* outline: none;
     border: none;
     font-size: 14pt;
-    background-color: lightgrey;
+    background-color: lightgrey; */
 }
