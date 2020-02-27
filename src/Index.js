@@ -59,7 +59,8 @@ class Index extends Component {
     if (pages.length === 0)
     { 
       data.pages = [this.props.contents.length];
-      this.props.setContents('add', {title: "", subtitle: "", body: ""})
+      this.props.setContents('add', null, {title: "", subtitle: "", body: ""})
+      this.props.setDesign('add', null, null) //TODO: Integration with setContents
     }
 
     this.props.setIndex('update', id, data);
@@ -94,6 +95,8 @@ class Index extends Component {
           this.props.setIndex("add", next_id, {title: "", pages: []});
           // this.props.setBlocks();
         }
+
+        this.props.setBlocks();
         break;
       case 'Tab':
         e.preventDefault();
@@ -141,6 +144,8 @@ class Index extends Component {
           // console.log(this.props.index);
           e.target.value += '\t';
         }
+
+        this.props.setBlocks();
         break;
       case 'Backspace':        
         if (e.target.value.length === 0) {
@@ -149,7 +154,8 @@ class Index extends Component {
             document.getElementById(`index_list_item_${cur_id}`).previousSibling.childNodes[0].focus();
             let pages = getPropById(cur_id, 'pages', this.props.index);
             pages.forEach((page) => {
-              this.props.setContents("remove", {page: page});
+              this.props.setContents("remove", page, null);
+              this.props.setDesign("remove", page, null); //TODO: Integration with setContents
             })
             this.props.setIndex("remove", cur_id, );
             this.setState({
@@ -158,9 +164,10 @@ class Index extends Component {
             e.unbind();
           }
           catch {
-            break;
           }
         }
+
+        this.props.setBlocks();
         break;
       default:
         this.props.setBlocks();

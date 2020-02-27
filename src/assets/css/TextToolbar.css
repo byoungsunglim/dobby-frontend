@@ -8,13 +8,9 @@ html,
   font-family: '나눔스퀘어';
 }
 
-.toolbar {
-  position: fixed;
-  bottom: 20px;
-  /* width: 400px; */
+.text_toolbar {
+  position: absolute;
   height: 50px;
-  left: 50%;
-  transform: translate(-50%, 0);
   background-color: rgb(36, 33, 53);
   border-radius: 10px;
 }

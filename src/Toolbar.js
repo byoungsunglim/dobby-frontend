@@ -16,11 +16,10 @@ class Toolbar extends Component {
     return (
       <div className="toolbar">
         <tools.Image id="tools_image" />
-        <tools.Video id="tools_video" />
+        <tools.Media id="tools_media" />
         <tools.Table id="tools_table" />
         <tools.Graph id="tools_graph" />
         <tools.Pagination id="tools_pagination" onClick={this.handleCmd}/>
-        <tools.Highlight id="tools_highlight" />
         <tools.Capture id="tools_capture" />
         <tools.Etc id="tools_etc" />
       </div>

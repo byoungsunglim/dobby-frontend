@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Textfit } from "react-textfit";
 
 import Preview from './Preview.js';
 import Document from './Document.js';
@@ -15,6 +14,7 @@ class Home extends Component {
     this.setView = this.setView.bind(this)
     this.setIndex = this.setIndex.bind(this)
     this.setContents = this.setContents.bind(this)
+    this.setDesign = this.setDesign.bind(this)
     this.setCmd = this.setCmd.bind(this)
   }
 
@@ -28,18 +28,19 @@ class Home extends Component {
     }],
     contents: [{
       page: 0,
-      title: "",
-      subtitle: "",
-      body: ""
+      content: null
     }],
-    design: null,
+    design: [{
+      page: 0,
+      design: null
+    }],
     toggleBtn: null,
     cmd: null
   };
 
   setView = () => {
     this.setState({
-      view: this.state.view === "document" ? "design" : "document",
+      view: this.state.view === "document" ? "canvas" : "document",
     })
   }
 
@@ -48,17 +49,6 @@ class Home extends Component {
       cur_page: cur_page
     })
   }
-
-  // setIndex = (block, data) => {
-  //   const { index } = this.state;
-  //   this.setState({
-  //     index: index.map(
-  //       idx => block === idx.block
-  //         ? { ...idx, ...data }
-  //         : idx
-  //     )
-  //   })
-  // }
 
   setIndex = (handle, id, data) => {
     const { index } = this.state;
@@ -95,25 +85,14 @@ class Home extends Component {
     }
   }
 
-  // addIndex = (data) => {
-  //   const { index } = this.state;
-  //   this.setState({
-  //     index: index.concat({
-  //       block: index.length,
-  //       title: data.title,
-  //       pages: data.pages
-  //     })
-  //   })
-  // }
-
-  setContents(handle, data) {
+  setContents(handle, page, data) {
     const { contents } = this.state;
     switch (handle) {
       case 'update':
         this.setState({
           contents: contents.map(
-            content => data.page === content.page
-              ? { ...content, ...data.value }
+            content => page === content.page
+              ? { ...content, ...data }
               : content
           )
         })
@@ -130,7 +109,7 @@ class Home extends Component {
         break;
       case 'remove':
         this.setState({
-          contents: contents.filter(content => content.page !== data.page)
+          contents: contents.filter(content => content.page !== page)
         })
         break;
       case 'set':
@@ -138,17 +117,35 @@ class Home extends Component {
     }
   }
 
-  // addContents = (data) => {
-  //   const { contents } = this.state;
-  //   this.setState({
-  //     contents: contents.concat({
-  //       page: contents.length,
-  //       title: data.title,
-  //       subtitle: data.subtitle,
-  //       body: data.body
-  //     })
-  //   })
-  // }
+  setDesign(handle, page, data) {
+    const { design } = this.state;
+    switch (handle) {
+      case 'update':
+        this.setState({
+          design: design.map(
+            d => page === d.page
+              ? { ...d, ...data }
+              : d
+          )
+        })
+        break;
+      case 'add':
+        this.setState({
+          design: design.concat({
+            page: design.length,
+            design: data
+          })
+        })
+        break;
+      case 'remove':
+        this.setState({
+          design: design.filter(d => d.page !== page)
+        })
+        break;
+      case 'set':
+      default:     
+    }
+  }
 
   setCmd(cmd) {
     this.setState({
@@ -166,8 +163,8 @@ class Home extends Component {
   render() {
     return (
       <div className="home">
-        <Preview view={this.state.view} setView={this.setView} setContents={this.setContents}/>
-        {this.state.view === "document" ? <Document {...this} {...this.state}/> : <Canvas contents={this.state.contents[this.state.cur_page]}/>}
+        <Preview {...this} {...this.state}/>
+        {this.state.view === "document" ? <Document {...this} {...this.state}/> : <Canvas {...this} {...this.state}/>}
         <Toolbar setCmd={this.setCmd}/>
       </div>
     );

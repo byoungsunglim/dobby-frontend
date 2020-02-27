@@ -3,27 +3,46 @@ import React, { Component } from "react";
 import "./assets/css/Preview.css";
 
 class Preview extends Component {
+  state = {
+    preview: null
+  }
+  
+  componentWillMount() {
+    if (this.props.view === "document") {
+      let design = [];
+      this.props.design.forEach((d) => {
+        design.push(d.design);
+      })
+      this.setState({
+        preview: design
+      })
+    }
+    else {
+
+    }
+  }
+  
   handleChange = () => {
-    // if (this.props.view === "document") {
-    //   const t = document.querySelectorAll('[id^=title]');
-    //   const s = document.querySelectorAll('[id^=subtitle]');
-    //   const b = document.querySelectorAll('[id^=body]');
-
-    //   var contents = [];
-
-    //   for (let page = 0; page < t.length; page++) {
-    //     contents.push({
-    //       page: page,
-    //       title: t[page].value,
-    //       subtitle: s[page].value,
-    //       body: b[page].value
-    //     })
-    //   }
-
-    //   // console.log(t, s, b);
-    //   this.props.setContents(contents);
-    // }
     this.props.setView();
+    if (this.props.view === "canvas") {
+      console.log("$$$")
+      console.log(this.props.design);
+      let design = [];
+      this.props.design.forEach((d) => {
+        design.push(
+          <div className={`preview_${d.page}`}>
+            <div className={`design_${d.page}`}>
+              {d.design}
+            </div>
+          </div>
+        );
+      })
+      this.setState({
+        preview: design
+      })
+    }
+    else {
+    }
   }
 
   contentsBtn = (<button id="contentsBtn" onClick={this.handleChange}>CONTENTS</button>);
@@ -33,6 +52,7 @@ class Preview extends Component {
     return (
       <div className="preview">
       {this.props.view === "document" ? this.designBtn : this.contentsBtn}
+      {this.state.preview}
       </div>
     );
   }

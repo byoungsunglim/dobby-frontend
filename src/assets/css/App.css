@@ -18,16 +18,16 @@ html,
   position: absolute;
   height: 50px;
   width: 100%;
-  padding-top: 10px;
-  padding-left: 10px;
+  padding: 10px;
   border-bottom: 10px black solid;
 }
 
 .main {
   position: absolute;
   top: 50px;
-  bottom: 0;
+  /* bottom: 0; */
   /* padding: 10px; */
+  height: calc(100% - 50px);
   width: 100%;
   background-color: rgb(128, 128, 128);
 }

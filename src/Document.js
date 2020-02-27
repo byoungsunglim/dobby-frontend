@@ -72,11 +72,7 @@ class Document extends Component {
     return (
       <div className="document">
         <div className="title">
-          <Contents contents={this.props.contents[0]} setContents={this.props.setContents} setPage={this.props.setPage} placeholder={{
-            title: '제목을 입력해주세요.',
-            subtitle: '부제목을 입력해주세요.',
-            body: '소속/팀원/날짜등을 입력해주세요.'
-          }} page={0} key={"contents0"}/>
+          <Contents contents={this.props.contents[0]} setContents={this.props.setContents} setPage={this.props.setPage} page={0} key={"contents_0"}/>
         </div>
         <Index {...this} {...this.props} key={"index"}/>
         {this.state.document}
