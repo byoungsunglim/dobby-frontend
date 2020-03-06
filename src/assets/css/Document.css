@@ -28,7 +28,7 @@ html,
   margin: 5%;
 }
 
-div[class^="blocks"] {
+div[class^="idx"] {
   margin: 5%;
-  font-size: 20pt;
+  font-size: 24pt;
 }

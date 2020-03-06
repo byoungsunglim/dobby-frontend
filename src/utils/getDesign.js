@@ -2,48 +2,50 @@ import { Textfit } from "react-textfit";
 import React from "react";
 
 import { getLineBreak } from './getLineBreak.js';
+import { parseContent } from './parseContent.js';
 
 export const getDesign = (contents) => {
   let design = null;
+  parseContent(contents);
   
   if (contents.page === 0) {
-    let title = contents.title.split("\n");
-    let subtitle = contents.subtitle.split("\n");
-    let body = contents.body.split("\n");
+    // let title = contents.title.split("\n");
+    // let subtitle = contents.subtitle.split("\n");
+    // let body = contents.body.split("\n");
   
     let dt = [];
     let ds = [];
     let db = [];
   
-    title.forEach((t) => {
-      if (t.length > 30) {
-        alert("제목이 너무 깁니다");
-        //TODO: case check
-      }
-      else {
-        let elements = getLineBreak('title', t)
-        for (let i = 0; i < elements.length; i++) {
-          dt.push(elements[i]);
-          if (i < elements.length - 1) {
-            dt.push(<br></br>);
-          }
-        }
-      }
-    })
+    // title.forEach((t) => {
+    //   if (t.length > 30) {
+    //     alert("제목이 너무 깁니다");
+    //     //TODO: case check
+    //   }
+    //   else {
+    //     let elements = getLineBreak('title', t)
+    //     for (let i = 0; i < elements.length; i++) {
+    //       dt.push(elements[i]);
+    //       if (i < elements.length - 1) {
+    //         dt.push(<br></br>);
+    //       }
+    //     }
+    //   }
+    // })
   
-    for (let j = 0; j < subtitle.length; j++) {
-      ds.push(subtitle[j]);
-      if (j < subtitle.length - 1) {
-        ds.push(<br></br>);
-      }
-    }
+    // for (let j = 0; j < subtitle.length; j++) {
+    //   ds.push(subtitle[j]);
+    //   if (j < subtitle.length - 1) {
+    //     ds.push(<br></br>);
+    //   }
+    // }
   
-    for (let k = 0; k < body.length; k++) {
-      db.push(body[k]);
-      if (k < body.length - 1) {
-        db.push(<br></br>);
-      }
-    }
+    // for (let k = 0; k < body.length; k++) {
+    //   db.push(body[k]);
+    //   if (k < body.length - 1) {
+    //     db.push(<br></br>);
+    //   }
+    // }
 
     design = [
       <div className={`dtitle_${contents.page}`}>
@@ -64,43 +66,43 @@ export const getDesign = (contents) => {
     ]
   }
   else if (contents.page > 0) {
-    let title = contents.title.split("\n");
-    let subtitle = contents.subtitle.split("\n");
-    let body = contents.body.split("\n");
+    // let title = contents.title.split("\n");
+    // let subtitle = contents.subtitle.split("\n");
+    // let body = contents.body.split("\n");
   
     let dt = [];
     let ds = [];
     let db = [];
   
-    title.forEach((t) => {
-      if (t.length > 30) {
-        alert("제목이 너무 깁니다");
-        //TODO: case check
-      }
-      else {
-        let elements = getLineBreak('title', t)
-        for (let i = 0; i < elements.length; i++) {
-          dt.push(elements[i]);
-          if (i < elements.length - 1) {
-            dt.push(<br></br>);
-          }
-        }
-      }
-    })
+    // title.forEach((t) => {
+    //   if (t.length > 30) {
+    //     alert("제목이 너무 깁니다");
+    //     //TODO: case check
+    //   }
+    //   else {
+    //     let elements = getLineBreak('title', t)
+    //     for (let i = 0; i < elements.length; i++) {
+    //       dt.push(elements[i]);
+    //       if (i < elements.length - 1) {
+    //         dt.push(<br></br>);
+    //       }
+    //     }
+    //   }
+    // })
   
-    for (let j = 0; j < subtitle.length; j++) {
-      ds.push(subtitle[j]);
-      if (j < subtitle.length - 1) {
-        ds.push(<br></br>);
-      }
-    }
+    // for (let j = 0; j < subtitle.length; j++) {
+    //   ds.push(subtitle[j]);
+    //   if (j < subtitle.length - 1) {
+    //     ds.push(<br></br>);
+    //   }
+    // }
   
-    for (let k = 0; k < body.length; k++) {
-      db.push(body[k]);
-      if (k < body.length - 1) {
-        db.push(<br></br>);
-      }
-    }
+    // for (let k = 0; k < body.length; k++) {
+    //   db.push(body[k]);
+    //   if (k < body.length - 1) {
+    //     db.push(<br></br>);
+    //   }
+    // }
 
     design = [
       <div className={`dtitle_${contents.page}`}>

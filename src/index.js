@@ -8,8 +8,6 @@ import store from './store'
 
 import "./assets/css/index.css";
 
-import './assets/fonts/나눔스퀘어 Regular.ttf';
-
 // import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById("root"));

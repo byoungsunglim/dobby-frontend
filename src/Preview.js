@@ -25,7 +25,6 @@ class Preview extends Component {
   handleChange = () => {
     this.props.setView();
     if (this.props.view === "canvas") {
-      console.log("$$$")
       console.log(this.props.design);
       let design = [];
       this.props.design.forEach((d) => {

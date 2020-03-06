@@ -1,10 +1,9 @@
-*{
-  @font-face {
-    font-family: '나눔스퀘어';
-    src: url('../fonts/나눔스퀘어 Regular.ttf') format('truetype');
-    src: url('../fonts/나눔스퀘어 Regular.woff') format('woff');
-  }
+@font-face {
+  font-family: '나눔스퀘어';
+  src: url('../fonts/나눔스퀘어 Regular.ttf') format('truetype');
+  src: url('../fonts/나눔스퀘어 Regular.woff') format('woff');
 }
+
 /* Shared */
 .loginBtn {
   box-sizing: border-box;

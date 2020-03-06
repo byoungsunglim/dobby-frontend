@@ -59,7 +59,7 @@ class Index extends Component {
     if (pages.length === 0)
     { 
       data.pages = [this.props.contents.length];
-      this.props.setContents('add', null, {title: "", subtitle: "", body: ""})
+      this.props.setContents('add', null, null)
       this.props.setDesign('add', null, null) //TODO: Integration with setContents
     }
 
@@ -93,10 +93,10 @@ class Index extends Component {
           //   index: this.state.index.concat(<input id={`index_title_${next_id}`} defaultValue={index_title} autoFocus></input>)
           // })
           this.props.setIndex("add", next_id, {title: "", pages: []});
-          // this.props.setBlocks();
+          // this.props.renderPages();
         }
 
-        this.props.setBlocks();
+        this.props.renderPages();
         break;
       case 'Tab':
         e.preventDefault();
@@ -126,7 +126,7 @@ class Index extends Component {
           // console.log(this.state.index);
           this.props.setIndex("update", cur_id, {id: next_id, title: "", pages: []});
           // this.props.setIndex("add", next_id, {title: "", pages: []});
-          // this.props.setBlocks();
+          // this.props.renderPages();
         }
         else {
           // var val = e.target.value,
@@ -145,7 +145,7 @@ class Index extends Component {
           e.target.value += '\t';
         }
 
-        this.props.setBlocks();
+        this.props.renderPages();
         break;
       case 'Backspace':        
         if (e.target.value.length === 0) {
@@ -167,10 +167,10 @@ class Index extends Component {
           }
         }
 
-        this.props.setBlocks();
+        this.props.renderPages();
         break;
       default:
-        this.props.setBlocks();
+        this.props.renderPages();
     }
   }
 

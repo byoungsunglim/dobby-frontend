@@ -1,25 +1,20 @@
+import { renderToString } from 'react-dom/server'
+import ContentEditable from 'react-contenteditable'
+import parse from 'html-react-parser';
 import React, { Component } from "react";
 import uuid from "uuid";
 
 import TextToolbar from './TextToolbar.js';
-import ContentEditable from 'react-contenteditable'
-
 
 import "./assets/css/Contents.css";
 
 class Contents extends Component {
-  constructor() {
-    super()
-    this.contentEditable = React.createRef();
-  };
-
   state = {
     content: [],
     showToolbar: false,
     preText: null,
     postText: null,
     selText: null,
-    textOffset: null,
     cur_id: null,
     x: 0,
     y: 0,
@@ -27,34 +22,55 @@ class Contents extends Component {
 
   componentWillMount() {
     if (this.props.contents.content === null) {
-      this.addContent("h1", "내용을 입력해주세요.")
+      this.addContent("h1", "내용을 입력해주세요.", true)
     }
     else {
+      let content = [];
+      let html = parse(this.props.contents.content);
+      console.log(html);
+      for (let i = 0; i < Object.keys(this.props.contents).length - 2; i++) {
+        if (html.length === 1) {
+          content.push(
+            <ContentEditable id={`body_${i}`} placeholder={html.props.placeholder} html={this.props.contents[`body_${i}`]} type={html.props.type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
+          )
+        }
+        else {
+          content.push(
+            <ContentEditable id={`body_${i}`} placeholder={html[i].props.placeholder} html={this.props.contents[`body_${i}`]} type={html[i].props.type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
+          )
+        }
+      }
+
       this.setState({
-        content: this.props.contents.content
+        content: content
       })
     } 
   }
 
-  addContent = (type, placeholder) => {
-    const id = uuid();
+  addContent = (type, placeholder, init) => {
+    // const id = uuid();
+    const id = this.state.content.length;
     this.setState({
       content: this.state.content.concat(
-        <ContentEditable id={`body_${id}`} innerRef={this.contentEditable} placeholder={placeholder} html={this.props.contents[`body_${id}`]} type={type} disabled={false} onChange={this.handleChange} onPaste={this.handlePaste} onSelect={this.handleSelect} onKeyDown={this.handleKeyDown}/>
+        <ContentEditable id={`body_${id}`} placeholder={placeholder} html={this.props.contents[`body_${id}`]} type={type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
       )
-    }, () => document.getElementById(`body_${id}`).focus());
+    }, () => init ? {} :  document.getElementById(`body_${id}`).focus());
     this.props.setContents('update', this.props.page, {
       [`body_${id}`]: ""
     })
   }
 
   handleChange = (e) => {
-    let data = {
-      [e.currentTarget.id]: e.target.value
-    }
+    if (e.target.value) {
+      let data = {
+        [e.currentTarget.id]: e.target.value,
+        content: document.getElementsByClassName(`contents_${this.props.page}`)[0].innerHTML
+      }
+      // console.log(e.target.value);
 
-    this.props.setContents('update', this.props.page, data);
-    this.props.setPage(this.props.page);
+      this.props.setContents('update', this.props.page, data);
+      this.props.setPage(this.props.page);
+    }
   }
 
   handleKeyDown = (e) => {
@@ -65,7 +81,13 @@ class Contents extends Component {
     switch (e.key) {
       case 'Enter':
         e.preventDefault();
-        this.addContent("p", "");
+        try {
+          this.setEndOfContenteditable(document.getElementById(id).nextElementSibling);
+        }
+        catch {
+          this.addContent("p", "", false);
+        }
+        
         break;
       case 'Tab':
         let values = value.split("\n");
@@ -148,14 +170,7 @@ class Contents extends Component {
     }
     else {
       this.setState({
-        showToolbar: false,
-        preText: null,
-        postText: null,
-        selText: null,
-        textOffset: null,
-        cur_id: null,
-        x: 0,
-        y: 0,
+        showToolbar: false
       })
     }
   }
@@ -261,7 +276,7 @@ class Contents extends Component {
     return (
         <div className={`contents_${this.props.page}`}>
           {this.state.content}
-          {this.state.showToolbar ? <TextToolbar {...this.props} {...this.state}/> : null}
+          {this.state.showToolbar ? <TextToolbar {...this.state} {...this.props}/> : null}
         </div>
     );
   }

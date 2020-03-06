@@ -7,11 +7,15 @@ import { ReactComponent as Highlight } from "../assets/icons/highlight.svg";
 import { ReactComponent as Capture } from "../assets/icons/capture.svg";
 import { ReactComponent as Etc } from "../assets/icons/etc.svg";
 
+import { ReactComponent as Text } from "../assets/icons/text.svg";
 import { ReactComponent as Bold } from "../assets/icons/bold.svg";
+import { ReactComponent as Italic } from "../assets/icons/italic.svg";
+import { ReactComponent as Underline } from "../assets/icons/underline.svg";
 import { ReactComponent as Strikethrough } from "../assets/icons/strikethrough.svg";
 import { ReactComponent as Header1 } from "../assets/icons/h1.svg";
 import { ReactComponent as Header2 } from "../assets/icons/h2.svg";
 import { ReactComponent as Bulletlist } from "../assets/icons/bulletlist.svg";
+import { ReactComponent as Numlist } from "../assets/icons/numlist.svg";
 import { ReactComponent as Comment } from "../assets/icons/comment.svg";
 
 
@@ -27,10 +31,14 @@ export default {
   Capture,
   Etc,
 
+  Text,
   Bold,
+  Italic,
+  Underline,
   Strikethrough,
   Header1,
   Header2,
   Bulletlist,
+  Numlist,
   Comment,
 };

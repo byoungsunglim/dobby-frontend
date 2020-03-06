@@ -101,9 +101,7 @@ class Home extends Component {
         this.setState({
           contents: contents.concat({
             page: contents.length,
-            title: data.title,
-            subtitle: data.subtitle,
-            body: data.body
+            content: null
           })
         })
         break;

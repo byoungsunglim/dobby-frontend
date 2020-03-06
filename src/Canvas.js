@@ -10,7 +10,7 @@ class Canvas extends Component {
   }
   
   componentWillMount() {
-    console.log(this.props.contents);
+    console.log(this.props.contents[this.props.cur_page].content);
     let design = getDesign(this.props.contents[this.props.cur_page]);
     this.props.setDesign("update", this.props.cur_page, {design: design})
     this.setState({
