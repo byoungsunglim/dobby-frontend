@@ -25,7 +25,7 @@ div[class^="contents"] {
   height: 10%;
   outline: none;
   border: none;
-  font-size: 14pt;
+  font-size: 12pt;
 }
 
 [id^='subtitle'] {
@@ -33,7 +33,7 @@ div[class^="contents"] {
   height: 10%;
   outline: none;
   border: none;
-  font-size: 14pt;
+  font-size: 12pt;
 }
 
 [id^='body'] {
@@ -45,15 +45,18 @@ div[class^="contents"] {
   font-size: var(--font-size);
 }
 
+[type="title"] { --font-size: 32pt; }
 [type="h1"] { --font-size: 24pt; }
-[type="h2"] { --font-size: 18pt; }
+[type="h2"] { --font-size: 20pt; }
+[type="h3"] { --font-size: 16pt; }
 [type="p"]  { --font-size: 12pt; }
 
-[indent="1"] { --indent: 0; }
-[indent="2"] { --indent: 1; }
-[indent="3"] { --indent: 2; }
-[indent="4"] { --indent: 3; }
-[indent="5"] { --indent: 4; }
+[indent="1"] { --indent: 0; --type: disc;}
+[indent="2"] { --indent: 1; --type: circle;}
+[indent="3"] { --indent: 2; --type: square;}
+[indent="4"] { --indent: 3; --type: disc;}
+[indent="5"] { --indent: 4; --type: circle;}
+[indent="6"] { --indent: 5; --type: square;}
 
 [contentEditable=true]:empty:not(:focus):before{
   content:attr(placeholder);
@@ -63,5 +66,22 @@ div[class^="contents"] {
 span[id='highlight'] {
   background-color: yellow;
 }
+
+span[id='underline'] {
+  text-decoration: underline;
+}
+
+ul.bulletlist {
+  margin: 0;
+  padding: 0;
+  list-style-type: var(--type);
+  list-style-position: inside;
+  margin-left: calc(30px * var(--indent));
+  font-size: 12pt;
+}
+
+/* ul li span {
+  font-size: var(--font-size)
+} */
 
 

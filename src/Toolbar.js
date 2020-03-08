@@ -15,13 +15,15 @@ class Toolbar extends Component {
   render() {
     return (
       <div className="toolbar">
-        <tools.Image id="tools_image" />
-        <tools.Media id="tools_media" />
-        <tools.Table id="tools_table" />
-        <tools.Graph id="tools_graph" />
+        <tools.Image id="tools_image"/>
+        <tools.Media id="tools_media"/>
+        <tools.Table id="tools_table"/>
+        <tools.Graph id="tools_graph"/>
+        <tools.Bulletlist id="tools_bulletlist" onClick={(e) => this.handleList(e)}/>
+        <tools.Numlist id="tools_numlist" onClick={(e) => this.handleList(e)}/>
         <tools.Pagination id="tools_pagination" onClick={this.handleCmd}/>
-        <tools.Capture id="tools_capture" />
-        <tools.Etc id="tools_etc" />
+        <tools.Capture id="tools_capture"/>
+        <tools.Etc id="tools_etc"/>
       </div>
     );
   }

@@ -48,8 +48,8 @@ class Document extends Component {
       <div className="document">
         <div className="title">
           <Contents contents={this.props.contents[0]} setContents={this.props.setContents} setPage={this.props.setPage} page={0} key={"contents_0"}/>
+          <Index {...this} {...this.props} key={"index"}/>
         </div>
-        <Index {...this} {...this.props} key={"index"}/>
         {this.state.document}
       </div>
     );

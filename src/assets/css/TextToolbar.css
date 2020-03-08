@@ -27,9 +27,74 @@ html,
   border-radius: 10px;
 }
 
+.text_highlight_options {
+  position: absolute;
+  height: 40px;
+  background-color: rgb(36, 33, 53);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 [id^='text_tools'] {
   width: 30px;
   height: 30px;
   margin: 5px;
   fill: white;
+}
+
+#highlight_pink_hiliteColor {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  border: none;
+  outline: none;
+  padding: 0;
+  background-color: rgb(255, 191, 181);
+}
+
+#highlight_orange_hiliteColor {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  border: none;
+  outline: none;
+  padding: 0;
+  background-color: rgb(247, 204, 98);
+}
+
+#highlight_green_hiliteColor {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  border: none;
+  outline: none;
+  padding: 0;
+  background-color: rgb(181, 220, 175);
+}
+
+#highlight_blue_hiliteColor {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  border: none;
+  outline: none;
+  padding: 0;
+  background-color: rgb(214, 232, 250);
+}
+
+#highlight_purple_hiliteColor {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  border: none;
+  outline: none;
+  padding: 0;
+  background-color: rgb(216, 195, 255);
 }

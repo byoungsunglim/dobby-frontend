@@ -1,4 +1,3 @@
-import { renderToString } from 'react-dom/server'
 import ContentEditable from 'react-contenteditable'
 import parse from 'html-react-parser';
 import React, { Component } from "react";
@@ -12,9 +11,9 @@ class Contents extends Component {
   state = {
     content: [],
     showToolbar: false,
-    preText: null,
-    postText: null,
-    selText: null,
+    preText: "",
+    selText: "",
+    postText: "",
     cur_id: null,
     x: 0,
     y: 0,
@@ -22,24 +21,27 @@ class Contents extends Component {
 
   componentWillMount() {
     if (this.props.contents.content === null) {
-      this.addContent("h1", "내용을 입력해주세요.", true)
+      if (this.props.page === 0) {
+        this.addContent("title", "문서 제목을 적어볼까요?", true)
+      }
+      else {
+        this.addContent("h1", "내용을 입력해주세요.", true)
+      }
     }
     else {
       let content = [];
       let html = parse(this.props.contents.content);
-      console.log(html);
-      for (let i = 0; i < Object.keys(this.props.contents).length - 2; i++) {
-        if (html.length === 1) {
-          content.push(
-            <ContentEditable id={`body_${i}`} placeholder={html.props.placeholder} html={this.props.contents[`body_${i}`]} type={html.props.type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
-          )
-        }
-        else {
-          content.push(
-            <ContentEditable id={`body_${i}`} placeholder={html[i].props.placeholder} html={this.props.contents[`body_${i}`]} type={html[i].props.type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
-          )
-        }
+      if (!Array.isArray(html)) {
+        html = [html];
       }
+      console.log(html);
+      html.forEach((div) => 
+        {
+          content.push(
+            <ContentEditable id={div.props.id} placeholder={div.props.placeholder} html={this.props.contents[div.props.id]} type={div.props.type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
+          )
+        }
+      );
 
       this.setState({
         content: content
@@ -48,13 +50,37 @@ class Contents extends Component {
   }
 
   addContent = (type, placeholder, init) => {
-    // const id = uuid();
-    const id = this.state.content.length;
+    const id = uuid();
+    // const id = this.state.content.length;
     this.setState({
       content: this.state.content.concat(
         <ContentEditable id={`body_${id}`} placeholder={placeholder} html={this.props.contents[`body_${id}`]} type={type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
       )
     }, () => init ? {} :  document.getElementById(`body_${id}`).focus());
+    this.props.setContents('update', this.props.page, {
+      [`body_${id}`]: ""
+    })
+  }
+
+  insertContent = (type, placeholder, ref_id) => {
+    let idx = 0;
+    for (let i = 0; i < this.state.content.length; i++) {
+      if (this.state.content[i].props.id === ref_id) {
+        break;
+      }
+      else {
+        idx++;
+      }
+    }
+
+    // console.log("idx", idx);
+
+    const id = uuid();
+    this.setState({
+      content: this.state.content.slice(0, idx).concat(
+        <ContentEditable id={`body_${id}`} placeholder={placeholder} html={this.props.contents[`body_${id}`]} type={type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
+      ).concat(this.state.content.slice(idx))
+    }, () => {});
     this.props.setContents('update', this.props.page, {
       [`body_${id}`]: ""
     })
@@ -66,7 +92,7 @@ class Contents extends Component {
         [e.currentTarget.id]: e.target.value,
         content: document.getElementsByClassName(`contents_${this.props.page}`)[0].innerHTML
       }
-      // console.log(e.target.value);
+      console.log("handleChange", e.target.value);
 
       this.props.setContents('update', this.props.page, data);
       this.props.setPage(this.props.page);
@@ -74,20 +100,26 @@ class Contents extends Component {
   }
 
   handleKeyDown = (e) => {
-    const id = e.target.id;
+    const id = e.currentTarget.id;
     const target = document.getElementById(id);
     const value = target.innerHTML;
 
     switch (e.key) {
       case 'Enter':
         e.preventDefault();
-        try {
-          this.setEndOfContenteditable(document.getElementById(id).nextElementSibling);
+        let text = "";
+        this.state.selText.includes("<li>") ? text = this.state.preText + this.state.selText.split("<li>")[1].split("</li>")[0] : text = this.state.preText + this.state.selText
+        if (text.length === 0 && this.state.postText.length > 0) {
+          this.insertContent(target.getAttribute('type'), "", id);
         }
-        catch {
-          this.addContent("p", "", false);
+        else {
+          try {
+            this.setEndOfContenteditable(target.nextElementSibling);
+          }
+          catch {
+            this.addContent("p", "", false);
+          }
         }
-        
         break;
       case 'Tab':
         let values = value.split("\n");
@@ -110,7 +142,7 @@ class Contents extends Component {
             this.setState({
               content: this.state.content.filter(item => item.props.id !== id)
             });
-            this.setEndOfContenteditable(document.getElementById(id).previousSibling);
+            this.setEndOfContenteditable(target.previousSibling);
           }
           catch {
             //TODO: error handling
@@ -151,7 +183,7 @@ class Contents extends Component {
   }
 
   handleSelect = (e) => {
-    const [range, preText, postText, selText] = this.getSelection(e.target); 
+    const [range, preText, selText, postText] = this.getSelection(e.target); 
     const bodyRect = range.getBoundingClientRect();
     const refRect = document.getElementsByClassName(`contents_${this.props.page}`)[0].getBoundingClientRect();
     const x = `${bodyRect.x}px - ${refRect.x}px`;
@@ -161,8 +193,8 @@ class Contents extends Component {
       this.setState({
         showToolbar: true,
         preText: preText,
-        postText: postText,
         selText: selText,
+        postText: postText,
         cur_id: e.target.id,
         x: x,
         y: y,
@@ -170,32 +202,14 @@ class Contents extends Component {
     }
     else {
       this.setState({
-        showToolbar: false
+        showToolbar: false,
+        preText: preText,
+        selText: selText,
+        postText: postText,
+        cur_id: e.target.id,
+        x: x,
+        y: y,
       })
-    }
-  }
-
-  getHTMLOfSelection () {
-    var range;
-    if (document.selection && document.selection.createRange) {
-      range = document.selection.createRange();
-      return range.htmlText;
-    }
-    else if (window.getSelection) {
-      var selection = window.getSelection();
-      if (selection.rangeCount > 0) {
-        range = selection.getRangeAt(0);
-        var clonedSelection = range.cloneContents();
-        var div = document.createElement('div');
-        div.appendChild(clonedSelection);
-        return div.innerHTML;
-      }
-      else {
-        return '';
-      }
-    }
-    else {
-      return '';
     }
   }
 
@@ -247,7 +261,7 @@ class Contents extends Component {
     // console.log("postDiv", postDiv.innerHTML);
     // console.log("selDiv", selText);
 
-    return [range, preDiv.innerHTML || "", postDiv.innerHTML || "", selText];
+    return [range, preDiv.innerHTML || "", selText, postDiv.innerHTML || ""];
   }
 
   setEndOfContenteditable = (contentEditableElement) => {
