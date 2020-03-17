@@ -1,9 +1,11 @@
-import ContentEditable from 'react-contenteditable'
-import parse from 'html-react-parser';
 import React, { Component } from "react";
+import ReactDOM from 'react-dom'
+import ReactDOMServer from 'react-dom/server';
+
+import ContentEditable from "react-contenteditable";
 import uuid from "uuid";
 
-import TextToolbar from './TextToolbar.js';
+import TextToolbar from "./TextToolbar.js";
 
 import "./assets/css/Contents.css";
 
@@ -11,91 +13,111 @@ class Contents extends Component {
   state = {
     content: [],
     showToolbar: false,
-    preText: "",
-    selText: "",
-    postText: "",
     cur_id: null,
     x: 0,
     y: 0,
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    let content = [];
+
     if (this.props.contents.content === null) {
       if (this.props.page === 0) {
-        this.addContent("title", "문서 제목을 적어볼까요?", true)
+        content.push(this.addContent(null, "문서 제목을 적어볼까요?", "", "title", true, null, false));
       }
       else {
-        this.addContent("h1", "내용을 입력해주세요.", true)
+        content.push(this.addContent(null, "내용을 입력해주세요.", "", "h1", true, null, false));
       }
     }
     else {
-      let content = [];
-      let html = parse(this.props.contents.content);
-      if (!Array.isArray(html)) {
-        html = [html];
-      }
-      console.log(html);
-      html.forEach((div) => 
-        {
-          content.push(
-            <ContentEditable id={div.props.id} placeholder={div.props.placeholder} html={this.props.contents[div.props.id]} type={div.props.type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
-          )
-        }
-      );
-
-      this.setState({
-        content: content
-      })
-    } 
-  }
-
-  addContent = (type, placeholder, init) => {
-    const id = uuid();
-    // const id = this.state.content.length;
-    this.setState({
-      content: this.state.content.concat(
-        <ContentEditable id={`body_${id}`} placeholder={placeholder} html={this.props.contents[`body_${id}`]} type={type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
-      )
-    }, () => init ? {} :  document.getElementById(`body_${id}`).focus());
-    this.props.setContents('update', this.props.page, {
-      [`body_${id}`]: ""
-    })
-  }
-
-  insertContent = (type, placeholder, ref_id) => {
-    let idx = 0;
-    for (let i = 0; i < this.state.content.length; i++) {
-      if (this.state.content[i].props.id === ref_id) {
-        break;
-      }
-      else {
-        idx++;
+      for (let idx = 0; idx < this.props.contents.content.length; idx++) {
+        content.push(this.addContent(this.props.contents.content[idx].props.id, this.props.contents.content[idx].props.placeholder, this.props.contents.content[idx].props.html, this.props.contents.content[idx].props.type, true, null, false));
       }
     }
 
-    // console.log("idx", idx);
-
-    const id = uuid();
     this.setState({
-      content: this.state.content.slice(0, idx).concat(
-        <ContentEditable id={`body_${id}`} placeholder={placeholder} html={this.props.contents[`body_${id}`]} type={type} disabled={false} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
-      ).concat(this.state.content.slice(idx))
-    }, () => {});
-    this.props.setContents('update', this.props.page, {
-      [`body_${id}`]: ""
+      content: content
     })
   }
 
-  handleChange = (e) => {
-    if (e.target.value) {
-      let data = {
-        [e.currentTarget.id]: e.target.value,
-        content: document.getElementsByClassName(`contents_${this.props.page}`)[0].innerHTML
+  addContent = (id, placeholder, html, type, init, insert, disabled) => {
+    const new_id = id || "body_" + uuid();
+    // const id = this.state.content.length;
+    let new_div = <ContentEditable id={new_id} key={new_id} placeholder={placeholder} html={html} type={type} disabled={disabled} onBlur={(e) => this.handleBlur(e)} onChange={(e) => this.handleChange(e)} onClick={(e) => this.handleClick(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>;
+    if (init) {
+      console.log("init")
+      return new_div;
+    }
+    else if (insert) {
+      console.log("insert")
+      let idx = 0;
+      for (let i = 0; i < this.state.content.length; i++) {
+        if (this.state.content[i].props.id === insert.id) {
+          break;
+        }
+        else {
+          idx++;
+        }
       }
-      console.log("handleChange", e.target.value);
+
+      this.setState({
+        content: this.state.content.slice(0, idx).concat(new_div).concat(this.state.content.slice(idx))
+      }, () => {
+        document.getElementById(new_id).focus();
+        this.props.setContents('update', this.props.page, {
+          [new_id]: html,
+          content: this.state.content
+        })
+      }); //TODO: list type insert before removes list tag... debug needed
+    }
+    else {
+      console.log("else")
+      this.setState({
+        content: this.state.content.concat(new_div)
+      }, () => {
+        document.getElementById(new_id).focus();
+        this.props.setContents('update', this.props.page, {
+          [new_id]: html,
+          content: this.state.content
+        })
+      });
+    }
+  }
+
+  handleBlur = (e) => {
+    console.log("blur")
+  }
+
+  handleChange = (e) => {
+    // console.log("handleChange", e.currentTarget)
+    this.setState({
+      content: this.state.content.map(
+        div => div.props.id === e.currentTarget.id ?
+        <ContentEditable id={e.currentTarget.id} key={e.currentTarget.id} placeholder={e.currentTarget.getAttribute('placeholder')} html={e.currentTarget.innerHTML} type={e.currentTarget.getAttribute('type')} disabled={false} onBlur={(e) => this.handleBlur(e)} onChange={(e) => this.handleChange(e)} onClick={(e) => this.handleClick(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>
+        : div
+      )
+    }, () => {
+      // console.log("double change", e.currentTarget)
+      let data = {
+        [e.currentTarget.id]: e.currentTarget.innerHTML,
+        content: this.state.content
+      }
 
       this.props.setContents('update', this.props.page, data);
       this.props.setPage(this.props.page);
+    })
+  } //TODO: after text toolbar edited text, triggering handleChange needed!
+
+  handleClick = (e) => {
+    console.log("handleClick", e.currentTarget);
+    let imgholders = document.getElementsByClassName("imgholder");
+    for (let i = 0; i < imgholders.length; i++) {
+      imgholders[i].style.border = '';
+    }
+
+    if (e.currentTarget.innerHTML.includes("imgholder")) {
+      e.currentTarget.firstChild.style.border = '2px solid blue';
+      e.currentTarget.firstChild.style.borderRadius = '5px';
     }
   }
 
@@ -103,37 +125,98 @@ class Contents extends Component {
     const id = e.currentTarget.id;
     const target = document.getElementById(id);
     const value = target.innerHTML;
+    const selection = window.getSelection();
 
     switch (e.key) {
       case 'Enter':
         e.preventDefault();
-        let text = "";
-        this.state.selText.includes("<li>") ? text = this.state.preText + this.state.selText.split("<li>")[1].split("</li>")[0] : text = this.state.preText + this.state.selText
-        if (text.length === 0 && this.state.postText.length > 0) {
-          this.insertContent(target.getAttribute('type'), "", id);
+        
+        let default_html = "";
+
+        if (selection.anchorOffset === 0 && selection.focusOffset === 0 && value.length > 0 && target.getAttribute('type') !== "title") {
+          if (value.includes("<li>")) {
+            if (value.split("<li>")[1].split("</li>")[0].length > 0) {
+              default_html = value.split("<li>")[0] + "<li>";
+              let start_idx = parseInt(target.firstChild.getAttribute('start'));
+              let reorder = false;
+              for (let node of target.parentNode.childNodes) {
+                if (!node.innerHTML.includes("<li>")) {
+                  break;
+                }
+                if (node.id === id) {
+                  reorder = true;
+                }
+                if (reorder) {
+                  node.firstChild.setAttribute('start', ++start_idx);
+                }
+              };
+              // target.firstChild.setAttribute('start', parseInt(target.firstChild.getAttribute('start')) + 1);
+      
+              console.log("parent", target.parentNode);
+              console.log("front", default_html);
+            }
+          }
+
+          this.addContent(null, target.getAttribute('placeholder'), default_html, target.getAttribute('type'), false, {id:id}, false);
         }
         else {
-          try {
-            this.setEndOfContenteditable(target.nextElementSibling);
+          if (value.includes("<li>")) {
+            let div = target.cloneNode(true);
+            div.firstChild.setAttribute('start', parseInt(div.firstChild.getAttribute('start')) + 1);
+            default_html = div.innerHTML.split("<li>")[0] + "<li>"; //TODO: updating all the orderedlist behind in order
+            console.log("back", default_html);
+            div.remove();
+
+            if (target.nextElementSibling) {
+              let start_idx = parseInt(target.firstChild.getAttribute('start')) + 1;
+              let reorder = false;
+              for (let node of target.parentNode.childNodes) {
+                if (!node.innerHTML.includes("<li>")) {
+                  break;
+                }
+                if (reorder) {
+                  node.firstChild.setAttribute('start', ++start_idx);
+                }
+                if (node.id === id) {
+                  reorder = true;
+                }
+              }
+            }
+            // default_html = value.split("<li>")[0] + "<li>";
           }
-          catch {
-            this.addContent("p", "", false);
-          }
+
+          console.log("back", default_html);
+          this.addContent(null, "", default_html, target.getAttribute('type') === 'title' ? 'h1' : target.getAttribute('type'), false, target.nextElementSibling, false)
         }
         break;
       case 'Tab':
-        let values = value.split("\n");
-        console.log(values[values.length - 1])
-        if (values[values.length - 1].includes('\u2022')) {
-          console.log("##")
-          e.target.value += '\t';
+        e.preventDefault();
+        if (value.includes("<li>")) {
+          let dent = parseInt(target.firstChild.getAttribute('indent'));
+          if (e.shiftKey) {
+            if (dent > 1) {
+              target.firstChild.setAttribute('indent', dent - 1);
+              target.firstChild.setAttribute('start', 1);
+            }
+          }
+          else {
+            if (dent < 6) {
+              target.firstChild.setAttribute('indent', dent + 1);
+              target.firstChild.setAttribute('start', 1);
+            }
+          }
         }
         else {
-          e.target.value += `&#9679`;
+          if (e.shiftKey) {
+            document.execCommand('outdent');
+          }
+          else {
+            document.execCommand('indent');
+          }
         }
         break;
       case 'Backspace':
-        if (value.length === 0 && this.state.content.length > 1) {
+        if (target.getAttribute('type') !== 'title' && value.length === 0 && this.state.content.length > 1) {
           try {
             e.preventDefault();
             let new_content = this.props.contents;
@@ -154,47 +237,17 @@ class Contents extends Component {
     }
   }
 
-  handlePaste = (e) => {
-    const id = e.currentTarget.id;
-    var items = e.clipboardData.items;
-
-    if(items === undefined){
-      if(typeof(callback) == "function"){
-        alert("NO ITEM")
-      }
-    };
-
-    for (var i = 0; i < items.length; i++) {
-        // Skip content if not image
-        if (items[i].type.indexOf("image") === -1) continue;
-        // Retrieve image on clipboard as blob
-        var blob = items[i].getAsFile();
-        var reader = new FileReader();
-        reader.onload = function(event)
-        {
-            console.log(id);
-            console.log(event.target.result)
-            var img=document.createElement("img");
-            img.src=event.target.result
-            document.getElementById(id).appendChild(img);
-        }; // data url  
-        reader.readAsDataURL(blob);
-    }
-  }
-
   handleSelect = (e) => {
-    const [range, preText, selText, postText] = this.getSelection(e.target); 
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
     const bodyRect = range.getBoundingClientRect();
-    const refRect = document.getElementsByClassName(`contents_${this.props.page}`)[0].getBoundingClientRect();
+    const refRect = document.getElementById(`contents_${this.props.page}`).getBoundingClientRect();
     const x = `${bodyRect.x}px - ${refRect.x}px`;
     const y = `${bodyRect.bottom}px - ${refRect.y}px`;
 
-    if (selText.length > 0) {
+    if (selection.toString().length > 0) {
       this.setState({
         showToolbar: true,
-        preText: preText,
-        selText: selText,
-        postText: postText,
         cur_id: e.target.id,
         x: x,
         y: y,
@@ -203,65 +256,11 @@ class Contents extends Component {
     else {
       this.setState({
         showToolbar: false,
-        preText: preText,
-        selText: selText,
-        postText: postText,
         cur_id: e.target.id,
         x: x,
         y: y,
       })
     }
-  }
-
-  getSelection(element) {
-    var range = window.getSelection().getRangeAt(0);
-    var preCaretRange = range.cloneRange();
-    var postCaretRange = range.cloneRange();
-    var selCaretRange = range.cloneRange();
-    var selText = "";
-    var inDiv = false;
-
-    preCaretRange.selectNodeContents(element);
-    preCaretRange.setEnd(range.startContainer, range.startOffset);
-    postCaretRange.selectNodeContents(element);
-    postCaretRange.setStart(range.endContainer, range.endOffset);
-    selCaretRange.selectNodeContents(element);
-    // selCaretRange.setStart(range.startContainer, range.startOffset);
-    selCaretRange.setEnd(range.endContainer, range.endOffset);
-
-    var preDiv = document.createElement('div');
-    preDiv.appendChild(preCaretRange.cloneContents());
-    preDiv.childNodes.forEach((child) => {
-      if (!child.textContent) {
-        preDiv.removeChild(child);
-        inDiv = true;
-      }
-    })
-
-    var postDiv = document.createElement('div');
-    postDiv.appendChild(postCaretRange.cloneContents());
-    postDiv.childNodes.forEach((child) => {
-      if (!child.textContent) {
-        postDiv.removeChild(child);
-      }
-    })
-
-    var selDiv = document.createElement('div');
-    if (inDiv) {
-      selDiv.appendChild(selCaretRange.cloneContents());
-      selText = selDiv.innerHTML.replace(preDiv.innerHTML, "");
-    }
-    else {
-      selCaretRange.setStart(range.startContainer, range.startOffset);
-      selDiv.appendChild(selCaretRange.cloneContents());
-      selText = selDiv.innerHTML;
-    }
-  
-    // console.log("preDiv", preDiv.innerHTML);
-    // console.log("postDiv", postDiv.innerHTML);
-    // console.log("selDiv", selText);
-
-    return [range, preDiv.innerHTML || "", selText, postDiv.innerHTML || ""];
   }
 
   setEndOfContenteditable = (contentEditableElement) => {
@@ -284,14 +283,79 @@ class Contents extends Component {
     }
   }
 
+  handlePaste = (e) => {
+    e.preventDefault();
+    const id = e.currentTarget.id;
+    var items = e.clipboardData.items;
 
+    if(items === undefined){
+      if(typeof(callback) == "function"){
+        alert("NO ITEM")
+      }
+    };
+
+    var text = e.clipboardData.getData('Text');
+    if (text.length > 0) {
+      document.execCommand('insertText', true, text);
+    }
+    else {
+      if (e.currentTarget.getAttribute('type') === 'title') {
+        alert("문서 제목 입력란입니다.");
+      }
+      else {
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].type.indexOf("image") === -1) continue;
+          // Retrieve image on clipboard as blob
+          var blob = items[i].getAsFile();
+          var reader = new FileReader();
+          reader.onload = (event) =>
+          {
+            // var img = document.createElement("img");
+            // img.id = 'img_' + uuid();
+            // img.src = event.target.result
+            var img = React.createElement('img', {id: `img_${uuid()}`, src: event.target.result})
+
+            // var div = document.createElement("div");
+            // div.className = 'imgholder'
+            // div.onclick = function () {
+            //   this.handleImage(div);
+            //   console.log("style")
+            //   div.style.padding = '3px';
+            //   div.style.border = 'lightsteelblue 2px solid';
+            //   div.style.borderRadius = '5px';
+            // }
+
+            var div = React.createElement('div', {className: 'imgholder'}, img)
+
+            // var body = document.createElement("div");
+            // body.id = 'body_' + uuid();
+            // var body = React.createElement('div', null, div);
+
+            // div.appendChild(img);
+            // body.appendChild(div);
+
+            // console.log(img, div, body);
+
+            // ReactDOM.createPortal(body, this.container.appendChild(body))
+            // console.log(ReactDOMServer.renderToString(img));
+            // console.log(div);
+            // const new_id = `body_${uuid()}`
+            this.addContent(null, null, ReactDOMServer.renderToStaticMarkup(div), null, false, {id:id}, true);
+            // ReactDOM.hydrate(div, document.getElementById(new_id));
+            // document.getElementById(id).parentNode.appendChild(body);
+          }; // data url  
+          reader.readAsDataURL(blob);
+        }
+      }
+    }
+  }
 
   render() {
     return (
-        <div className={`contents_${this.props.page}`}>
-          {this.state.content}
-          {this.state.showToolbar ? <TextToolbar {...this.state} {...this.props}/> : null}
-        </div>
+      <div id={`contents_${this.props.page}`}>
+        {this.state.content}
+        {this.state.showToolbar ? <TextToolbar {...this.state} {...this.props}/> : null}
+      </div>
     );
   }
 }

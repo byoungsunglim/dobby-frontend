@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import uuid from "uuid";
 
 import tools from "./utils/tools.js";
-import { getTextStyle } from './utils/getTextStyle.js';
 
 import "./assets/css/TextToolbar.css";
 
@@ -53,41 +51,58 @@ class Toolbar extends Component {
 
   handleType = (e) => {
     let selected_text = document.getElementById(this.props.cur_id);
+    let type = selected_text.getAttribute("type");
 
-    if (e.currentTarget.id === `text_tools_${selected_text.getAttribute("type")}`) {
-      selected_text.setAttribute("type", "p");
+    if (type !== 'title') {
+      if (e.currentTarget.id === `text_tools_${type}`) {
+        selected_text.setAttribute("type", "p");
+      }
+      else {
+        console.log(e.currentTarget.id.split("_")[2])
+        selected_text.setAttribute("type", e.currentTarget.id.split("_")[2]);
+      }
     }
     else {
-      console.log(e.currentTarget.id.split("_")[2])
-      selected_text.setAttribute("type", e.currentTarget.id.split("_")[2]);
+      alert("문서 제목 입력란입니다.");
     }
   };
 
   handleList = (e) => {
     let target = document.getElementById(this.props.cur_id);
-    target.setAttribute('type', 'p');
-    const list_type = e.currentTarget.id.split("_")[2];
+    if (target.getAttribute('type') !== 'title') {
+      if (target.innerHTML.includes("<li>")) {
+        target.innerHTML = target.innerHTML.split("<li>")[1].split("</li>")[0];
+      }
+      else {
+        let prev_target = target.previousElementSibling;
+        target.setAttribute('type', 'p');
+        const list_type = e.currentTarget.id.split("_")[2];
+        var list = document.createElement(list_type);
+        list.className = `list_${list_type}`;
+        list.setAttribute("indent", prev_target.getAttribute("indent") ? prev_target.getAttribute("indent") : 1);
+        list.setAttribute("start", prev_target.getAttribute("start") ? parseInt(prev_target.getAttribute("start")) + 1 : 1)
+        var item = document.createElement('li');
+        item.innerHTML = target.innerHTML;
+        
+        list.appendChild(item);
+  
+        target.innerHTML = '';
+        target.appendChild(list);
+        console.log(target);
+      }
+    }
+    else {
+      alert("문서 제목 입력란입니다.");
+    }
+  }
 
-    var ul = document.createElement('ul');
-    ul.className = `${list_type}`;
-    ul.setAttribute("indent", "1")
-    var li = document.createElement('li');
-    li.innerHTML = target.innerHTML;
-    // var span = document.createElement('span');
-    // span.innerHTML = target.innerHTML;
-    // span.setAttribute('type', target.getAttribute('type'));
-    
-    // li.appendChild(span);
-    ul.appendChild(li);
-
-    target.innerHTML = '';
-    target.appendChild(ul);
-    console.log(document.getElementById(this.props.cur_id));
+  handleBlur = (e) => {
+    console.log("blur")
   }
 
   render() {
     return (
-      <div className="text_toolbar" style={{ left: `calc(${this.props.x})`, top: `calc(${this.props.y})`}}>
+      <div className="text_toolbar" style={{ left: `calc(${this.props.x})`, top: `calc(${this.props.y})`}} onBlur={(e) => this.handleBlur(e)}>
         <tools.Text id="text_tools_text" onClick={(e) => this.handleTooltip(e)}/>
         {this.state.text_tooltip}
         <tools.Highlight id="text_tools_hiliteColor" onClick={(e) => this.handleHighlight(e)}/>
@@ -95,8 +110,8 @@ class Toolbar extends Component {
         <tools.Header1 id="text_tools_h1" onClick={(e) => this.handleType(e)}/>
         <tools.Header2 id="text_tools_h2" onClick={(e) => this.handleType(e)}/>
         <tools.Header3 id="text_tools_h3" onClick={(e) => this.handleType(e)}/>
-        <tools.Bulletlist id="text_tools_bulletlist" onClick={(e) => this.handleList(e)}/>
-        <tools.Numlist id="text_tools_numlist" onClick={(e) => this.handleList(e)}/>
+        <tools.Bulletlist id="text_tools_ul" onClick={(e) => this.handleList(e)}/>
+        <tools.Numlist id="text_tools_ol" onClick={(e) => this.handleList(e)}/>
         <tools.Comment id="text_tools_comment"/>
       </div>
     );

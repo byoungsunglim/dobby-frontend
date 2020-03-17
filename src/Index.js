@@ -12,22 +12,31 @@ class Index extends Component {
   }
 
   componentWillMount() {
+    let index = [];
     for (let idx = 0; idx < this.props.index.length; idx++) {
       let id = this.props.index[idx].id;
       let title = this.props.index[idx].title;
 
-      this.addIndex(id, title);
+      index.push(this.addIndex(id, title, true));
     }
+    this.setState({
+      index: index
+    })
   }
 
-  addIndex = (id, title) => {
-    this.setState({
-      index: this.state.index.concat(
-      <li id={`index_list_item_${id}`} value={id+'. '} indent={replaceAll(id, ".", "").length}>
-        <input id={id} defaultValue={title} placeholder={this.state.placeholder.length >= parseInt(id) ? this.state.placeholder[parseInt(id) - 1] : ''} autoFocus></input>
-      </li>
-    )
-    })
+  addIndex = (id, title, init) => {
+    let index = <li id={`index_list_item_${id}`} key={`index_list_item_${id}`} value={id+'. '} indexindent={replaceAll(id, ".", "").length}>
+                <input id={id} key={id} defaultValue={title} placeholder={this.state.placeholder.length >= parseInt(id) ? this.state.placeholder[parseInt(id) - 1] : ''} autoFocus></input>
+              </li>
+
+    if (init) {
+      return index;
+    }
+    else {
+      this.setState({
+        index: this.state.index.concat(index)
+      })
+    }
   }
 
   handleChange = (e) => {

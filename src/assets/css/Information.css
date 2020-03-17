@@ -1,0 +1,19 @@
+html,
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+
+  font-family: '나눔스퀘어';
+}
+
+.information {
+  position: absolute;
+  left: 80%;
+  width: 20%;
+  height: 100%;
+  border-left: lightgrey 3px solid;
+  background-color: white;
+}
+
+

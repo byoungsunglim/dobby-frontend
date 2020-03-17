@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import Contents from './Contents.js';
 import Index from './Index.js';
+import ClipboardEditor from './ClipboardEditor.js';
 
 import "./assets/css/Document.css";
 
@@ -31,7 +32,7 @@ class Document extends Component {
       })
       
       document.push(
-        <div className={`idx_${i}`}>
+        <div className={`idx_${i}`} key={`idx_${i}`}>
           <b id={`idx_title_${i}`}>{this.props.index[i].title}</b>
           {pages}
         </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import Preview from './Preview.js';
+import Navigation from './Navigation.js';
+import Information from './Information.js';
 import Document from './Document.js';
 import Canvas from './Canvas.js';
 import Toolbar from './Toolbar.js';
@@ -85,7 +86,7 @@ class Home extends Component {
     }
   }
 
-  setContents(handle, page, data) {
+  setContents = (handle, page, data) => {
     const { contents } = this.state;
     switch (handle) {
       case 'update':
@@ -115,7 +116,7 @@ class Home extends Component {
     }
   }
 
-  setDesign(handle, page, data) {
+  setDesign = (handle, page, data) => {
     const { design } = this.state;
     switch (handle) {
       case 'update':
@@ -145,7 +146,7 @@ class Home extends Component {
     }
   }
 
-  setCmd(cmd) {
+  setCmd = (cmd) => {
     this.setState({
       cmd: cmd
     })
@@ -161,8 +162,9 @@ class Home extends Component {
   render() {
     return (
       <div className="home">
-        <Preview {...this} {...this.state}/>
+        <Navigation {...this} {...this.state}/>
         {this.state.view === "document" ? <Document {...this} {...this.state}/> : <Canvas {...this} {...this.state}/>}
+        <Information/>
         <Toolbar setCmd={this.setCmd}/>
       </div>
     );
