@@ -20,7 +20,7 @@ import { ReactComponent as Bulletlist } from "../assets/icons/bulletlist.svg";
 import { ReactComponent as Numlist } from "../assets/icons/numlist.svg";
 import { ReactComponent as Comment } from "../assets/icons/comment.svg";
 
-
+import { ReactComponent as DragBtn } from "../assets/icons/dragBtn.svg";
 
 
 export default {
@@ -45,4 +45,6 @@ export default {
   Bulletlist,
   Numlist,
   Comment,
+
+  DragBtn
 };

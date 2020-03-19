@@ -7,7 +7,7 @@ class Preview extends Component {
     preview: null
   }
   
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.view === "document") {
       let design = [];
       this.props.design.forEach((d) => {

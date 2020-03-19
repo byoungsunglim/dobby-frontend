@@ -17,7 +17,7 @@ class Document extends Component {
     document: [],
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.renderPages();
   }
 

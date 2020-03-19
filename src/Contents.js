@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import ReactDOM from 'react-dom'
-import ReactDOMServer from 'react-dom/server';
+import ReactDOM from "react-dom";
+import ReactDOMServer from "react-dom/server";
+import tools from "./utils/tools.js";
 
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ContentEditable from "react-contenteditable";
 import uuid from "uuid";
 
@@ -9,13 +11,69 @@ import TextToolbar from "./TextToolbar.js";
 
 import "./assets/css/Contents.css";
 
+// a little function to help us with reordering the result
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
+const grid = 8;
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+  // some basic styles to make the items look a bit nicer
+  userSelect: "none",
+  // padding: grid * 2,
+  // margin: `0 0 ${grid}px 0`,
+
+  // change background colour if dragging
+  background: isDragging ? "lightgrey" : "white",
+
+  // styles we need to apply on draggables
+  ...draggableStyle
+});
+
+const getListStyle = isDraggingOver => ({
+  background: isDraggingOver ? "grey" : "white",
+  // padding: grid,
+  // width: 250
+});
+
 class Contents extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onDragEnd = this.onDragEnd.bind(this);
+  }
+
   state = {
     content: [],
     showToolbar: false,
     cur_id: null,
     x: 0,
     y: 0,
+  }
+
+  onDragEnd(result) {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const content = reorder(
+      this.state.content,
+      result.source.index,
+      result.destination.index
+    );
+
+    this.setState({
+      content: content
+    }, () => {
+      this.props.setContents('update', this.props.page, {content: this.state.content});
+      this.props.setPage(this.props.page);
+    });
   }
 
   componentDidMount() {
@@ -31,7 +89,7 @@ class Contents extends Component {
     }
     else {
       for (let idx = 0; idx < this.props.contents.content.length; idx++) {
-        content.push(this.addContent(this.props.contents.content[idx].props.id, this.props.contents.content[idx].props.placeholder, this.props.contents.content[idx].props.html, this.props.contents.content[idx].props.type, true, null, false));
+        content.push(this.addContent(this.props.contents.content[idx].props.id, this.props.contents.content[idx].props.placeholder, this.props.contents.content[idx].props.html, this.props.contents.content[idx].props.type, true, null, this.props.contents.content[idx].props.disabled));
       }
     }
 
@@ -225,7 +283,8 @@ class Contents extends Component {
             this.setState({
               content: this.state.content.filter(item => item.props.id !== id)
             });
-            this.setEndOfContenteditable(target.previousSibling);
+            console.log(target.parentNode.previousSibling);
+            this.setEndOfContenteditable(target.parentNode.previousSibling.childNodes[1]);
           }
           catch {
             //TODO: error handling
@@ -235,6 +294,16 @@ class Contents extends Component {
 
       default:
     }
+  }
+
+  handleMouseOver = (e) => {
+    // console.log("handleMouseOver", e.currentTarget)
+    e.currentTarget.firstChild.style.visibility = "visible";
+  }
+
+  handleMouseOut = (e) => {
+    // console.log("handleMouseOver", e.currentTarget)
+    e.currentTarget.firstChild.style.visibility = "hidden"
   }
 
   handleSelect = (e) => {
@@ -352,10 +421,39 @@ class Contents extends Component {
 
   render() {
     return (
-      <div id={`contents_${this.props.page}`}>
-        {this.state.content}
-        {this.state.showToolbar ? <TextToolbar {...this.state} {...this.props}/> : null}
-      </div>
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(provided, snapshot) => (
+            <div id={`contents_${this.props.page}`} {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+              {this.state.content.map((item, index) => (
+                <Draggable key={item.props.id} draggableId={item.props.id} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={getItemStyle(
+                      snapshot.isDragging,
+                      provided.draggableProps.style
+                    )}
+                    onMouseOver={(e) => this.handleMouseOver(e)}
+                    onMouseOut={(e) => this.handleMouseOut(e)}
+                    >
+                      <div className="dragBtn" style={{visibility: 'hidden'}}>
+                        <tools.DragBtn id="dragBtn"/>
+                      </div>
+                      <ContentEditable key={item.props.id} id={item.props.id} placeholder={item.props.placeholder} html={item.props.html} type={item.props.type} disabled={item.props.disabled} onBlur={(e) => this.handleBlur(e)} onChange={(e) => this.handleChange(e)} onClick={(e) => this.handleClick(e)} onKeyDown={(e) => this.handleKeyDown(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+              {/* {this.state.content} */}
+              {this.state.showToolbar ? <TextToolbar {...this.state} {...this.props}/> : null}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     );
   }
 }

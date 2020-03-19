@@ -10,13 +10,10 @@ html,
 
 .background-canvas {
   position: absolute;
-  /* top: 50%;
-  left: 50%; */
-  /* bottom: 70px; */
-  left: 15%;
-  width: 85%;
+  left: 10%;
+  width: 70%;
   height: 100%;
-  /* transform: translate(-50%, -50%); */
+  background-color: grey;
 }
 
 .canvas {

@@ -11,7 +11,7 @@ class Index extends Component {
     placeholder: ['배경', '본론', '결론']
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let index = [];
     for (let idx = 0; idx < this.props.index.length; idx++) {
       let id = this.props.index[idx].id;

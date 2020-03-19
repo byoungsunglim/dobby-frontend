@@ -152,7 +152,7 @@ class Home extends Component {
     })
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({
       view: "document",
       toggleBtn: this.designBtn
