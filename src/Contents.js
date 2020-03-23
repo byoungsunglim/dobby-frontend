@@ -81,7 +81,7 @@ class Contents extends Component {
 
     if (this.props.contents.content === null) {
       if (this.props.page === 0) {
-        content.push(this.addContent(null, "문서 제목을 적어볼까요?", "", "title", true, null, false));
+        content.push(this.addContent(null, "문서 제목을 적어볼까요?", "", "h1", true, null, false));
       }
       else {
         content.push(this.addContent(null, "내용을 입력해주세요.", "", "h1", true, null, false));
@@ -103,11 +103,11 @@ class Contents extends Component {
     // const id = this.state.content.length;
     let new_div = <ContentEditable id={new_id} key={new_id} placeholder={placeholder} html={html} type={type} disabled={disabled} onBlur={(e) => this.handleBlur(e)} onChange={(e) => this.handleChange(e)} onClick={(e) => this.handleClick(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>;
     if (init) {
-      console.log("init")
+      console.log("contents init")
       return new_div;
     }
     else if (insert) {
-      console.log("insert")
+      console.log("contents insert")
       let idx = 0;
       for (let i = 0; i < this.state.content.length; i++) {
         if (this.state.content[i].props.id === insert.id) {
@@ -129,7 +129,7 @@ class Contents extends Component {
       }); //TODO: list type insert before removes list tag... debug needed
     }
     else {
-      console.log("else")
+      console.log("contents else")
       this.setState({
         content: this.state.content.concat(new_div)
       }, () => {
@@ -310,9 +310,9 @@ class Contents extends Component {
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const bodyRect = range.getBoundingClientRect();
-    const refRect = document.getElementById(`contents_${this.props.page}`).getBoundingClientRect();
-    const x = `${bodyRect.x}px - ${refRect.x}px`;
-    const y = `${bodyRect.bottom}px - ${refRect.y}px`;
+    // const refRect = e.target.getBoundingClientRect();
+    const x = `${bodyRect.right}px - 15%`;
+    const y = `${bodyRect.bottom}px`;
 
     if (selection.toString().length > 0) {
       this.setState({
@@ -424,7 +424,7 @@ class Contents extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
-            <div id={`contents_${this.props.page}`} {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+            <div className="contents" {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
               {this.state.content.map((item, index) => (
                 <Draggable key={item.props.id} draggableId={item.props.id} index={index}>
                   {(provided, snapshot) => (

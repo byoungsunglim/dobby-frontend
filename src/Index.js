@@ -1,115 +1,118 @@
 import React, { Component } from "react";
+import uuid from "uuid";
 
-import { getPropById } from './utils/getPropById.js';
-import { replaceAll } from './utils/replaceAll.js'; 
+import { getPropById } from "./utils/getPropById.js";
+import { orderList } from "./utils/orderList.js";
 
 import "./assets/css/Index.css";
 
 class Index extends Component {
   state = {
-    index: [],
-    placeholder: ['배경', '본론', '결론']
-  }
+    placeholder: ["배경", "본론", "결론"]
+  };
 
   componentDidMount() {
-    let index = [];
-    for (let idx = 0; idx < this.props.index.length; idx++) {
-      let id = this.props.index[idx].id;
-      let title = this.props.index[idx].title;
-
-      index.push(this.addIndex(id, title, true));
-    }
-    this.setState({
-      index: index
-    })
-  }
-
-  addIndex = (id, title, init) => {
-    let index = <li id={`index_list_item_${id}`} key={`index_list_item_${id}`} value={id+'. '} indexindent={replaceAll(id, ".", "").length}>
-                <input id={id} key={id} defaultValue={title} placeholder={this.state.placeholder.length >= parseInt(id) ? this.state.placeholder[parseInt(id) - 1] : ''} autoFocus></input>
-              </li>
-
-    if (init) {
-      return index;
-    }
-    else {
-      this.setState({
-        index: this.state.index.concat(index)
+    console.log("Index Mounted...")
+    if (this.props.index.length === 0) {
+      let id = `index_item_${uuid()}`;
+      let page = `page_${uuid()}`;
+      this.props.setContents('add', page)
+      this.props.setIndex('add', id, {
+        title: "",
+        indent: "1",
+        pages: [page]
       })
     }
   }
 
-  handleChange = (e) => {
-    let id = e.target.id;
-    let data = {
-      title: e.target.value
-    }
-    let pages = getPropById(id, 'pages', this.props.index);
-    
-    if (pages.length === 0)
-    { 
-      data.pages = [this.props.contents.length];
-      this.props.setContents('add', null, null)
-      this.props.setDesign('add', null, null) //TODO: Integration with setContents
-    }
-
-    this.props.setIndex('update', id, data);
+  componentDidUpdate() {
+    // console.log("index update")
+    this.orderIndex();
   }
 
+  orderIndex() {
+    for (let indent = 1; indent <= 3; indent++) {
+      orderList(document.querySelectorAll(`li[indent="${indent}"]`), this.state.placeholder);
+    }
+  }
+
+  handleChange = (e) => {
+    // console.log("handleChange", e.target.parentNode);
+    let id = e.target.parentNode.id;
+    let data = {
+      title: e.target.value
+    };
+
+    this.props.setIndex('update', id, data);
+    document.getElementById(id + '_title').innerText = e.target.value;
+    // if (document.getElementById(id + '_title').innerText.length === 0) {
+    //   if (document.getElementById(id + '_title').nextSibling.className === "contents"
+    // }
+  };
+
   handleKeyDown = (e) => {
-    let cur_id = e.target.id;
+    const index = document.getElementById("index");
+    const target = e.target.parentNode;
+    const id = e.target.parentNode.id;
+    const value = e.target.value;
+    const idx = this.props.index.findIndex(item => item.id === id);
+
     switch (e.key) {
-      case 'Enter':
-        let levels = cur_id.split(".");
-        let level = levels[levels.length - 1];
-        let next_id = cur_id.substring(0, cur_id.length - level.length) + (parseInt(level) + 1).toString();
-
-        try {
-          document.getElementById(`index_list_item_${cur_id}`).nextSibling.childNodes[0].focus();
-        }
-        catch {
-          this.addIndex(next_id, "");
-          this.props.setIndex("add", next_id, {title: "", pages: []});
-        }
-
-        this.props.renderPages();
-        break;
-      case 'Tab':
-        e.preventDefault();
-        
-        if (cur_id !== "1" && e.target.value.length === 0 && e.target.id.length < 9) {
-          let prev_id = document.getElementById(`index_list_item_${cur_id}`).previousSibling.childNodes[0].id;
-          let next_id = prev_id + '.1';
-          this.setState({
-            index: this.state.index.filter(idx => idx.props.id !== `index_list_item_${cur_id}`)
-          }, () => this.addIndex(next_id, ""))
-
-          this.props.setIndex("update", cur_id, {id: next_id, title: "", pages: []});
+      case "Enter":
+        if (idx !== 0 && value.length === 0 && parseInt(target.getAttribute("indent")) > 1) {
+          this.props.setIndex('update', id, {
+            indent: parseInt(target.getAttribute("indent")) - 1
+          })
         }
         else {
-          e.target.value += '\t';
+          // let new_idx = idx + Math.max(this.props.index.slice(idx+1).findIndex(item => item.indent === target.getAttribute("indent")), 1);
+          let new_id = `index_item_${uuid()}`;
+          let new_page = `page_${uuid()}`
+          let new_item = {
+            id: new_id,
+            title: "",
+            indent: target.getAttribute("indent"),
+            pages: [new_page]
+          };
+          this.props.setContents('add', new_page);
+          this.props.setIndex('set', null, this.props.index.slice(0, idx+1).concat(new_item).concat(this.props.index.slice(idx+1)));
         }
 
         this.props.renderPages();
         break;
-      case 'Backspace':        
-        if (e.target.value.length === 0) {
-          try {
-            e.preventDefault();
-            document.getElementById(`index_list_item_${cur_id}`).previousSibling.childNodes[0].focus();
-            let pages = getPropById(cur_id, 'pages', this.props.index);
+      case "Tab":
+        e.preventDefault();
+        if (e.shiftKey) {
+          if (idx !== 0 && parseInt(target.getAttribute("indent")) > 1) {
+            this.props.setIndex('update', id, {
+              indent: parseInt(target.getAttribute("indent")) - 1
+            })
+          }
+        }
+        else {
+          if (idx !== 0 && parseInt(target.getAttribute("indent")) < 3) {
+            this.props.setIndex('update', id, {
+              indent: parseInt(target.getAttribute("indent")) + 1
+            })
+          }
+        }
+
+        this.props.renderPages();
+        break;
+      case 'Backspace':
+        if (idx !== 0 && value.length === 0) {
+          e.preventDefault();
+          if (target.parentNode.previousSibling) {
+            target.parentNode.previousSibling.firstChild.firstChild.focus();
+          }
+          let pages = getPropById(id, 'pages', this.props.index);
+          if (pages) {
             pages.forEach((page) => {
               this.props.setContents("remove", page, null);
               this.props.setDesign("remove", page, null); //TODO: Integration with setContents
             })
-            this.props.setIndex("remove", cur_id, );
-            this.setState({
-              index: this.state.index.filter(idx => idx.props.id !== `index_list_item_${cur_id}`)
-            });
-            e.unbind();
           }
-          catch {
-          }
+          this.props.setIndex("remove", id, );
         }
 
         this.props.renderPages();
@@ -117,16 +120,20 @@ class Index extends Component {
       default:
         this.props.renderPages();
     }
-  }
+  };
 
   render() {
     return (
-        <div className="index" onChange={this.handleChange} onKeyDown={this.handleKeyDown}>
-          <span style={{fontSize: '16pt'}}>*목차를 먼저 적어주시면, 페이지가 자동으로 생성됩니다.</span>
-          <ol className="index_list">
-            {this.state.index}
+      <div id="index" onChange={(e) => this.handleChange(e)} onKeyDown={(e) => this.handleKeyDown(e)}>
+        <span style={{ fontSize: "16pt" }}>*목차를 먼저 적어주시면, 페이지가 자동으로 생성됩니다.</span>
+        {this.props.index.map((item) => (
+          <ol key={item.id} className={"index_item"}>
+            <li key={item.id} id={item.id} indent={item.indent}>
+              <input key={item.id} defaultValue={item.title} autoComplete="off" autoFocus></input>
+            </li>
           </ol>
-        </div>
+        ))}
+      </div>
     );
   }
 }

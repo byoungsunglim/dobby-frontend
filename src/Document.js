@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import uuid from "uuid";
 
 import Contents from './Contents.js';
 import Index from './Index.js';
-import ClipboardEditor from './ClipboardEditor.js';
 
 import "./assets/css/Document.css";
 
@@ -18,6 +18,11 @@ class Document extends Component {
   };
 
   componentDidMount() {
+    console.log("Document Mounted...")
+    if (this.props.contents.length === 0) {
+      let page = `page_${uuid()}`;
+      this.props.setContents('add', page);
+    }
     this.renderPages();
   }
 
@@ -27,14 +32,17 @@ class Document extends Component {
     for (let i = 0; i < this.props.index.length; i++) {
       let pages = [];
 
-      this.props.index[i].pages.forEach((p) => {
-        pages.push(<Contents contents={this.props.contents[p]} setContents={this.props.setContents} setPage={this.props.setPage} page={p} key={`contents_${p}`}/>);
-      })
+      if (this.props.index[i].pages) {
+        this.props.index[i].pages.forEach((page) => {
+          let idx = this.props.contents.findIndex(content => content.page === page)
+          pages.push(<Contents contents={this.props.contents[idx]} setContents={this.props.setContents} setPage={this.props.setPage} page={page} key={page}/>);
+        })
+      }
       
       document.push(
-        <div className={`idx_${i}`} key={`idx_${i}`}>
-          <b id={`idx_title_${i}`}>{this.props.index[i].title}</b>
-          {pages}
+        <div className="contents_block" key={`index_${i}`}>
+          <b id={`${this.props.index[i].id}_title`}>{this.props.index[i].title}</b>
+          {pages} 
         </div>
       )
     }
@@ -48,8 +56,8 @@ class Document extends Component {
     return (
       <div className="document">
         <div className="title">
-          <Contents contents={this.props.contents[0]} setContents={this.props.setContents} setPage={this.props.setPage} page={0} key={"contents_0"}/>
-          <Index {...this} {...this.props} key={"index"}/>
+          <Contents contents={this.props.contents[0]} setContents={this.props.setContents} setPage={this.props.setPage} page={this.props.contents[0].page} key={this.props.contents[0].page}/>
+          <Index {...this} {...this.props}/>
         </div>
         {this.state.document}
       </div>

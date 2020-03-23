@@ -21,7 +21,7 @@ html,
   margin: 5%;
 }
 
-div[class^="idx"] {
+div.contents_block {
   margin: 5%;
   font-size: 24pt;
 }

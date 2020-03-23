@@ -20,15 +20,11 @@ class Home extends Component {
   }
 
   state = {
-    view: null,
+    view: "document",
     cur_page: 0,
-    index: [{
-      id: "1",
-      title: "",
-      pages: [],
-    }],
+    index: [],
     contents: [{
-      page: 0,
+      page: "page_title",
       content: null
     }],
     design: [{
@@ -68,6 +64,7 @@ class Home extends Component {
           index: index.concat({
             id: id,
             title: data.title,
+            indent: data.indent,
             pages: data.pages,
           })
         })
@@ -101,7 +98,7 @@ class Home extends Component {
       case 'add':
         this.setState({
           contents: contents.concat({
-            page: contents.length,
+            page: page,
             content: null
           })
         })
@@ -149,13 +146,6 @@ class Home extends Component {
   setCmd = (cmd) => {
     this.setState({
       cmd: cmd
-    })
-  }
-
-  componentDidMount() {
-    this.setState({
-      view: "document",
-      toggleBtn: this.designBtn
     })
   }
 

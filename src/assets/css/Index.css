@@ -7,51 +7,40 @@ html,
   font-family: '나눔스퀘어';
 }
 
-ol.index_list {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    /* padding: 0; */
-    list-style-type: none;
+#index {
+  margin-top: 5%;
+  padding: 2%;
+  background-color: lightgrey;
+}
+
+ol.index_item {
+    margin-top: 5px;
+    margin-bottom: 5px;
     width: 100%;
 }
 
-/* .index_list_item {
-    width: 100%;
-} */
-
-.index_list li::before {
+/* ol.index_list li::before {
     content: attr(value);
     font-size: 12pt;
-}
+} */
 
-[indexindent="1"] { --indent: 0; }
-[indexindent="2"] { --indent: 1; }
-[indexindent="3"] { --indent: 2; }
-[indexindent="4"] { --indent: 3; }
-[indexindent="5"] { --indent: 4; }
+li[indent="1"] { --indent: 0; --oltype: decimal;}
+li[indent="2"] { --indent: 1; --oltype: lower-alpha;}
+li[indent="3"] { --indent: 2; --oltype: lower-roman;}
 
-li[id^='index_list_item'] {
-    display: flex;
-    align-items: center; 
+ol.index_item li {
+    list-style-type: var(--oltype);
     margin-left: calc(30px * var(--indent));
     line-height: 24px;
-    /* justify-content: center; */
 }
 
-li[id^='index_list_item'] input {
-    outline: none;
-    border: none;
-    /* width: calc(100% - 30px); */
-    flex: 1;
+ol.index_item li input {
+    width: 100%;
     margin-left: 5px;
     font-size: 12pt;
     background-color: inherit;
+    outline: none;
+    border: none;
 }
 
-.index {
-    /* margin: 5%; */
-    margin-top: 5%;
-    padding: 2%;
-    /* min-height: 10%; */
-    background-color: lightgrey;
-}
+

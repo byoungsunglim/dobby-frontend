@@ -9,15 +9,20 @@ html,
   font-family: '나눔스퀘어';
 }
 
-div[id^="contents"] {
-  position: relative;  
+div.title div.contents {
+  margin: 0;
+  padding: 0;
 }
 
-[type="title"] { --bodyindent: 0; --font-size: 32pt; }
-[type="h1"] { --bodyindent: 1; --font-size: 24pt; }
-[type="h2"] { --bodyindent: 2; --font-size: 20pt; }
-[type="h3"] { --bodyindent: 3; --font-size: 16pt; }
-[type="p"]  { --bodyindent: 4; --font-size: 12pt; }
+/* div[id^="contents"] {
+  position: relative;  
+} */
+
+/* [type="title"] { --bodyindent: 0; --font-size: 32pt; } */
+[type="h1"] { --bodyindent: 0; --font-size: 24pt; }
+[type="h2"] { --bodyindent: 1; --font-size: 20pt; }
+[type="h3"] { --bodyindent: 2; --font-size: 16pt; }
+[type="p"]  { --bodyindent: 3; --font-size: 12pt; }
 
 [indent="1"] { --indent: 0; --ultype: disc; --oltype: decimal;}
 [indent="2"] { --indent: 1; --ultype: circle; --oltype: lower-alpha;}
@@ -65,16 +70,6 @@ div[id^="contents"] {
 #dragBtn {
   width:  9px;
   height: 13px;
-}
-
-
-
-span[id='highlight'] {
-  background-color: yellow;
-}
-
-span[id='underline'] {
-  text-decoration: underline;
 }
 
 ul.list_ul {
