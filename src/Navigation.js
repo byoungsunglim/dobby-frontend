@@ -8,7 +8,7 @@ class Navigation extends Component {
 
   render() {
     return (
-      <div className="navigation">
+      <div id="navigation">
         <div className="logo">
           Docgabi
         </div>

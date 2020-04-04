@@ -19,7 +19,7 @@ class Contents extends Component {
   componentWillMount() {
     let content = [];
 
-    if (this.props.contents.content === null) {
+    if (this.props.contents.contents === null) {
       if (this.props.page === 0) {
         content.push(this.addContent(null, "문서 제목을 적어볼까요?", "", "title", true, null));
       }
@@ -28,8 +28,8 @@ class Contents extends Component {
       }
     }
     else {
-      for (let idx = 0; idx < this.props.contents.content.length; idx++) {
-        content.push(this.addContent(this.props.contents.content[idx].props.id, this.props.contents.content[idx].props.placeholder, this.props.contents.content[idx].props.html, this.props.contents.content[idx].props.type, true));
+      for (let idx = 0; idx < this.props.contents.contents.length; idx++) {
+        content.push(this.addContent(this.props.contents.contents[idx].props.id, this.props.contents.contents[idx].props.placeholder, this.props.contents.contents[idx].props.html, this.props.contents.contents[idx].props.type, true));
       }
     }
 
@@ -158,7 +158,7 @@ class Contents extends Component {
         if (value.length === 0 && this.state.content.length > 1) {
           try {
             e.preventDefault();
-            let new_content = this.props.contents;
+            let new_content = this.props.document;
             delete new_content[id];
             this.props.setContents('update', this.props.page, new_content);
             this.setState({

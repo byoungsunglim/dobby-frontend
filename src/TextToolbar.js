@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import uuid from "uuid";
 
 import tools from "./utils/tools.js";
 
@@ -37,62 +38,51 @@ class Toolbar extends Component {
   }
 
   handleStyle = (e, color) => {
-    // const { preText, selText, postText } = this.props;
-
-    // let new_html = getTextStyle(e.currentTarget.id, preText, selText, postText);
-    // console.log("new_html", new_html);
-    // let data = {
-    //   [this.props.cur_id]: new_html
-    // }
-    // this.props.setContents('update', this.props.page, data);
-    // document.getElementById(this.props.cur_id).innerHTML = new_html;
     document.execCommand(e.currentTarget.id.split("_")[2], false, color);
   }
 
   handleType = (e) => {
-    let selected_text = document.getElementById(this.props.cur_id);
-    let type = selected_text.getAttribute("type");
+    const target = document.getElementById(this.props.cur_id);
+    const type = target.getAttribute("type");
 
-    if (type !== 'title') {
-      if (e.currentTarget.id === `text_tools_${type}`) {
-        selected_text.setAttribute("type", "p");
-      }
-      else {
-        console.log(e.currentTarget.id.split("_")[2])
-        selected_text.setAttribute("type", e.currentTarget.id.split("_")[2]);
-      }
+    if (e.currentTarget.id === `text_tools_${type}`) {
+      target.setAttribute("type", "p");
+      this.props.setContent('update', this.props.cur_id, target.getAttribute('placeholder'), target.innerHTML, "p", false);
     }
     else {
-      alert("문서 제목 입력란입니다.");
+      console.log(e.currentTarget.id.split("_")[2])
+      target.setAttribute("type", e.currentTarget.id.split("_")[2]);
+      this.props.setContent('update', this.props.cur_id, target.getAttribute('placeholder'), target.innerHTML, e.currentTarget.id.split("_")[2], false);
     }
   };
 
   handleList = (e) => {
-    let target = document.getElementById(this.props.cur_id);
-    if (target.getAttribute('type') !== 'title') {
-      if (target.innerHTML.includes("<li>")) {
-        target.innerHTML = target.innerHTML.split("<li>")[1].split("</li>")[0];
-      }
-      else {
-        let prev_target = target.previousElementSibling;
-        target.setAttribute('type', 'p');
-        const list_type = e.currentTarget.id.split("_")[2];
-        var list = document.createElement(list_type);
-        list.className = `list_${list_type}`;
-        list.setAttribute("indent", prev_target.getAttribute("indent") ? prev_target.getAttribute("indent") : 1);
-        list.setAttribute("start", prev_target.getAttribute("start") ? parseInt(prev_target.getAttribute("start")) + 1 : 1)
-        var item = document.createElement('li');
-        item.innerHTML = target.innerHTML;
-        
-        list.appendChild(item);
-  
-        target.innerHTML = '';
-        target.appendChild(list);
-        console.log(target);
-      }
+    // let idx = this.props.contents.findIndex(body => body.id === this.props.cur_id);
+    const id = this.props.cur_id;
+    const target = document.getElementById(id);
+    if (target.innerHTML.includes("<li>")) {
+      target.innerHTML = target.innerHTML.split("<li>")[1].split("</li>")[0];
     }
     else {
-      alert("문서 제목 입력란입니다.");
+      let prev_target = target.previousElementSibling;
+      const list_type = e.currentTarget.id.split("_")[2];
+      var list = document.createElement(list_type);
+      list.key = id;
+      list.className = "list_item";
+      list.setAttribute("indent", prev_target.getAttribute("indent") || 1);
+      list.setAttribute("start", prev_target.getAttribute("start") || 1)
+      var item = document.createElement('li');
+      item.key = id;
+      item.id = `list_item_${uuid()}`
+      // var span = document.createElement('span');
+      item.innerHTML = target.innerHTML;
+      // item.appendChild(span);
+      list.appendChild(item);
+      target.setAttribute('type', 'p');
+      target.innerHTML = '';
+      target.appendChild(list);
+
+      this.props.setContent('update', this.props.cur_id, "", target.innerHTML, 'p', false);
     }
   }
 

@@ -54,7 +54,7 @@ class Index extends Component {
     
     if (pages.length === 0)
     { 
-      data.pages = [this.props.contents.length];
+      data.pages = [this.props.document.length];
       this.props.setContents('add', null, null)
       this.props.setDesign('add', null, null) //TODO: Integration with setContents
     }

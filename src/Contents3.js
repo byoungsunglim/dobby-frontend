@@ -9,11 +9,14 @@ import "./assets/css/Contents.css";
 class Contents extends Component {
   state = {
     init: true,
+    contents: [],
     placeholder: ["배경", "본론", "결론"]
   };
 
   componentDidMount() {
     console.log("Contents Mounted...")
+    let contents = [];
+
     if (this.props.contents.length === 0) {
       let id = `contents_item_${uuid()}`;
       let page = `page_${uuid()}`;
@@ -23,23 +26,59 @@ class Contents extends Component {
         indent: "1",
         pages: [page]
       })
+      contents.push(this.addContents(null, 1, "", null, true))
     }
+    else {
+      
+    }
+
     this.setState({
-      init: false
+      contents: contents
+    }, () => {
+      
     })
   }
 
   componentDidUpdate() {
-    // console.log("contents updated")
+    // console.log("index update")
     this.orderContents();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.init === false && nextProps.contents.length === this.props.contents.length) {
+    if (nextProps.contents.length === this.props.contents.length) {
       return false;
     }
-    // console.log("should contents update", this.state.init, nextProps.contents.length, this.props.contents.length);
+    console.log("should contents update", nextProps, this.props);
     return true;
+  }
+
+  addContents = (id, indent, title, insertAfter, init) => {
+    const new_id = id || "contents_item_" + uuid();
+
+    let new_contents = (
+      <ol key={'ol'+new_id} className={"contents_item"} indent={indent}>
+        <li key={'li'+new_id} id={new_id}>
+          <input key={'input'+new_id} defaultValue={title} autoComplete="off" autoFocus></input>
+        </li>
+      </ol>
+    )
+
+    if (init) {
+      console.log("contents init")
+      return new_contents;
+    }
+    else if (insertAfter !== -1) {
+      console.log("contents insert")
+      this.setState({
+        contents: this.state.contents.slice(0, insertAfter+1).concat(new_contents).concat(this.state.content.slice(insertAfter+1))
+      }, () => {
+        document.getElementById(new_id).focus();
+        // this.props.setContents('update', this.props.page, {
+        //   [new_id]: html,
+        //   content: this.state.content
+        // })
+      }); //TODO: list type insert before removes list tag... debug needed
+    }
   }
 
   orderContents() {
@@ -109,7 +148,6 @@ class Contents extends Component {
           }
         }
 
-        this.forceUpdate();
         this.props.renderPages();
         break;
       case 'Backspace':
@@ -139,10 +177,10 @@ class Contents extends Component {
     return (
       <div id="contents" onChange={(e) => this.handleChange(e)} onKeyDown={(e) => this.handleKeyDown(e)}>
         <span style={{ fontSize: "16pt" }}>*목차를 먼저 적어주시면, 페이지가 자동으로 생성됩니다.</span>
-        {this.props.contents.map((item) => (
-          <ol key={item.id} className={"contents_item"} indent={item.indent}>
-            <li key={item.id} id={item.id}>
-              <input key={item.id} defaultValue={item.title} autoComplete="off" autoFocus></input>
+        {this.state.contents.map((item) => (
+          <ol key={'ol'+item.id} className={"contents_item"} indent={item.indent}>
+            <li key={'li'+item.id} id={item.id}>
+              <input key={'input'+item.id} defaultValue={item.title} autoComplete="off" autoFocus></input>
             </li>
           </ol>
         ))}

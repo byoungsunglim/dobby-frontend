@@ -1,21 +1,114 @@
-import { Textfit } from "react-textfit";
 import React from "react";
+import ContentEditable from "react-contenteditable";
+import { Textfit } from "react-textfit";
 
-import { getLineBreak } from './getLineBreak.js';
-import { parseContent } from './parseContent.js';
+import TextBox from "./TextBox.js";
+import { getLineBreak } from "./getLineBreak.js";
+import { parseContent } from "./parseContent.js";
+import { getStyles } from "./getStyles.js";
+import { addLineBreak } from "./addLineBreak.js";
+import { getFontSize } from "./getFontSize.js";
+import { getTextHeights } from "./getTextHeight.js";
 
-export const getDesign = (contents) => {
-  let design = null;
-  parseContent(contents);
+export const getDesign = (page, content, props) => {
+  var design = [];
+  var [imgs, texts] = parseContent(content);
+  console.log(imgs, texts);
+  console.log(props);
   
-  if (contents.page === 0) {
-    // let title = contents.title.split("\n");
-    // let subtitle = contents.subtitle.split("\n");
-    // let body = contents.body.split("\n");
-  
-    let dt = [];
-    let ds = [];
-    let db = [];
+  if (page === "page_title") {
+    // let title = texts[0];
+    // let subtitle = texts[1];
+    // let body = texts.slice(2);
+
+    // console.log({
+    //   title: title,
+    //   subtitle: subtitle,
+    //   body: body
+    // })
+
+    let styles = getStyles(imgs, texts);
+    console.log(styles);
+
+    for (let i = 0; i < imgs.length; i++) {
+      design.push(
+        <div className='imgbox' style={styles.imgs[i].holder}>
+          <img
+            src={imgs[i].src}
+            alt=""
+            style={styles.imgs[i].src}
+          ></img>
+        </div>
+      );
+      if (styles.imgs[i].layer) {
+        design.push(
+          <div className="layer" style={styles.imgs[i].layer}></div>
+        )
+      }
+    }
+
+    let etc = [];
+    for (let j = 0; j < texts.length; j++) {
+      if (j < styles.texts.length - 1) {
+        let block = [];
+        let heights = getTextHeights(styles.texts[j], texts[j]);
+        console.log(heights)
+        for (let k = 0; k < texts[j].length; k++) {
+          block.push(
+            <TextBox text={texts[j][k]} style={{width: "100%", height: heights[k]}} page={page} content={content} setDocument={props.setDocument}/>
+          )
+        }
+
+        design.push(
+          <div className="textblock" style={styles.texts[j]}>
+            {block}
+          </div>
+        )
+        // design.push(
+        //   <TextBox html={"test"} disabled={false} style={}/>
+          // <div className="textbox" style={styles.texts[j].holder}>
+          //   <Textfit max={300} style={styles.texts[j].src}>
+          //     {addLineBreak(texts[j])}
+          //   </Textfit>
+          // </div>
+        // )
+      }
+      else {
+        for (let text of texts[j]) {
+          etc.push(text);
+        }
+      }
+
+      if (j === texts.length - 1 && etc.length > 0) {
+        console.log(etc);
+        let block = [];
+        let heights = getTextHeights(styles.texts[j], etc);
+        console.log(heights)
+        for (let l = 0; l < etc.length; l++) {
+          block.push(
+            <TextBox text={etc[l]} style={{width: "100%", height: heights[l]}} page={page} content={content} setDocument={props.setDocument}/>
+          )
+        }
+
+        console.log(block);
+
+        design.push(
+          <div className="textblock" style={styles.texts[styles.texts.length - 1]}>
+            {block}
+          </div>
+        )
+      }
+    }
+
+    // console.log(styles);
+
+    // imgs.forEach((img, idx) => {
+    //   design.push(
+    //     <div style={styles[idx]}>
+    //       <img src={img.src} alt="img_background" style={{width: '100%', height: '100%', objectFit: 'iiiiii'}}></img>
+    //     </div>
+    //   )
+    // })
   
     // title.forEach((t) => {
     //   if (t.length > 30) {
@@ -46,26 +139,17 @@ export const getDesign = (contents) => {
     //     db.push(<br></br>);
     //   }
     // }
+    // console.log(document.getElementById('canvas')..offsetWidth);
 
-    design = [
-      <div className={`dtitle_${contents.page}`}>
-        <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
-          {dt}
-        </Textfit>
-      </div>,
-      <div className={`dsubtitle_${contents.page}`}>
-        <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
-          {ds}
-        </Textfit>
-      </div>,
-      <div className={`dbody_${contents.page}`}>
-        <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
-          {db}
-        </Textfit>
-      </div>
-    ]
+    // design = [
+    //   <TextBox html={"test"} disabled={false} style={{
+    //     width: "calc(70vw * 0.8 * 0.3)",
+    //     // height: "calc(70vw * 0.8 * 0.5625 * 0.3)",
+    //     fontSize: "6vw",
+    //   }}/>
+    // ];
   }
-  else if (contents.page > 0) {
+  else {
     // let title = contents.title.split("\n");
     // let subtitle = contents.subtitle.split("\n");
     // let body = contents.body.split("\n");
@@ -105,17 +189,17 @@ export const getDesign = (contents) => {
     // }
 
     design = [
-      <div className={`dtitle_${contents.page}`}>
+      <div className={`dtitle_${content.page}`}>
         <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
           {dt}
         </Textfit>
       </div>,
-      <div className={`dsubtitle_${contents.page}`}>
+      <div className={`dsubtitle_${content.page}`}>
         <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
           {ds}
         </Textfit>
       </div>,
-      <div className={`dbody_${contents.page}`}>
+      <div className={`dbody_${content.page}`}>
         <Textfit mode="multi" style={{ width: "100%", height: "100%" }}>
           {db}
         </Textfit>

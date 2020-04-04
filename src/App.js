@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-
-import Landing from './Landing.js';
+import Landing from "./Landing.js";
 import Home from "./Home.js";
 
 import "./assets/css/App.css";
@@ -38,7 +37,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="docgabi">
+      <div id="docgabi">
         {this.state.authenticated ? <Home /> : <Landing />}
       </div>
     );
