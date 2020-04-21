@@ -74,9 +74,10 @@ class TextBox extends Component {
 
   onBlur = (e) => {
     console.log("onBlur")
-    document.querySelectorAll("[id^=body]").forEach((body) => {
-      body.style.border = "none";
-    })
+    let nodes = document.querySelectorAll("[id^=body]")
+    for (let i = 0; i < nodes.length; i++) {
+      nodes[i].style.border = "none";
+    }
     this.setState({
       disabled: false
     })

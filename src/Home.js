@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { db } from "./firebase.js";
+import { db } from "./Firebase.js";
 import Navigation from "./Navigation.js";
 import Information from "./Information.js";
 import Document from "./Document.js";
@@ -35,54 +35,59 @@ class Home extends Component {
           design: []
         }
       ],
-      initialized: false
+      initialized: false,
+      updateDB: false
     };
   }
 
   componentDidMount() {
-    console.log("Home Mounted...");
-    var docRef = db.collection("drafts").doc("myDraft");
+    console.log("Home Mounted...", this.props.user);
+    var docRef = db.collection("drafts").doc(this.props.user.email);
     docRef
       .get()
       .then((doc) => {
         if (doc.exists) {
-          this.setState(doc.data(), () => {
-            this.interval = setInterval(() => {
-              docRef
-                .set(JSON.parse(JSON.stringify(this.state)))
-                .then(function() {
-                  console.log("Document successfully written!");
-                });
-            }, 5000);
-          });
+          let data = doc.data();
+          data.initialized = true;
+          this.setState(data);
           console.log("Document data:", doc.data());
         } else {
           // doc.data() will be undefined in this case
           this.setState({
-            initialized: true
+            initialized: true,
           }, () => {
-            docRef
-            .set(JSON.parse(JSON.stringify(this.state)))
-            .then(function() {
-              console.log("Document initialized!");
-              this.interval = setInterval(() => {
-                docRef
-                  .set(JSON.parse(JSON.stringify(this.state)))
-                  .then(function() {
-                    console.log("Document successfully written!");
-                  });
-              }, 5000);
-            }.bind(this));
+            this.setDB();
           })
         }
       })
       .catch(function(error) {
         console.log("Error getting document:", error);
       })
+      this.interval = setInterval(this.setDB, 3000);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contents !== this.state.contents || prevState.document !== this.state.document || prevState.design !== this.state.design) {
+      // console.log("Home updated...")
+      this.setState({
+        updateDB: true
+      })
+    }  
+  }
+
+  setDB = () => {
+    if (this.state.updateDB) {
+      var docRef = db.collection("drafts").doc(this.props.user.email);
+
+      docRef
+      .set(JSON.parse(JSON.stringify(this.state)))
+      .then(function() {
+        console.log("Document updated successfully");
+      })
+      this.setState({
+        updateDB: false
+      })
+    }
   }
 
   setView = () => {

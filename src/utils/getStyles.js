@@ -9,8 +9,11 @@ export const getStyles = (imgs, texts) => {
     if (getImageType(imgs[0]) <= 1) {
       return styles[1][0][Math.min(texts.length, 3)];
     }
-    else  {
+    else if ((getImageType(imgs[0]) <= 3)) {
       return styles[1][getImageType(imgs[0]) - 1][Math.min(texts.length, 3)];
+    }
+    else {
+      return styles[1][getImageType(imgs[0]) - 3][Math.min(texts.length, 3)];
     }
   }
   else if (imgs.length === 2) {
@@ -215,9 +218,9 @@ const styles = [
         texts: [
           {
             // holder: {
-              top: "45%",
+              top: "40%",
               left: "50%",
-              transform: "translate(-50%, -45%)",
+              transform: "translate(-50%, -40%)",
               width: "70%",
               height: "20%",
               textAlign: "center",

@@ -1,18 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 
+import Login from "./Login.js";
 import "./assets/css/Landing.css";
 
-class Landing extends Component {
-  state = {
-  };
-
-  render() {
-    return (
-      <div className="landing">
-
-      </div>
-    );
-  }
+function Landing({ login, logout }) {
+  return (
+    <div className="landing">
+      <Login login={login} logout={logout}/>
+    </div>
+  );
 }
 
 export default Landing;

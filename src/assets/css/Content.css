@@ -1,12 +1,5 @@
-html,
-* {
-  /* -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box; */
+html {
 
-  /* font-size: 12pt; */
-  /* resize: none;
-  font-family: '나눔스퀘어'; */
 }
 
 .content {
@@ -21,7 +14,9 @@ html,
 div[id^="body"][type="h1"] { --indent: 0; --font-size: 24pt; }
 div[id^="body"][type="h2"] { --indent: 1; --font-size: 20pt; }
 div[id^="body"][type="h3"] { --indent: 2; --font-size: 16pt; }
-div[id^="body"][type="p"]  { --indent: 3; --font-size: 12pt; }
+div[id^="body"][type="h4"]  { --indent: 3; --font-size: 12pt; }
+div[id^="body"][type="h5"]  { --indent: 4; --font-size: 12pt; }
+div[id^="body"][type="h6"]  { --indent: 5; --font-size: 12pt; }
 
 [indent="1"] { --indent: 0; --ultype: disc; --oltype: decimal;}
 [indent="2"] { --indent: 1; --ultype: circle; --oltype: lower-alpha;}
@@ -75,20 +70,21 @@ ul.list_item {
   margin: 0;
   padding: 0;
   list-style-type: var(--ultype);
-  list-style-position: inside;
+  list-style-position: outside;
   margin-left: calc(30px * var(--indent));
-  font-size: 12pt;
 }
 
 ol.list_item {
   margin: 0;
   padding: 0;
   list-style-type: var(--oltype);
-  list-style-position: inside;
+  list-style-position: outside;
   margin-left: calc(30px * var(--indent));
-  font-size: 12pt;
 }
 
+.list_item li {
+  margin-left: 30px;  
+}
 
 .imgholder {
   width: fit-content;
@@ -101,11 +97,7 @@ ol.list_item {
   margin-right: auto;
   padding: 3px;
   display: block;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+  cursor: default;
 }
 
 [id^='img_'] {
@@ -115,11 +107,7 @@ ol.list_item {
   max-height: 240px;
   margin: auto;
   display: block;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+  cursor: default;
 }
 
 /* ul li span {

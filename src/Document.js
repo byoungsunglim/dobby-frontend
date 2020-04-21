@@ -32,11 +32,10 @@ class Document extends Component {
     for (let i = 0; i < this.props.contents.length; i++) {
       let pages = [];
 
-      if (this.props.contents[i].pages) {
-        this.props.contents[i].pages.forEach((page) => {
-          let idx = this.props.document.findIndex(content => content.page === page)
-          pages.push(<Content content={this.props.document[idx]} page={page} key={page} {...this.props}/>);
-        })
+      for (let j = 0; j < this.props.contents[i].pages.length; j++) {
+        let page = this.props.contents[i].pages[j];
+        let idx = this.props.document.findIndex(content => content.page === page)
+        pages.push(<Content content={this.props.document[idx].content} page={page} key={page} {...this.props}/>);
       }
       
       document.push(

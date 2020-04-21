@@ -10,9 +10,9 @@ class Preview extends Component {
   componentDidMount() {
     if (this.props.view === "document") {
       let design = [];
-      this.props.design.forEach((d) => {
-        design.push(d.design);
-      })
+      for (let i = 0; i < this.props.design.length; i++) {
+        design.push(this.props.design[i].design);
+      }
       this.setState({
         preview: design
       })
@@ -27,15 +27,15 @@ class Preview extends Component {
     if (this.props.view === "canvas") {
       console.log(this.props.design);
       let design = [];
-      this.props.design.forEach((d) => {
+      for (let i = 0; i < this.props.design.length; i++) {
         design.push(
-          <div className={`preview_${d.page}`}>
-            <div className={`design_${d.page}`}>
-              {d.design}
+          <div className={`preview_${this.props.design[i].page}`}>
+            <div className={`design_${this.props.design[i].page}`}>
+              {this.props.design[i].design}
             </div>
           </div>
         );
-      })
+      }
       this.setState({
         preview: design
       })

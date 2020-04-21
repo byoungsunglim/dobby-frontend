@@ -8,7 +8,7 @@ import uuid from "uuid";
 
 import TextToolbar from "./TextToolbar.js";
 import tools from "./utils/tools.js";
-import { db , storage } from "./firebase.js";
+import { storage } from "./Firebase.js";
 import { orderList } from "./utils/orderList.js";
 import { ImageLoader } from "./utils/getLoader.js";
 
@@ -48,8 +48,8 @@ class Content extends Component {
   constructor(props) {
     super(props);
 
+    this.setTextToolbar = this.setTextToolbar.bind(this);
     this.setContent = this.setContent.bind(this);
-    // this.addContent = this.addContent.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
@@ -116,29 +116,39 @@ class Content extends Component {
         this.props.setDocument('update', this.props.page, {content: this.state.content});
       })
     }
-    // else {
-    //   for (let idx = 0; idx < this.props.content.length; idx++) {
-    //     content.push(this.addContent(data.content[idx].props.id, data.content[idx].props.placeholder, data[data.content[idx].props.id], data.content[idx].props.type, data.content[idx].props.disabled, null, true));
-    //   }
-    // }
-
-    // this.setState({
-    //   init: false,
-    //   content: content
-    // })
-  }
-
-  componentDidUpdate() {
-    console.log("content updated");
     this.orderContent();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log("contentDidUpdate");
+    if (prevState.content !== this.state.content || prevProps.content !== this.props.content) {
+      console.log("order list");
+      this.orderContent();
+    }
+  }
+
   shouldComponentUpdate(nextProps, nextState) {  
-    if (nextProps.content.length === this.props.content.length) {
+    if (this.state.content.length === this.props.content.length && this.state.showToolbar === nextState.showToolbar) {
       return false;
     }
-    console.log("should content update", nextProps.content.length, nextState.length, nextState.showToolbar, this.state.showToolbar)
+    console.log("should content update", this.state.content.length, this.props.content.length)
     return true;
+  }
+
+  setTextToolbar = () => {
+    this.setState({
+      showToolbar: this.state.showToolbar ? false : true
+    }, () => {
+      if (window.getSelection) {
+        if (window.getSelection().empty) {  // Chrome
+          window.getSelection().empty();
+        } else if (window.getSelection().removeAllRanges) {  // Firefox
+          window.getSelection().removeAllRanges();
+        }
+      } else if (document.selection) {  // IE?
+        document.selection.empty();
+      }
+    })
   }
 
   setContent = (handle, id, placeholder, html, type, disabled, insertAfter) => {
@@ -159,7 +169,9 @@ class Content extends Component {
               : body
           )
         }, () => {
-          this.props.setDocument('update', this.props.page, {content: this.state.content})
+          // console.log("new_body", new_body);
+          this.props.setDocument('update', this.props.page, {content: this.state.content});
+          this.forceUpdate();
         })
         break;
       case 'add':
@@ -181,7 +193,7 @@ class Content extends Component {
           this.props.setDocument('update', this.props.page, {content: this.state.content})
         })
         break;
-      default:     
+      default:
     }
   }
 
@@ -205,9 +217,16 @@ class Content extends Component {
   // }
 
   orderContent() {
-    for (let indent = 1; indent <= 6; indent++) {
-      orderList(document.querySelectorAll(`[class=list_item][indent="${indent}"]`), []);
-    }
+    // for (let num = 1; num <= 6; num++) {
+    //   let type = `h${num}`;
+    //   for (let indent = 1; indent <= 6; indent++) {
+    //     orderList(document.querySelectorAll(`[id^=body][type="${type}"] [class=list_item][indent="${indent}"]`), []);
+    //   }
+    //   // for (let indent = 1; indent <= 6; indent++) {
+    //   //   orderList(document.querySelectorAll(`[class=list_item][indent="${indent}"]`), []);
+    //   // }
+    // }
+    orderList(document.querySelectorAll("[id^=body] ol[class=list_item]"), [])
   }
 
   handleBlur = (e) => {
@@ -216,23 +235,6 @@ class Content extends Component {
     for (let i = 0; i < imgholders.length; i++) {
       imgholders[i].style.border = '';
     }
-    this.setState({
-      showToolbar: false,
-      cur_id: null,
-      x: 0,
-      y: 0,
-    })
-
-    // document.addEventListener('selectionchange', () => {
-    //   if(document.getSelection().toString().length === 0) {
-    //     this.setState({
-    //       showToolbar: false,
-    //       cur_id: null,
-    //       x: 0,
-    //       y: 0,
-    //     })
-    //   }
-    // });
   }
 
   handleChange = (e) => {
@@ -281,6 +283,7 @@ class Content extends Component {
   handleKeyDown = (e) => {
     const id = e.currentTarget.id;
     const target = e.currentTarget;
+    const type = target.getAttribute('type');
     const value = target.innerHTML;
     const idx = this.state.content.findIndex(body => body.id === id);
     const selection = window.getSelection();
@@ -301,26 +304,30 @@ class Content extends Component {
             }
             return;
           }
-          let div = target.cloneNode(true);
-          div.firstChild.key = new_id;
-          div.firstChild.firstChild.key = new_id;
-          div.firstChild.firstChild.id = `list_item_${uuid()}`;
-          div.firstChild.firstChild.innerHTML = "";
-          default_html = div.innerHTML;
+          // let div = target.cloneNode(true);
+          // div.firstChild.key = new_id;
+          // div.firstChild.firstChild.key = new_id;
+          // div.firstChild.firstChild.id = `list_item_${uuid()}`;
+          // div.firstChild.firstChild.innerHTML = "";
+          // default_html = div.innerHTML;
+
+          let item = React.createElement('li', {key: new_id, id: `list_item_${uuid()}`});
+          let list = React.createElement(target.firstChild.tagName.toLowerCase(), {key: new_id, className: "list_item", indent: target.firstChild.getAttribute('indent'), start: 1}, item);
+          default_html = ReactDOMServer.renderToStaticMarkup(list);
         }
 
         if (selection.anchorOffset === 0 && selection.focusOffset === 0) {
           // console.log("cursor front");
           if (idx === 0) {
-            this.setContent("add", new_id, "", default_html, target.getAttribute('type') === "h1" ? "h2" : target.getAttribute('type'), false, idx);
+            this.setContent("add", new_id, "", default_html, type === "h1" ? "h2" : type, false, idx);
           }
           else {
-            this.setContent("add", new_id, "", default_html, target.getAttribute('type'), false, idx - 1);
+            this.setContent("add", new_id, "", default_html, type, false, idx - 1);
           }
         }
         else {
           // console.log("cursor back");
-          this.setContent("add", new_id, "", default_html, target.getAttribute('type') === "h1" ? "h2" : target.getAttribute('type'), false, idx);
+          this.setContent("add", new_id, "", default_html, type === "h1" ? "h2" : type, false, idx);
         }
 
         this.forceUpdate();
@@ -335,24 +342,73 @@ class Content extends Component {
           else {
             target.firstChild.setAttribute('indent', Math.min(indent + 1, 6));
           }
+          this.orderContent();
         }
         else {
           if (e.shiftKey) {
-            document.execCommand('outdent');
+            target.setAttribute('type', 'h' + Math.max(parseInt(type.substring(1)) - 1, 1));
           }
           else {
-            document.execCommand('indent');
+            target.setAttribute('type', 'h' + Math.min(parseInt(type.substring(1)) + 1, 6));
+          }
+          this.forceUpdate();
+        }
+        break;
+      case ' ':
+        if (value === "-") {
+          e.preventDefault();
+          let item = React.createElement('li', {key: id, id: `list_item_${uuid()}`}, '');
+          let list = React.createElement('ul', {key: id, className: "list_item", indent: 1, start: 1}, item);
+          this.setContent('update', id, "",  ReactDOMServer.renderToStaticMarkup(list), type, false);
+        }
+        else if (value.endsWith(".")) {
+          if (/^\d+$/.test(value.substring(0, value.length - 1))) {
+            e.preventDefault();
+            let item = React.createElement('li', {key: id, id: `list_item_${uuid()}`}, '');
+            let list = React.createElement('ol', {key: id, className: "list_item", indent: 1, start: 1}, item);
+            this.setContent('update', id, "",  ReactDOMServer.renderToStaticMarkup(list), type, false);
           }
         }
         break;
       case 'Backspace':
-        if (idx > 0 && value.length === 0) {
+        if (idx > 0 && target.innerText.trim().length === 0) {
           e.preventDefault();
           this.setContent('remove', id);
           this.setEndOfContenteditable(target.parentNode.previousSibling.childNodes[1]);
         }
-        this.forceUpdate();
         break;
+      case 'Delete':
+        if (target.parentNode.nextSibling) {
+          if (target.parentNode.nextSibling.childNodes[1].innerText.trim() === 0) {
+            e.preventDefault();
+            this.setContent('remove', target.parentNode.nextSibling.childNodes[1].id);
+          }
+        }
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        try {
+          if (target.parentNode.previousSibling) {
+            target.parentNode.previousSibling.childNodes[1].focus();
+            this.setEndOfContenteditable(target.parentNode.previousSibling.childNodes[1]);
+          }
+        }
+        catch {
+
+        }
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        try {
+          if (target.parentNode.nextSibling) {
+            target.parentNode.nextSibling.childNodes[1].focus();
+            this.setEndOfContenteditable(target.parentNode.nextSibling.childNodes[1]);
+          }
+        }
+        catch {
+
+        }
+        break;  
       default:
     }
   }
@@ -368,31 +424,36 @@ class Content extends Component {
   }
 
   handleSelect = (e) => {
-    const selection = window.getSelection();
-    // console.log("selection", selection.toString());
-    const range = selection.getRangeAt(0);
-    const bodyRect = range.getBoundingClientRect();
-    // const refRect = e.target.getBoundingClientRect();
-    const x = `${bodyRect.right}px - 15%`;
-    const y = `${bodyRect.bottom}px`;
+    try {
+      const selection = window.getSelection();
+      // console.log("selection", selection.toString());
+      const range = selection.getRangeAt(0);
+      const bodyRect = range.getBoundingClientRect();
+      // const refRect = e.target.getBoundingClientRect();
+      const x = `${bodyRect.right}px - 15%`;
+      const y = `${bodyRect.bottom}px`;
 
-    if (selection.toString().length > 0) {
-      this.setState({
-        showToolbar: true,
-        cur_id: e.target.id,
-        x: x,
-        y: y,
-      })
+      if (selection.toString().length > 0) {
+        this.setState({
+          showToolbar: true,
+          cur_id: e.target.id,
+          x: x,
+          y: y,
+        })
+      }
+      else {
+        this.setState({
+          showToolbar: false,
+          cur_id: e.target.id,
+          x: x,
+          y: y,
+        })
+      }
     }
-    else {
-      this.setState({
-        showToolbar: false,
-        cur_id: e.target.id,
-        x: x,
-        y: y,
-      })
+    catch {
+      console.log("selection error")
     }
-    this.forceUpdate();
+    // this.forceUpdate();
   }
 
   setEndOfContenteditable = (contentEditableElement) => {
@@ -466,7 +527,7 @@ class Content extends Component {
               let body = document.createElement("div");
               div.appendChild(img);
               body.appendChild(div);
-              this.setContent('update', ref_id, null, body.innerHTML, "img", true);
+              this.setContent('update', ref_id, null, body.innerHTML, "img", true); //TODO: image doubleclick not working right after added
               this.forceUpdate();
             }.bind(this)
           }.bind(this))

@@ -8,7 +8,7 @@ import "./assets/css/Contents.css";
 
 class Contents extends Component {
   state = {
-    init: true,
+    cur_id: null,
     placeholder: ["배경", "본론", "결론"]
   };
 
@@ -24,9 +24,6 @@ class Contents extends Component {
         pages: [page]
       })
     }
-    this.setState({
-      init: false
-    })
   }
 
   componentDidUpdate() {
@@ -35,17 +32,18 @@ class Contents extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.init === false && nextProps.contents.length === this.props.contents.length) {
-      return false;
-    }
+    // if (nextProps.contents.length === this.props.contents.length) {
+    //   return false;
+    // }
     // console.log("should contents update", this.state.init, nextProps.contents.length, this.props.contents.length);
     return true;
   }
 
   orderContents() {
-    for (let indent = 1; indent <= 3; indent++) {
-      orderList(document.querySelectorAll(`[class=contents_item][indent="${indent}"]`), this.state.placeholder);
-    }
+    // for (let indent = 1; indent <= 3; indent++) {
+    //   orderList(document.querySelectorAll(`[class=contents_item][indent="${indent}"]`), this.state.placeholder);
+    // }
+    orderList(document.querySelectorAll("[class=contents_item]"), this.state.placeholder);
   }
 
   handleChange = (e) => {
@@ -71,6 +69,7 @@ class Contents extends Component {
 
     switch (e.key) {
       case "Enter":
+        e.preventDefault();
         if (idx !== 0 && value.length === 0 && parseInt(target.parentNode.getAttribute("indent")) > 1) {
           this.props.setContents('update', id, {
             indent: parseInt(target.parentNode.getAttribute("indent")) - 1
@@ -88,8 +87,16 @@ class Contents extends Component {
           };
           this.props.setDocument('add', new_page);
           this.props.setContents('set', null, this.props.contents.slice(0, idx+1).concat(new_item).concat(this.props.contents.slice(idx+1)));
+          this.setState({
+            cur_id: new_id
+          }, () => {
+            try {
+              document.getElementById(this.state.cur_id).firstChild.focus();
+            }
+            catch {
+            }
+          })
         }
-
         this.props.renderPages();
         break;
       case "Tab":
@@ -120,20 +127,66 @@ class Contents extends Component {
           }
           let pages = getPropById(id, 'pages', this.props.contents);
           if (pages) {
-            pages.forEach((page) => {
-              this.props.setDocument("remove", page, null);
-              this.props.setDesign("remove", page, null); //TODO: Integration with setContents
-            })
+            for (let i = 0; i < pages.length; i++) {
+              this.props.setDocument("remove", pages[i], null);
+              this.props.setDesign("remove", pages[i], null); //TODO: Integration with setContents
+            }
           }
           this.props.setContents("remove", id, );
         }
 
         this.props.renderPages();
         break;
+      case 'Delete':
+        if (target.parentNode.nextSibling) {
+          if (target.parentNode.nextSibling.firstChild.firstChild.value.length === 0) {
+            e.preventDefault();
+            console.log(target.parentNode.nextSibling.firstChild.id)
+            let pages = getPropById(target.parentNode.nextSibling.firstChild.id, 'pages', this.props.contents);
+            if (pages) {
+              for (let i = 0; i < pages.length; i++) {
+                this.props.setDocument("remove", pages[i], null);
+                this.props.setDesign("remove", pages[i], null); //TODO: Integration with setContents
+              }
+            }
+            this.props.setContents("remove", target.parentNode.nextSibling.firstChild.id, );
+          }
+        }
+
+        this.props.renderPages();
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        try {
+          if (target.parentNode.previousSibling) {
+            target.parentNode.previousSibling.firstChild.firstChild.focus();
+          }
+        }
+        catch {
+
+        }
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        try {
+          if (target.parentNode.nextSibling) {
+            target.parentNode.nextSibling.firstChild.firstChild.focus();
+          }
+        }
+        catch {
+
+        }
+        break;
       default:
         this.props.renderPages();
     }
   };
+
+  moveCaretAtEnd(e) {
+    var temp_value = e.target.value
+    e.target.value = ''
+    e.target.value = temp_value
+  }
 
   render() {
     return (
@@ -142,7 +195,7 @@ class Contents extends Component {
         {this.props.contents.map((item) => (
           <ol key={item.id} className={"contents_item"} indent={item.indent}>
             <li key={item.id} id={item.id}>
-              <input key={item.id} defaultValue={item.title} autoComplete="off" autoFocus></input>
+              <input key={item.id} defaultValue={item.title} autoComplete="off" onFocus={this.moveCaretAtEnd}></input>
             </li>
           </ol>
         ))}

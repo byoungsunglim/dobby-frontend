@@ -39,6 +39,7 @@ class Toolbar extends Component {
 
   handleStyle = (e, color) => {
     document.execCommand(e.currentTarget.id.split("_")[2], false, color);
+    this.props.setTextToolbar();
   }
 
   handleType = (e) => {
@@ -54,45 +55,61 @@ class Toolbar extends Component {
       target.setAttribute("type", e.currentTarget.id.split("_")[2]);
       this.props.setContent('update', this.props.cur_id, target.getAttribute('placeholder'), target.innerHTML, e.currentTarget.id.split("_")[2], false);
     }
+    this.props.setTextToolbar();
   };
 
   handleList = (e) => {
     // let idx = this.props.contents.findIndex(body => body.id === this.props.cur_id);
     const id = this.props.cur_id;
     const target = document.getElementById(id);
-    if (target.innerHTML.includes("<li>")) {
-      target.innerHTML = target.innerHTML.split("<li>")[1].split("</li>")[0];
+    const type = target.getAttribute('type');
+    const list_type = e.currentTarget.id.split("_")[2];
+
+    if (target.innerHTML.includes("</li>")) {
+      var new_html = target.innerHTML.split(">")[2].split("</li")[0];
+      if (target.innerHTML.includes(`</${list_type}>`)) {
+        this.props.setContent('update', this.props.cur_id, "", new_html, type, false);
+      }
+      else {
+        let div = document.createElement('div');
+        let list = document.createElement(list_type);
+        list.key = id;
+        list.className = "list_item";
+        list.setAttribute("indent", 1);
+        list.setAttribute("start", 1)
+        let item = document.createElement('li');
+        item.key = id;
+        item.id = `list_item_${uuid()}`
+        item.innerHTML = new_html;
+        list.appendChild(item);
+        div.appendChild(list);
+
+        this.props.setContent('update', this.props.cur_id, "", div.innerHTML, type, false);
+      }
     }
     else {
-      let prev_target = target.previousElementSibling;
-      const list_type = e.currentTarget.id.split("_")[2];
-      var list = document.createElement(list_type);
+      let div = document.createElement('div');
+      let list = document.createElement(list_type);
       list.key = id;
       list.className = "list_item";
-      list.setAttribute("indent", prev_target.getAttribute("indent") || 1);
-      list.setAttribute("start", prev_target.getAttribute("start") || 1)
-      var item = document.createElement('li');
+      list.setAttribute("indent", 1);
+      list.setAttribute("start", 1)
+      let item = document.createElement('li');
       item.key = id;
       item.id = `list_item_${uuid()}`
-      // var span = document.createElement('span');
       item.innerHTML = target.innerHTML;
-      // item.appendChild(span);
       list.appendChild(item);
-      target.setAttribute('type', 'p');
-      target.innerHTML = '';
-      target.appendChild(list);
-
-      this.props.setContent('update', this.props.cur_id, "", target.innerHTML, 'p', false);
+      div.appendChild(list);
+      
+      this.props.setContent('update', this.props.cur_id, "", div.innerHTML, type, false);
     }
-  }
 
-  handleBlur = (e) => {
-    console.log("blur")
+    this.props.setTextToolbar();
   }
 
   render() {
     return (
-      <div className="text_toolbar" style={{ left: `calc(${this.props.x})`, top: `calc(${this.props.y})`}} onBlur={(e) => this.handleBlur(e)}>
+      <div className="text_toolbar" style={{ left: `calc(${this.props.x})`, top: `calc(${this.props.y})`}}>
         <tools.Text id="text_tools_text" onClick={(e) => this.handleTooltip(e)}/>
         {this.state.text_tooltip}
         <tools.Highlight id="text_tools_hiliteColor" onClick={(e) => this.handleHighlight(e)}/>
