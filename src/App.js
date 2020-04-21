@@ -13,7 +13,10 @@ function App() {
     console.log(new Date(), cookies);
     let delta = new Date() - new Date(cookies.lastUpdate);
     if (cookies.authenticated && cookies.user && delta / 1000 < 86400) {
-      setCookie('authenticated', true);
+      const { nickname, profile_image, email } = cookies.user;
+      if (nickname.length > 0 && profile_image.length > 0 && email.length > 0) {
+        setCookie('authenticated', true);
+      }
     }
   }, [])
 
