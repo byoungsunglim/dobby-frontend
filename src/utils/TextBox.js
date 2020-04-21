@@ -21,6 +21,7 @@ class TextBox extends Component {
       target.style[styleName] = this.props.style[styleName];
     }
     textFit(document.getElementsByClassName('text'), this.state.config);
+    window.addEventListener('resize', this.onResize);
   }
 
   componentDidUpdate() {
@@ -136,6 +137,11 @@ class TextBox extends Component {
   //     disabled: false
   //   })
   // }
+
+  onResize = (e) => {
+    // console.log(window.innerWidth, window.innerHeight)
+    textFit(document.getElementsByClassName('text'), this.state.config);
+  }
 
   setEndOfContenteditable = (contentEditableElement) => {
     var range,selection;
