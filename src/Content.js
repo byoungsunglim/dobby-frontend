@@ -238,7 +238,7 @@ class Content extends Component {
   }
 
   handleChange = (e) => {
-    // console.log("haandleChange", e.currentTarget)
+    // console.log("handleChange", e.currentTarget)
     const id = e.currentTarget.id;
     const html = e.currentTarget.innerHTML;
     this.setState({
@@ -267,7 +267,7 @@ class Content extends Component {
     }
     if (e.target.className === "content") {
       if (this.state.content[this.state.content.length - 1].html.length > 0) {
-        this.setContent("add", "body_" + uuid(), "", "", this.state.content[this.state.content.length - 1].type || "h3", false, this.state.content.length - 1);
+        this.setContent("add", "body_" + uuid(), "", "", "h3", false, this.state.content.length - 1);
         this.forceUpdate();
       }
     }
@@ -347,11 +347,13 @@ class Content extends Component {
         else {
           if (e.shiftKey) {
             target.setAttribute('type', 'h' + Math.max(parseInt(type.substring(1)) - 1, 1));
+            this.setContent('update', id, "", value, 'h' + Math.max(parseInt(type.substring(1)) - 1, 1), false);
           }
           else {
             target.setAttribute('type', 'h' + Math.min(parseInt(type.substring(1)) + 1, 6));
+            this.setContent('update', id, "", value, 'h' + Math.min(parseInt(type.substring(1)) + 1, 6), false);
           }
-          this.forceUpdate();
+          // this.forceUpdate();
         }
         break;
       case ' ':
@@ -375,6 +377,10 @@ class Content extends Component {
           e.preventDefault();
           this.setContent('remove', id);
           this.setEndOfContenteditable(target.parentNode.previousSibling.childNodes[1]);
+        }
+        else if (value.includes("</li>") && selection.anchorOffset === 0 && selection.focusOffset === 0) {
+          e.preventDefault();
+          this.setContent('update', id, "", target.innerText.trim(), type, false);
         }
         break;
       case 'Delete':

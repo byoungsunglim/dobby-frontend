@@ -5,14 +5,69 @@ html {
 #navigation {
   position: absolute;
   width: 10%;
+  min-width: 100px;
   height: 100%;
 
   background-color: lightgrey;
 }
 
 .logo {
-    margin: 10%;
-    text-align: center;
-    height: 10%;
+  margin: 10%;
+  text-align: center;
+  height: 5%;
+}
+
+#newFileBtn {
+  margin-left: 10%;
+  width: 80%;
+  padding: 0;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  background-color: rgb(80, 80, 80);
+  color: white;
+}
+
+#allFilesBtn {
+  margin-top: 100px;
+  margin-left: 10%;
+  width: 80%;
+  padding: 0;
+  height: 50px;
+  border: none;
+  outline: none;
+  background-color:transparent;
+  color: black;
+  font-size: 14pt;
+  text-align: left;
+}
+
+#sharedFilesBtn {
+  margin-top: 10px;
+  margin-left: 10%;
+  width: 80%;
+  padding: 0;
+  height: 50px;
+  border: none;
+  outline: none;
+  background-color:transparent;
+  color: black;
+  font-size: 14pt;
+  text-align: left;
+}
+
+#importantFilesBtn {
+  margin-top: 10px;
+  margin-left: 10%;
+  width: 80%;
+  padding: 0;
+  height: 50px;
+  border: none;
+  outline: none;
+  background-color:transparent;
+  color: black;
+  font-size: 14pt;
+  text-align: left;
 }
 

@@ -10,7 +10,7 @@ function App() {
   const [user, setUser] = useState(cookies.user || null);
 
   useEffect(() => {
-    console.log(new Date(), cookies);
+    console.log(cookies);
     let delta = new Date() - new Date(cookies.lastUpdate);
     if (cookies.authenticated && cookies.user && delta / 1000 < 86400) {
       const { nickname, profile_image, email } = cookies.user;
