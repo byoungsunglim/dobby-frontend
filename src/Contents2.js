@@ -3,7 +3,7 @@ import parse from 'html-react-parser';
 import React, { Component } from "react";
 import uuid from "uuid";
 
-import TextToolbar from './TextToolbar.js';
+import TextToolbar from './TextToolbar';
 
 import "./assets/css/Contents.css";
 

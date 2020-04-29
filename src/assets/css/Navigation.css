@@ -3,11 +3,9 @@ html {
 }
 
 #navigation {
-  position: absolute;
-  width: 10%;
-  min-width: 100px;
+  /* position: absolute; */
+  width: var(--navigationWidth);
   height: 100%;
-
   background-color: lightgrey;
 }
 
@@ -18,15 +16,18 @@ html {
 }
 
 #newFileBtn {
-  margin-left: 10%;
+  /* margin-left: auto;
   width: 80%;
   padding: 0;
   height: 30px;
   border: none;
   border-radius: 5px;
   outline: none;
-  background-color: rgb(80, 80, 80);
-  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center; */
+  /* background-color: rgb(80, 80, 80); */
+  /* color: white; */
 }
 
 #allFilesBtn {
@@ -69,5 +70,82 @@ html {
   color: black;
   font-size: 14pt;
   text-align: left;
+}
+
+#newFileBtn {
+	--width: 100%;
+	--time: 0.7s;
+
+	position: relative;
+  display: inline-block;
+  margin: 20px;
+  width: 160px;
+  height: 30px;
+  /* line-height: 30px; */
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  /* text-align: center;
+  text-decoration: none; */
+
+	color: white;
+	background: rgb(80, 80, 80);
+	overflow: hidden;
+}
+
+#newFileBtn b {
+  position: relative;
+	z-index: 5;
+  transition: color var(--time);
+}
+
+#newFileBtn:hover b {
+	color: black;
+}
+
+#newFileBtn span {
+	border-radius: 100%;
+	position: absolute;
+	display: block;
+	content: "";
+	z-index: 0;
+	width: 0;
+	height: 0;
+
+	background: white;
+	transform: translate(-50%, -50%);
+	transition: width var(--time), padding-top var(--time);
+}
+
+#newFileBtn:hover span {
+	width: calc(var(--width) * 2.25);
+	padding-top: calc(var(--width) * 2.25);
+}
+
+#designBtn {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  width: 80%;
+  margin: 10%;
+  height: 50px;
+  font-size: 12pt;
+  background-color: grey;
+  border-radius: 10px;
+}
+
+#draftBtn {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  width: 80%;
+  margin: 10%;
+  height: 50px;
+  font-size: 12pt;
+  background-color: grey;
+  border-radius: 10px;
 }
 

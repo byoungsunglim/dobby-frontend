@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import uuid from "uuid";
 
-import tools from "./utils/tools.js";
+import tools from "./utils/tools";
 
 import "./assets/css/TextToolbar.css";
 

@@ -111,7 +111,7 @@ class TextBox extends Component {
     this.setState({
       html: html
     }, () => {
-      this.props.setDocument('update', this.props.page, {content: this.props.content.map(body => body.id === this.props.text.id ? {...body, html: html} : body)})
+      this.props.setDraft('update', this.props.page, {content: this.props.content.map(body => body.id === this.props.text.id ? {...body, html: html} : body)})
     })
     textFit(document.getElementsByClassName('text'), this.state.config);
   }

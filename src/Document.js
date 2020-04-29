@@ -1,64 +1,173 @@
 import React, { Component } from "react";
-import uuid from "uuid";
 
-import Content from './Content.js';
-import Contents from './Contents.js';
+import Navigation from "./Navigation";
+import Information from "./Information";
+import Draft from "./Draft";
+import Canvas from "./Canvas";
+import Toolbar from "./Toolbar";
+import { DocumentLoader, ImageLoader } from './utils/getLoader';
+import { makeCancelable } from './utils/makeCancelable';
 
 import "./assets/css/Document.css";
+import { queryDB } from "./utils/queryDB";
 
 class Document extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.renderPages = this.renderPages.bind(this);
+    this.setView = this.setView.bind(this);
+    this.setTitle = this.setTitle.bind(this);
+    this.setPage = this.setPage.bind(this);
+    this.setDraft = this.setDraft.bind(this);
+    this.setDesign = this.setDesign.bind(this);
+
+    this.state = {
+      view: "draft",
+      cur_page: "title",
+      draft: [
+        {
+          id: "title",
+          content: []
+        }
+      ],
+      design: [
+        {
+          id: "title",
+          design: []
+        }
+      ],
+      initialized: false,
+      updateDB: false
+    };
   }
-
-  state = {
-    document: [],
-  };
 
   componentDidMount() {
-    console.log("Document Mounted...")
-    if (this.props.document.length === 0) {
-      let page = `page_${uuid()}`;
-      this.props.setDocument('add', page);
-    }
-    this.renderPages();
-  }
-
-  renderPages() {
-    let document = [];
-
-    for (let i = 0; i < this.props.contents.length; i++) {
-      let pages = [];
-
-      for (let j = 0; j < this.props.contents[i].pages.length; j++) {
-        let page = this.props.contents[i].pages[j];
-        let idx = this.props.document.findIndex(content => content.page === page)
-        pages.push(<Content content={this.props.document[idx].content} page={page} key={page} {...this.props}/>);
-      }
-      
-      document.push(
-        <div className="content_block" key={`content_${i}`}>
-          <b id={`${this.props.contents[i].id}_title`}>{this.props.contents[i].title}</b>
-          {this.props.contents[i].title.length > 0 ? pages : null} 
-        </div>
-      )
-    }
-
-    this.setState({
-      document: document      
+    console.log("Document Mounted...");
+    this.queryDB = makeCancelable(queryDB('get', 'doc', this.props.match.params.id));
+    this.queryDB.promise.then((doc) => {
+      this.setState({
+        initialized: true,
+        ...doc
+      }, () => {
+        this.interval = setInterval(this.setDB, 3000);
+      })
     })
   }
+
+  componentWillUnmount() {
+    console.log("Document Unmounting...");
+    clearInterval(this.interval);
+    this.queryDB.cancel();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.title !== this.state.title || prevState.draft !== this.state.draft || prevState.design !== this.state.design) {
+      // console.log("Home updated...")
+      this.setState({
+        updateDB: true
+      })
+    }  
+  }
+
+  setDB = () => {
+    if (this.state.updateDB) {
+      queryDB("set", "doc", this.state.id, {
+        title: this.state.title,
+        draft: this.state.draft,
+        design: this.state.design,
+        updatedAt: new Date()
+      }).then(() => {
+        this.setState({
+          updateDB: false
+        })
+      })
+    }
+  }
+
+  setView = () => {
+    this.setState({
+      view: this.state.view === "draft" ? "canvas" : "draft"
+    });
+  };
+
+  setTitle = (title) => {
+    this.setState({
+      title: title
+    })
+  }
+
+  setPage = (cur_page) => {
+    this.setState({
+      cur_page: cur_page
+    });
+  };
+
+  setDraft = (handle, id, data) => {
+    // console.log(handle, id, data);
+    const { draft } = this.state;
+    switch (handle) {
+      case "update":
+        this.setState({
+          draft: draft.map(content =>
+            id === content.id ? { ...content, ...data } : content
+          )
+        });
+        break;
+      case "add":
+        this.setState({
+          draft: draft.concat({
+            id: id,
+            content: []
+          })
+        });
+        break;
+      case "remove":
+        this.setState({
+          draft: draft.filter(content => content.id !== id)
+        });
+        break;
+      case "set":
+      default:
+    }
+  };
+
+  setDesign = (handle, id, data) => {
+    const { design } = this.state;
+    switch (handle) {
+      case "update":
+        this.setState({
+          design: design.map(d => (id === d.id ? { ...d, ...data } : d))
+        });
+        break;
+      case "add":
+        this.setState({
+          design: design.concat({
+            id: id,
+            design: data
+          })
+        });
+        break;
+      case "remove":
+        this.setState({
+          design: design.filter(d => d.id !== id)
+        });
+        break;
+      case "set":
+      default:
+    }
+  };
 
   render() {
     return (
       <div id="document">
-        <div id="title">
-          <Content content={this.props.document[0].content} page={this.props.document[0].page} key={this.props.document[0].page} {...this.props}/>
-          <Contents {...this} {...this.props}/>
-        </div>
-        {this.state.document}
+        <Navigation view={this.state.view} setView={this.setView} />
+        {this.state.initialized ? 
+          (this.state.view === "draft" ? 
+            <Draft {...this} {...this.state} /> : <Canvas {...this} {...this.state} />)
+           : <DocumentLoader/>
+        }
+        <Information />
+        <Toolbar />
       </div>
     );
   }

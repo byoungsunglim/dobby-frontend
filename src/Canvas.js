@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getDesign } from './utils/getDesign.js';
+import { getDesign } from './utils/getDesign';
 
 import "./assets/css/Canvas.css";
 
@@ -9,7 +9,7 @@ class Canvas extends Component {
   }
   
   componentDidMount() {
-    let design = getDesign(this.props.cur_page, this.props.document[this.props.document.findIndex(content => content.page === this.props.cur_page)].content, this.props);
+    let design = getDesign(this.props);
     this.props.setDesign("update", this.props.cur_page, {design: design})
     this.setState({
       design: design
@@ -18,7 +18,7 @@ class Canvas extends Component {
 
   render() {
     return (
-        <div id="background-canvas" onClick={this.handleClick}>
+        <div id="backgroundCanvas" onClick={this.handleClick}>
             <div id="canvas">
                {this.state.design}
             </div>

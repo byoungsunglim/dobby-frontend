@@ -1,5 +1,5 @@
-import { getImageType } from "./getImageType.js";
-import { getFontSize } from "./getFontSize.js";
+import { getImageType } from "./getImageType";
+import { getFontSize } from "./getFontSize";
 
 export const getStyles = (page, title, imgs, blocks) => {
   if (page === "page_title") {

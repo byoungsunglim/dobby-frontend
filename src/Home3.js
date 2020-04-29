@@ -1,7 +1,7 @@
 import React, { Component, useState, useRef, useEffect } from "react";
 import { Textfit } from "react-textfit";
 
-import tools from "./assets/utils/tools.js";
+import tools from "./assets/utils/tools";
 
 import "./assets/css/Home.css";
 

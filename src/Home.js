@@ -1,63 +1,52 @@
 import React, { Component } from "react";
-import firebase from 'firebase/app';
-import { db } from "./Firebase.js";
-import Navigation from "./Navigation.js";
-import Information from "./Information.js";
-import uuid from "uuid";
+import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router-dom";
+
+import Navigation from "./Navigation";
+import Information from "./Information";
+import Documents from "./Documents";
 
 import "./assets/css/Home.css";
+import { queryDB } from "./utils/queryDB";
 
 class Home extends Component {
-  state = {
-    view: "home",
-    initialized: false,
-    drafts: []
+  constructor(props) {
+    super(props);
+
+    this.setView = this.setView.bind(this);
+
+    this.state = {
+      view: "home",
+      main: <Documents user={this.props.user} setView={this.setView}/>,
+    }
   }
 
-  componentDidMount() {
-    console.log("Home Mounted...", this.props.user);
-    var users = db.collection("users").doc(this.props.user.email);
-    users
-      .get()
-      .then((user) => {
-        if (user.exists) {
-          user.collection("drafts").get().then(function(querySnapshot) {
-            // if (querySnapshot.empty) {
-            //   users.collection("drafts").doc(uuid()).set({
-            //     createdAt : firebase.firestore.FieldValue.serverTimestamp()
-            //   })
-            // }
-            // else {
-              let drafts = [];
-              for (let doc of querySnapshot) {
-                let draft = doc.data();
-                draft.id = doc.id;
-                drafts.push(draft);
-              }
-              this.setState({
-                drafts: drafts
-              })
-              console.log("Drafts", drafts);
-            // }
-          })
-        } else {
-          users.set({
-            nickname: this.props.user.nickname,
-            profile_image: this.props.user.profile_image
-          })
-        }
-      })
-      .catch(function(error) {
-        console.log("Error getting user:", error);
-      })
+  setView = (view, doc_id) => {
+    switch (view) {
+      case 'home':
+        this.setState({
+          view: 'home',
+          main: <Documents user={this.props.user} setView={this.setView}/>
+        })
+        break;
+      // case 'doc':
+      //   const doc = doc_id ? queryDB("get", "doc", this.props.user.email, doc_id) : this.state.doc;
+      //   this.setState({
+      //     view: 'doc',
+      //     main: <Document doc={doc}/>
+      //   })
+      //   break;
+      default:
+    }
   }
 
   render() {
     return (
       <div id="home">
-        <Navigation view={this.state.view}/>
-        {this.state.drafts}
-        <Information />
+        <Navigation user={this.props.user} view={this.state.view} setView={this.setView}/>
+        <div id="main">
+          <Documents user={this.props.user} setView={this.setView}/>
+        </div>
+        <Information/>
       </div>
     );
   }

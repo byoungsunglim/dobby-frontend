@@ -1,5 +1,22 @@
-html {
+html, *{
+  --navigationWidth: 200px;
+  --informationWidth: 200px;
+  --mainWidth: calc(100% - var(--navigationWidth) - var(--informationWidth));
+  --minMainWidth: 720px;
+}
 
+@media (max-width: 1120px) {
+  #navigation {
+    display: none;
+  }
+
+  #information {
+    display: none;
+  }
+
+  #main {
+    width: 100% !important;
+  }
 }
 
 #home {
@@ -7,4 +24,15 @@ html {
   /* top: 10%; */
   width: 100%;
   height: 100%;
+  display: flex;
+  
 }
+
+#main {
+  /* position: absolute; */
+  left: 200px;
+  width: var(--mainWidth);
+  min-width: var(--minMainWidth);
+  height: 100%;
+}
+

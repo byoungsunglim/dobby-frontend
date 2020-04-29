@@ -2,7 +2,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import * as firebase from "firebase/app";
 
-export const GoogleLogin = async (login) => {
+export const GoogleLogin = (login) => new Promise(function(resolve, reject) {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase
   .auth()
@@ -16,6 +16,7 @@ export const GoogleLogin = async (login) => {
       email: result.user.email
     };
     login(user);
+    resolve(user);
     // ...
   })
   .catch(function(error) {
@@ -28,5 +29,5 @@ export const GoogleLogin = async (login) => {
     // var credential = error.credential;
     // // ...
   });
-};
+});
   

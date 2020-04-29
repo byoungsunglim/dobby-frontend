@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { getPropById } from './utils/getPropById.js';
+import { getPropById } from './utils/getPropById';
 
 import "./assets/css/Index.css";
 

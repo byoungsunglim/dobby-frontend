@@ -1,4 +1,4 @@
-export const KakaoLogin = async (login) => {
+export const KakaoLogin = (login) => new Promise(function(resolve, reject) {
   window.Kakao.init("345e316fada913303239e9e721168000");
   window.Kakao.Auth.login({
     success: function(authObj) {
@@ -12,6 +12,7 @@ export const KakaoLogin = async (login) => {
             email: result.kakao_account.email
           };
           login(user);
+          resolve(user);
         },
         fail: function(error) {
           alert(JSON.stringify(error));
@@ -22,4 +23,5 @@ export const KakaoLogin = async (login) => {
       alert(JSON.stringify(err));
     }
   });
-};
+})
+

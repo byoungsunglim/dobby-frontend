@@ -13,12 +13,10 @@ export const DocumentLoader = () => {
 		<ContentLoader
 			speed={5}
 			style={{
-				position: "absoulte",
-				marginLeft: "10%",
-				padding: "5%",
-				width: "70%",
-				height: "50%",
-				display: "inline-block"
+				position: "absolute",
+				top: "30px",
+				left: "250px",
+				width: "720px",
 			}}
 			viewBox="0 0 400 160"
 			backgroundColor="lightgrey"

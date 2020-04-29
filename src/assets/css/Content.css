@@ -3,7 +3,7 @@ html {
 }
 
 .content {
-  padding-bottom: 50px;
+  margin: 30px;
 }
 
 /* div[id^="contents"] {
@@ -35,6 +35,7 @@ div[id^='body'] {
   padding-left: calc(30px * var(--indent));
   font-size: var(--font-size);
   cursor: text;
+  user-select: true;
 }
 
 [contentEditable=true]:empty:not(:focus):before{

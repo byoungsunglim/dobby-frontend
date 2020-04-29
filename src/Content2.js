@@ -89,7 +89,7 @@ class Content extends Component {
 
     // let data = this.props.content;
     if (this.props.content.length === 0) {
-      if (this.props.page === "title") {
+      if (this.props.page === "page_title") {
         // content.push(this.addContent(null, "문서 제목을 적어볼까요?", "", "h1", false, null, true));
         content.push({
           id: "body_" + uuid(),
@@ -127,13 +127,13 @@ class Content extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {  
-    if (this.state.content.length === this.props.content.length && this.state.showToolbar === nextState.showToolbar) {
-      return false;
-    }
-    console.log("should content update", this.state.content.length, this.props.content.length)
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {  
+  //   if (this.state.content.length === this.props.content.length && this.state.showToolbar === nextState.showToolbar) {
+  //     return false;
+  //   }
+  //   console.log("should content update", this.state.content.length, this.props.content.length)
+  //   return true;
+  // }
 
   setTextToolbar = () => {
     this.setState({
@@ -435,7 +435,7 @@ class Content extends Component {
       const range = selection.getRangeAt(0);
       const bodyRect = range.getBoundingClientRect();
       // const refRect = e.target.getBoundingClientRect();
-      const x = `${bodyRect.right}px`;
+      const x = `${bodyRect.right}px - 15%`;
       const y = `${bodyRect.bottom}px`;
 
       if (selection.toString().length > 0) {

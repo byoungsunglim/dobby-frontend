@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import uuid from "uuid";
 
-import { getPropById } from "./utils/getPropById.js";
-import { orderList } from "./utils/orderList.js";
+import { getPropById } from "./utils/getPropById";
+import { orderList } from "./utils/orderList";
 
 import "./assets/css/Contents.css";
 
@@ -17,7 +17,7 @@ class Contents extends Component {
     if (this.props.contents.length === 0) {
       let id = `contents_item_${uuid()}`;
       let page = `page_${uuid()}`;
-      this.props.setDocument('add', page)
+      this.props.setDraft('add', page)
       this.props.setContents('add', id, {
         title: "",
         indent: "1",
@@ -85,7 +85,7 @@ class Contents extends Component {
             indent: target.parentNode.getAttribute("indent"),
             pages: [new_page]
           };
-          this.props.setDocument('add', new_page);
+          this.props.setDraft('add', new_page);
           this.props.setContents('set', null, this.props.contents.slice(0, idx+1).concat(new_item).concat(this.props.contents.slice(idx+1)));
           this.setState({
             cur_id: new_id
@@ -128,7 +128,7 @@ class Contents extends Component {
           let pages = getPropById(id, 'pages', this.props.contents);
           if (pages) {
             for (let i = 0; i < pages.length; i++) {
-              this.props.setDocument("remove", pages[i], null);
+              this.props.setDraft("remove", pages[i], null);
               this.props.setDesign("remove", pages[i], null); //TODO: Integration with setContents
             }
           }
@@ -145,7 +145,7 @@ class Contents extends Component {
             let pages = getPropById(target.parentNode.nextSibling.firstChild.id, 'pages', this.props.contents);
             if (pages) {
               for (let i = 0; i < pages.length; i++) {
-                this.props.setDocument("remove", pages[i], null);
+                this.props.setDraft("remove", pages[i], null);
                 this.props.setDesign("remove", pages[i], null); //TODO: Integration with setContents
               }
             }

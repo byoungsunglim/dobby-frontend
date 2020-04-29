@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import tools from "./utils/tools.js";
+import tools from "./utils/tools";
 
 import "./assets/css/Toolbar.css";
 

@@ -1,4 +1,4 @@
-import { getImageType } from "./getImageType.js";
+import { getImageType } from "./getImageType";
 
 export const getImageStyles = (imgs) => {
     let img_styles = [];

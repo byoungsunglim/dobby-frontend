@@ -2,24 +2,27 @@ import React from "react";
 import ContentEditable from "react-contenteditable";
 import { Textfit } from "react-textfit";
 
-import TextBox from "./TextBox.js";
-import { getLineBreak } from "./getLineBreak.js";
-import { parseContent } from "./parseContent.js";
-import { groupTexts } from "./groupTexts.js";
-import { getStyles } from "./getStyles.js";
-import { addLineBreak } from "./addLineBreak.js";
-import { getFontSize } from "./getFontSize.js";
-import { getTextHeights } from "./getTextHeight.js";
+import TextBox from "./TextBox";
+import { getLineBreak } from "./getLineBreak";
+import { parseContent } from "./parseContent";
+import { groupTexts } from "./groupTexts";
+import { getStyles } from "./getStyles";
+import { addLineBreak } from "./addLineBreak";
+import { getFontSize } from "./getFontSize";
+import { getTextHeights } from "./getTextHeight";
 
-export const getDesign = (page, content, props) => {
+export const getDesign = (props) => {
+  const { cur_page, draft, setDraft, setDesign } = props;
+  const content = draft[draft.findIndex(page => page.id === cur_page)];
+  console.log(content);
   var design = [];
-  var title = content[0];
-  var [imgs, texts, levels] = parseContent(content.slice(1));
-  var blocks = groupTexts(texts, levels); //TODO: division algorithm for more than 8 blocks 
-  console.log(title, imgs, blocks);
+  // var title = content[0];
+  // var [imgs, texts, levels] = parseContent(content.slice(1));
+  // var blocks = groupTexts(texts, levels); //TODO: division algorithm for more than 8 blocks 
+  // console.log(title, imgs, blocks);
   
   // if (page === "page_title") {
-    let styles = getStyles(page, title, imgs, blocks);
+    // let styles = getStyles(page, title, imgs, blocks);
     // console.log(styles);
 
     // for (let i = 0; i < imgs.length; i++) {

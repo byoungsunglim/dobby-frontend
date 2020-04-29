@@ -1,6 +1,6 @@
 import React from "react";
 
-import Login from "./Login.js";
+import Login from "./Login";
 import "./assets/css/Landing.css";
 
 function Landing({ login, logout }) {

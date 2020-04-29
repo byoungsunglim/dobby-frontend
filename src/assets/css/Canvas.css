@@ -1,24 +1,42 @@
-html {
+html, *{
+  --navigationWidth: 200px;
+  --informationWidth: 200px;
+  --mainWidth: calc(100% - var(--navigationWidth) - var(--informationWidth));
+  --minCanvasWidth: 720px;
+  --canvasRatio: 0.5625;
 }
 
-#background-canvas {
-  position: absolute;
-  left: 10%;
-  width: 70%;
+@media (max-width: 1120px) {
+  #backgroundCanvas {
+    width: 100% !important;
+  }
+
+  #canvas {
+    width: calc(100vw * 0.8) !important;
+    height: calc(100vw * 0.8 * var(--canvasRatio)) !important;
+  }
+}
+
+#backgroundCanvas {
+  /* position: absolute; */
+  left: var(--navigationWidth);
+  width: var(--mainWidth);
+  min-width: var(--minMainWidth);
   height: 100%;
   background-color: grey;
+  display: flex;
 }
 
 #canvas {
-  /* width: 80%; */
-  /* min-width: 40%; */
-  /* height: 45%; */
-  position: absolute;
+  /* position: absolute; */
   width: calc(70vw * 0.8);
-  height: calc(70vw * 0.8 * 0.5625);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: calc(70vw * 0.8 * var(--canvasRatio));
+  min-width: var(--minCanvasWidth);
+  min-height: calc(var(--minCanvasWidth) * var(--canvasRatio));
+  /* top: 50%;
+  left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  margin: auto;
   background: white;
 }
 

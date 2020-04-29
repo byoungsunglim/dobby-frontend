@@ -1,0 +1,20 @@
+#draft {
+  left: var(--navigationWidth);
+  width: var(--mainWidth);
+  min-width: var(--minMainWidth);
+  height: 100%;
+  background-color: white;
+}
+
+#draft #header {
+  margin: 20px;
+}
+
+#draft #header div {
+  min-width: 100px;
+  width: fit-content;
+}
+
+#draft #header span {
+  font-size: 8pt;
+}

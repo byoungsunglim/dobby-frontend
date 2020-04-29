@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import uuid from "uuid";
 
-import { getPropById } from "./utils/getPropById.js";
-import { orderList } from "./utils/orderList.js";
+import { getPropById } from "./utils/getPropById";
+import { orderList } from "./utils/orderList";
 
 import "./assets/css/Contents.css";
 
