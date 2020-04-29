@@ -7,10 +7,11 @@ export const KakaoLogin = (login) => new Promise(function(resolve, reject) {
         success: function(result) {
           console.log(JSON.stringify(result));
           var user = {
-            nickname: result.kakao_account.profile.nickname,
-            profile_image: result.kakao_account.profile.profile_image_url,
+            nickname: result.properties.nickname,
+            profile_image: result.properties.profile_image || "",
+            thumbnail_image: result.properties.thumbnail_image || "",
             email: result.kakao_account.email
-          };
+          }; //TODO: lack of info handling
           login(user);
           resolve(user);
         },

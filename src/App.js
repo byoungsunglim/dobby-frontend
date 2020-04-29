@@ -11,7 +11,7 @@ import { queryDB } from "./utils/queryDB";
 
 function App() {
   const [cookies, setCookie] = useCookies(['auth', 'user']);
-  const [auth, setAuth] = useState(cookies.auth);
+  const [auth, setAuth] = useState(cookies.user && cookies.auth);
   const [user, setUser] = useState(cookies.user);
 
   useEffect(() => {

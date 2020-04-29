@@ -12,9 +12,10 @@ export const GoogleLogin = (login) => new Promise(function(resolve, reject) {
     console.log(result);
     var user = {
       nickname: result.user.displayName,
-      profile_image: result.user.photoURL,
+      profile_image: result.user.photoURL || "",
+      thumbnail_image: result.user.photoURL || "",
       email: result.user.email
-    };
+    }; //TODO: lack of info handling
     login(user);
     resolve(user);
     // ...
