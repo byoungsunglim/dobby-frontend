@@ -13,6 +13,9 @@ class Navigation extends Component {
   handleClick(e) {
     console.log(e.currentTarget.id);
     switch (e.currentTarget.id) {
+      case 'logo':
+        this.props.history.push("/");
+        break;
       case "newFileBtn":
         queryDB('put', 'doc', this.props.user.email).then((doc_id) => {
           console.log(doc_id);
@@ -45,7 +48,7 @@ class Navigation extends Component {
   render() {
     return (
       <div id="navigation">
-        <div className="logo">
+        <div id="logo" onClick={(e) => this.handleClick(e)}>
           <b>Docgabi</b>
         </div>
         {this.navigations[this.props.view]}
