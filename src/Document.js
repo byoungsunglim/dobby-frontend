@@ -24,18 +24,8 @@ class Document extends Component {
     this.state = {
       view: "draft",
       cur_page: "title",
-      draft: [
-        {
-          id: "title",
-          content: []
-        }
-      ],
-      design: [
-        {
-          id: "title",
-          design: []
-        }
-      ],
+      draft: [],
+      design: [],
       initialized: false,
       updateDB: false
     };
@@ -106,27 +96,38 @@ class Document extends Component {
     // console.log(handle, id, data);
     const { draft } = this.state;
     switch (handle) {
-      case "update":
+      case 'update':
         this.setState({
-          draft: draft.map(content =>
-            id === content.id ? { ...content, ...data } : content
+          draft: this.state.draft.map(
+            content => content.id === id
+              ? {...content, ...data}
+              : content
           )
-        });
+        })
         break;
-      case "add":
+      case 'add':
+        // if (insertAfter !== -1) {
+        //   console.log("content insert")
+          
+        //   this.setState({
+        //     content: this.state.content.slice(0, insertAfter+1).concat(new_body).concat(this.state.content.slice(insertAfter+1))
+        //   }, () => {
+        //     document.getElementById(id).focus();
+        //     this.props.setDraft('update', this.props.page, {content: this.state.content})
+        //   }); //TODO: list type insert before removes list tag... debug needed
+        // }
+        // break;
+      case 'remove':
         this.setState({
-          draft: draft.concat({
-            id: id,
-            content: []
-          })
-        });
-        break;
-      case "remove":
-        this.setState({
-          draft: draft.filter(content => content.id !== id)
-        });
+          content: this.state.content.filter(body => body.id !== id)
+        }, () => {
+          this.props.setDraft('update', this.props.page, {content: this.state.content})
+        })
         break;
       case "set":
+        this.setState({
+          draft: data
+        })
       default:
     }
   };
