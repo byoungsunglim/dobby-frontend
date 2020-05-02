@@ -65,7 +65,7 @@ class Draft extends Component {
       result.destination.index
     );
 
-    this.orderContent(draft);
+    this.orderContent(draft, result.destination.index);
   }
 
   componentDidMount() {
@@ -120,8 +120,10 @@ class Draft extends Component {
 
   orderContent = (draft, idx) => {
     orderList(draft).then((data) => {
-      this.props.setDraft('set', null, data, idx);
-      this.forceUpdate();
+      this.props.setDraft('set', null, data);
+      this.forceUpdate(() => {
+        document.getElementById(this.props.draft[idx].id).focus();
+      });
     })
   }
 
@@ -238,8 +240,12 @@ class Draft extends Component {
       case ' ':
         if (value === "-") {
           e.preventDefault();
-          this.props.setDraft('update', id, {html: '', type: 'ul', indent: this.props.draft[Math.max(0, idx - 1)].indent || 1, start: null}, idx);
-          this.forceUpdate();
+          let draft = this.props.draft;
+          draft[idx].html = '';
+          draft[idx].type = 'ul';
+          draft[idx].indent = draft[Math.max(0, idx - 1)].indent || 1;
+          draft[idx].start = null;
+          this.orderContent(draft, idx);
         }
         else if (value.endsWith(".")) {
           if (/^\d+$/.test(value.substring(0, value.length - 1))) {
@@ -257,7 +263,13 @@ class Draft extends Component {
         break;
       case 'Backspace':
         console.log(idx);
-        if (idx > 0 && value.trim().length === 0) {
+        if (idx === 0 && value.trim().length === 0 && type !== 'h') {
+          this.props.setDraft('update', id, {type: 'h', indent: null, start: null});
+          this.forceUpdate(() => {
+            document.getElementById(this.props.draft[0].id).focus();
+          });
+        }
+        else if (idx > 0 && value.trim().length === 0) {
           e.preventDefault();
           let draft = this.props.draft;
           draft = draft.filter(content => content.id !== id)

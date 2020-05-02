@@ -60,17 +60,24 @@ class Toolbar extends Component {
   };
 
   handleList = (e) => {
-    const target = document.getElementById(this.props.cur_id);
-    const type = target.getAttribute('type');
+    const idx = this.props.draft.findIndex(content => content.id === this.props.cur_id);
+    const type = this.props.draft[idx].type;
     const new_type = e.currentTarget.id.split("_")[2]
 
     if (type === new_type) {
-      this.props.setDraft('update', this.props.cur_id, {type: 'h', indent: null, start: null})
+      let draft = this.props.draft;
+      draft[idx].type = 'h';
+      draft[idx].indent = null;
+      draft[idx].start = null;
+      this.props.orderContent(draft, idx);
     }
     else {
-      this.props.setDraft('update', this.props.cur_id, {type: new_type, indent: 1, start: 1})
+      let draft = this.props.draft;
+      draft[idx].type = new_type;
+      draft[idx].indent = this.props.draft[idx].indent || 1;
+      draft[idx].start = 1;
+      this.props.orderContent(draft, idx);
     }
-    
     this.props.setTextToolbar();
   }
 

@@ -103,35 +103,21 @@ class Document extends Component {
               ? {...content, ...data}
               : content
           )
-        }, () => {
-          if (idx) {
-            document.getElementById(this.state.draft[idx].id).focus();
-          }
         })
         break;
       case 'add':
         this.setState({
           draft: draft.slice(0, idx+1).concat(data).concat(draft.slice(idx+1))
-        }, () => {
-          document.getElementById(data.id).focus();
         });
         break;
       case 'remove':
         this.setState({
           draft: draft.filter(content => content.id !== id)
-        }, () => {
-          if (idx) {
-            document.getElementById(this.state.draft[idx].id).focus();
-          }
         })
         break;
       case "set":
         this.setState({
           draft: data
-        }, () => {
-          if (idx) {
-            document.getElementById(this.state.draft[idx].id).focus();
-          }
         })
       default:
     }

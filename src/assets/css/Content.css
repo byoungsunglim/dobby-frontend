@@ -31,14 +31,14 @@ html {
   display: inline-block;
 }
 
-[contentEditable=true]:empty:not(:focus):before{
+/* [contentEditable=true]:empty:not(:focus):before{
   content:attr(placeholder);
   color: gray;
 }
 
 [contentEditable=false]{
   cursor: default;
-}
+} */
 
 [data-rbd-drag-handle-draggable-id^='content'] {
   display: flex;
