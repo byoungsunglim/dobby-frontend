@@ -12,7 +12,7 @@ function Content({ content, ...props }) {
       );
     case 'ul':
       return (
-        <ul indent={content.indent}>
+        <ul indent={content.indent} level={content.level}>
           <li>
             <ContentEditable key={content.id} id={content.id} placeholder={content.placeholder} html={content.html} type={content.type} level={content.level} disabled={content.disabled} onChange={(e) => props.handleChange(e)} onFocus={(e) => props.handleFocus(e)} onKeyDown={(e) => props.handleKeyDown(e)} onPaste={(e) => props.handlePaste(e)} onSelect={(e) => props.handleSelect(e)}/>
           </li>
@@ -20,7 +20,7 @@ function Content({ content, ...props }) {
       );
     case 'ol':
       return (
-        <ol indent={content.indent} start={content.start}>
+        <ol indent={content.indent} level={content.level} start={content.start}>
           <li>
             <ContentEditable key={content.id} id={content.id} placeholder={content.placeholder} html={content.html} type={content.type} level={content.level} disabled={content.disabled} onChange={(e) => props.handleChange(e)} onFocus={(e) => props.handleFocus(e)} onKeyDown={(e) => props.handleKeyDown(e)} onPaste={(e) => props.handlePaste(e)} onSelect={(e) => props.handleSelect(e)}/>
           </li>

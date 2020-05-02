@@ -9,17 +9,17 @@ html {
 [level="5"]  { --indent: 4; --font-size: 12pt; }
 [level="6"]  { --indent: 5; --font-size: 12pt; }
 
-[indent="1"] { --indent: 0 ; --ultype: disc; --oltype: decimal;}
-[indent="2"] { --indent: 1; --ultype: circle; --oltype: lower-alpha;}
-[indent="3"] { --indent: 2; --ultype: square; --oltype: lower-roman;}
-[indent="4"] { --indent: 3; --ultype: disc; --oltype: decimal;}
-[indent="5"] { --indent: 4; --ultype: circle; --oltype: lower-alpha;}
-[indent="6"] { --indent: 5; --ultype: square; --oltype: lower-roman;}
+[indent="1"] { --listindent: 1; --ultype: disc; --oltype: decimal;}
+[indent="2"] { --listindent: 2; --ultype: circle; --oltype: lower-alpha;}
+[indent="3"] { --listindent: 3; --ultype: square; --oltype: lower-roman;}
+[indent="4"] { --listindent: 4; --ultype: disc; --oltype: decimal;}
+[indent="5"] { --listindent: 5; --ultype: circle; --oltype: lower-alpha;}
+[indent="6"] { --listindent: 6; --ultype: square; --oltype: lower-roman;}
 
 [id^='content'] {
-  /* width: calc(100% - var(--dragBtnWidth)); */
+  width: calc(100% - var(--dragBtnWidth));
   /* height: 10%; */
-  flex-grow: 1;
+  /* flex-grow: 1; */
   outline: none;
   border: none;
   line-height: 1.5em;
@@ -61,31 +61,32 @@ html {
 }
 
 ul {
-  width: 100%;
+  width: calc(100% - var(--dragBtnWidth));
   margin: 0;
   padding: 0;
   list-style-type: var(--ultype);
-  list-style-position: inside;
-  padding-left: calc(30px * var(--indent));
-  
+  list-style-position: outside;
+  padding-left: calc(30px * (var(--indent) + var(--listindent)));
+  font-size: calc(var(--font-size) - 4pt);
 }
 
 ol {
-  width: 100%;
+  width: calc(100% - var(--dragBtnWidth));
   margin: 0;
   padding: 0;
   list-style-type: var(--oltype);
-  list-style-position: inside;
-  padding-left: calc(30px * var(--indent));
+  list-style-position: outside;
+  padding-left: calc(30px * (var(--indent) + var(--listindent)));
+  font-size: calc(var(--font-size) - 4pt);
 }
 
-li {
-  /* display: flex; */
-}
-
-li div[id^="content"] {
+ul li div[id^="content"] {
   padding-left: 0;
-  /* width: calc(100% - 30px); */
+  vertical-align:middle;
+}
+
+ol li div[id^="content"] {
+  padding-left: 0;
 }
 
 .imgholder {

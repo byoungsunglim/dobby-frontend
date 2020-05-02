@@ -44,66 +44,33 @@ class Toolbar extends Component {
 
   handleType = (e) => {
     const target = document.getElementById(this.props.cur_id);
-    const type = target.getAttribute("type");
+    const level = target.getAttribute("level");
+    const new_level = e.currentTarget.id.substring(e.currentTarget.id.length - 1);
 
-    if (e.currentTarget.id === `text_tools_${type}`) {
-      target.setAttribute("type", "p");
-      this.props.setContent('update', this.props.cur_id, target.getAttribute('placeholder'), target.innerHTML, "p", false);
+    if (level === new_level) {
+      target.setAttribute('level', 4);
+      this.props.setDraft('update', this.props.cur_id, {level: 4});
     }
     else {
-      console.log(e.currentTarget.id.split("_")[2])
-      target.setAttribute("type", e.currentTarget.id.split("_")[2]);
-      this.props.setContent('update', this.props.cur_id, target.getAttribute('placeholder'), target.innerHTML, e.currentTarget.id.split("_")[2], false);
+      target.setAttribute('level', parseInt(new_level));
+      this.props.setDraft('update', this.props.cur_id, {level: parseInt(new_level)});
     }
+
     this.props.setTextToolbar();
   };
 
   handleList = (e) => {
-    // let idx = this.props.contents.findIndex(body => body.id === this.props.cur_id);
-    const id = this.props.cur_id;
-    const target = document.getElementById(id);
+    const target = document.getElementById(this.props.cur_id);
     const type = target.getAttribute('type');
-    const list_type = e.currentTarget.id.split("_")[2];
+    const new_type = e.currentTarget.id.split("_")[2]
 
-    if (target.innerHTML.includes("</li>")) {
-      var new_html = target.innerHTML.split(">")[2].split("</li")[0];
-      if (target.innerHTML.includes(`</${list_type}>`)) {
-        this.props.setContent('update', this.props.cur_id, "", new_html, type, false);
-      }
-      else {
-        let div = document.createElement('div');
-        let list = document.createElement(list_type);
-        list.key = id;
-        list.className = "list_item";
-        list.setAttribute("indent", 1);
-        list.setAttribute("start", 1)
-        let item = document.createElement('li');
-        item.key = id;
-        item.id = `list_item_${uuid()}`
-        item.innerHTML = new_html;
-        list.appendChild(item);
-        div.appendChild(list);
-
-        this.props.setContent('update', this.props.cur_id, "", div.innerHTML, type, false);
-      }
+    if (type === new_type) {
+      this.props.setDraft('update', this.props.cur_id, {type: 'h', indent: null, start: null})
     }
     else {
-      let div = document.createElement('div');
-      let list = document.createElement(list_type);
-      list.key = id;
-      list.className = "list_item";
-      list.setAttribute("indent", 1);
-      list.setAttribute("start", 1)
-      let item = document.createElement('li');
-      item.key = id;
-      item.id = `list_item_${uuid()}`
-      item.innerHTML = target.innerHTML;
-      list.appendChild(item);
-      div.appendChild(list);
-      
-      this.props.setContent('update', this.props.cur_id, "", div.innerHTML, type, false);
+      this.props.setDraft('update', this.props.cur_id, {type: new_type, indent: 1, start: 1})
     }
-
+    
     this.props.setTextToolbar();
   }
 

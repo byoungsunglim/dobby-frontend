@@ -103,6 +103,10 @@ class Document extends Component {
               ? {...content, ...data}
               : content
           )
+        }, () => {
+          if (idx) {
+            document.getElementById(this.state.draft[idx].id).focus();
+          }
         })
         break;
       case 'add':
@@ -116,12 +120,18 @@ class Document extends Component {
         this.setState({
           draft: draft.filter(content => content.id !== id)
         }, () => {
-          document.getElementById(draft[idx].id).focus();
+          if (idx) {
+            document.getElementById(this.state.draft[idx].id).focus();
+          }
         })
         break;
       case "set":
         this.setState({
           draft: data
+        }, () => {
+          if (idx) {
+            document.getElementById(this.state.draft[idx].id).focus();
+          }
         })
       default:
     }

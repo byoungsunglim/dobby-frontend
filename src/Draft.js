@@ -45,52 +45,27 @@ const getListStyle = isDraggingOver => ({
 });
 
 class Draft extends Component {
-  // constructor(props) {
-  //   super(props);
-
-  //   this.handleChange = this.handleChange.bind(this);
-  //   this.handleClick = this.handleClick.bind(this);
-  //   this.handleDoubleClick = this.handleDoubleClick.bind(this);
-  //   this.handleFocus = this.handleFocus.bind(this);
-  //   this.handleKeyDown = this.handleKeyDown.bind(this);
-  //   this.handleMouseOut = this.handleMouseOut.bind(this);
-  //   this.handleMouseOver = this.handleMouseOver.bind(this);
-  //   this.handlePaste = this.handlePaste.bind(this);
-  //   this.handleSelect = this.handleSelect.bind(this);
-  // }
-
   state = {
-    draft: [],
     showToolbar: false,
-    cur_id: null,
-    x: 0,
-    y: 0,
-    img_loader: <ImageLoader/>
   }
 
   handleChange = (e) => {
     this.props.setTitle(e.target.value);
   }
 
-  onDragEnd(result) {
-    console.log("onDragEnd")
-    // dropped outside the list
+  onDragEnd = (result) => {
+    // console.log("onDragEnd", result)
     if (!result.destination) {
       return;
     }
 
-    const content = reorder(
-      this.state.content,
+    let draft = reorder(
+      this.props.draft,
       result.source.index,
       result.destination.index
     );
 
-    this.setState({
-      content: content
-    }, () => {
-      this.props.setPage(this.props.page);
-      this.props.setDraft('update', this.props.page, {content: this.state.content});
-    });
+    this.orderContent(draft);
   }
 
   componentDidMount() {
@@ -110,10 +85,13 @@ class Draft extends Component {
     }
   } 
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log("Draft Did Update...");
-  //   this.orderContent();
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    // console.log("Draft Did Update...");
+    // orderList(this.props.draft).then((data) => {
+      // console.log(data);
+      // this.props.setDraft('set', null, data);
+    // })
+  }
 
   shouldComponentUpdate(nextProps, nextState) {  
     if (this.props.draft.length === nextProps.draft.length) {
@@ -125,7 +103,7 @@ class Draft extends Component {
 
   setTextToolbar = () => {
     this.setState({
-      showToolbar: this.state.showToolbar ? false : true
+      showToolbar: false
     }, () => {
       if (window.getSelection) {
         if (window.getSelection().empty) {  // Chrome
@@ -136,76 +114,15 @@ class Draft extends Component {
       } else if (document.selection) {  // IE?
         document.selection.empty();
       }
+      this.forceUpdate();
     })
   }
 
-  // setContent = (handle, id, placeholder, html, type, disabled, insertAfter) => {
-  //   let new_body = {
-  //     id: id,
-  //     placeholder: placeholder,
-  //     html: html,
-  //     type: type,
-  //     disabled: disabled
-  //   }
-
-  //   switch (handle) {
-  //     case 'update':
-  //       this.setState({
-  //         content: this.state.content.map(
-  //           body => body.id === id
-  //             ? new_body
-  //             : body
-  //         )
-  //       }, () => {
-  //         // console.log("new_body", new_body);
-  //         this.props.setDraft('update', this.props.page, {content: this.state.content});
-  //         this.forceUpdate();
-  //       })
-  //       break;
-  //     case 'add':
-  //       if (insertAfter !== -1) {
-  //         console.log("content insert")
-          
-  //         this.setState({
-  //           content: this.state.content.slice(0, insertAfter+1).concat(new_body).concat(this.state.content.slice(insertAfter+1))
-  //         }, () => {
-  //           document.getElementById(id).focus();
-  //           this.props.setDraft('update', this.props.page, {content: this.state.content})
-  //         }); //TODO: list type insert before removes list tag... debug needed
-  //       }
-  //       break;
-  //     case 'remove':
-  //       this.setState({
-  //         content: this.state.content.filter(body => body.id !== id)
-  //       }, () => {
-  //         this.props.setDraft('update', this.props.page, {content: this.state.content})
-  //       })
-  //       break;
-  //     default:
-  //   }
-  // }
-
-  // addContent = (id, placeholder, html, type, disabled, insertAfter) => {
-  //   const new_id = id || "body_" + uuid();
-  //   // const id = this.state.content.length;
-  //   let new_div = <ContentEditable id={new_id} key={new_id} placeholder={placeholder} html={html} type={type} disabled={disabled} onChange={(e) => this.handleChange(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)} onKeyDown={(e) => this.handleKeyDown(e)}/>;
-
-  //   if (insertAfter !== -1) {
-  //     console.log("content insert")
-  //     this.setState({
-  //       content: this.state.content.slice(0, insertAfter+1).concat(new_div).concat(this.state.content.slice(insertAfter+1))
-  //     }, () => {
-  //       document.getElementById(new_id).focus();
-  //       this.props.setDraft('update', this.props.page, {
-  //         [new_id]: html,
-  //         content: this.state.content
-  //       })
-  //     }); //TODO: list type insert before removes list tag... debug needed
-  //   }
-  // }
-
-  orderContent() {
-    orderList(document.querySelectorAll("[id^=body] ol[class=list_item]"), [])
+  orderContent = (draft, idx) => {
+    orderList(draft).then((data) => {
+      this.props.setDraft('set', null, data, idx);
+      this.forceUpdate();
+    })
   }
 
   handleChange = (e) => {
@@ -218,12 +135,6 @@ class Draft extends Component {
     if (e.target.tagName === "IMG") {
       e.target.parentNode.style.border = '2px solid blue';
       e.target.parentNode.style.borderRadius = '5px';
-    }
-    if (e.target.className === "content") {
-      if (this.state.content[this.state.content.length - 1].html.length > 0) {
-        this.setContent("add", "body_" + uuid(), "", "", "h3", false, this.state.content.length - 1);
-        this.forceUpdate();
-      }
     }
   }
 
@@ -241,7 +152,7 @@ class Draft extends Component {
 
   handleKeyDown = (e) => {
     const target = e.target;
-    const value = target.innerHTML;
+    const value = target.innerText;
     const idx = this.props.draft.findIndex(content => content.id === target.id);
     const { id, placeholder, html, type, level, indent, start, disabled } = this.props.draft[idx];
     const selection = window.getSelection();
@@ -249,29 +160,52 @@ class Draft extends Component {
     switch (e.key) {
       case 'Enter':
         e.preventDefault();
-        if (selection.anchorOffset === 0 && selection.focusOffset === 0 && idx > 1) {
-          this.props.setDraft("add", null, {
-            id: "content_" + uuid(),
-            placeholder: placeholder,
-            html: "",
-            type: type,
-            level: level,
-            indent: indent,
-            start: start,
-            disabled: disabled
-          }, idx - 1)
+        if (selection.anchorOffset === 0 && selection.focusOffset === 0) {
+          if (value.length === 0 && (type === 'ul' || type === 'ol')) {
+            if (indent > 1) {
+              let draft = this.props.draft;
+              draft[idx].indent = indent - 1;
+              this.orderContent(draft, idx);
+            }
+            else {
+              let draft = this.props.draft;
+              draft[idx].type = 'h';
+              draft[idx].indent = null;
+              draft[idx].start = null;
+
+              this.orderContent(draft, idx);
+            }
+          }
+          else {
+            let draft = this.props.draft;
+            draft = draft.slice(0, idx).concat({
+              id: "content_" + uuid(),
+              placeholder: "",
+              html: "",
+              type: type,
+              level: level,
+              indent: indent,
+              start: Math.max(1, start - 1),
+              disabled: disabled
+            }).concat(draft.slice(idx));
+
+            this.orderContent(draft, idx+1);
+          }
         }
         else {
-          this.props.setDraft("add", null, {
+          let draft = this.props.draft;
+          draft = draft.slice(0, idx+1).concat({
             id: "content_" + uuid(),
             placeholder: "",
             html: "",
             type: type,
-            level: Math.max(2, level),
+            level: level,
             indent: indent,
-            start: start,
+            start: start + 1,
             disabled: disabled
-          }, idx)
+          }).concat(draft.slice(idx+1));
+
+          this.orderContent(draft, idx+1);
         }
 
         break;
@@ -283,8 +217,9 @@ class Draft extends Component {
             this.props.setDraft('update', id, {level: Math.max(1, level - 1)});
           }
           else {
-            target.setAttribute("indent", Math.max(1, indent - 1))
-            this.props.setDraft('update', id, {indent: Math.max(1, indent - 1)});
+            let draft = this.props.draft;
+            draft[idx].indent = Math.max(1, indent - 1);
+            this.orderContent(draft, idx);
           }
         }
         else {
@@ -293,8 +228,9 @@ class Draft extends Component {
             this.props.setDraft('update', id, {level: Math.min(6, level + 1)});
           }
           else {
-            target.setAttribute("indent", Math.min(6, level + 1))
-            this.props.setDraft('update', id, {indent: Math.min(6, level + 1)});
+            let draft = this.props.draft;
+            draft[idx].indent = Math.min(6, indent + 1);
+            this.orderContent(draft, idx);
           }
         }
 
@@ -302,58 +238,53 @@ class Draft extends Component {
       case ' ':
         if (value === "-") {
           e.preventDefault();
-          this.props.setDraft('update', id, {html: '', type: 'ul', indent: this.props.draft[Math.max(0, idx - 1)].indent || 1, start: null});
+          this.props.setDraft('update', id, {html: '', type: 'ul', indent: this.props.draft[Math.max(0, idx - 1)].indent || 1, start: null}, idx);
+          this.forceUpdate();
         }
         else if (value.endsWith(".")) {
-          let start = value.substring(0, value.length - 1);
-          if (/^\d+$/.test(start)) {
+          if (/^\d+$/.test(value.substring(0, value.length - 1))) {
             e.preventDefault();
-            this.props.setDraft('update', id, {html: '', type: 'ol', indent: this.props.draft[Math.max(0, idx - 1)].indent || 1, start: start});
+            let draft = this.props.draft;
+            draft[idx].html = '';
+            draft[idx].type = 'ol';
+            draft[idx].indent = draft[Math.max(0, idx - 1)].indent || 1;
+            draft[idx].start = draft[Math.max(0, idx - 1)].start + 1 || 1;
+
+            this.orderContent(draft, idx);
           }
         }
-        this.forceUpdate();
+
         break;
       case 'Backspace':
-        if (idx > 0 && html.trim().length === 0) {
+        console.log(idx);
+        if (idx > 0 && value.trim().length === 0) {
           e.preventDefault();
-          this.props.setDraft('remove', id, null, idx - 1);
+          let draft = this.props.draft;
+          draft = draft.filter(content => content.id !== id)
+          this.orderContent(draft, idx-1)
         }
-        // else if (value.includes("</li>") && selection.anchorOffset === 0 && selection.focusOffset === 0) {
-        //   e.preventDefault();
-        //   // this.setContent('update', id, "", target.innerText.trim(), type, false);
-        // }
+
         break;
       case 'Delete':
-        if (target.parentNode.nextSibling) {
-          if (target.parentNode.nextSibling.childNodes[1].innerText.trim() === 0) {
-            e.preventDefault();
-            this.props.setDraft('remove', target.parentNode.nextSibling.childNodes[1].id);
+        // console.log(value.length, selection, selection.anchorOffset, selection.focusOffset)
+        if (value.length === selection.anchorOffset && value.length === selection.focusOffset) {
+          e.preventDefault();
+          if (this.props.draft[Math.min(this.props.draft.length - 1, idx +1)].html.length === 0) {
+            this.props.setDraft('remove', this.props.draft[Math.min(this.props.draft.length - 1, idx +1)].id, null, idx)
+          }
+          else {
+            this.props.setDraft('update', this.props.draft[Math.min(this.props.draft.length - 1, idx +1)].id, {html: this.props.draft[Math.min(this.props.draft.length - 1, idx +1)].html.substring(1)})
           }
         }
+        //TODO:need refininig
         break;
       case 'ArrowUp':
         e.preventDefault();
-        try {
-          if (target.parentNode.previousSibling) {
-            target.parentNode.previousSibling.childNodes[1].focus();
-            // this.setEndOfContenteditable(target.parentNode.previousSibling.childNodes[1]);
-          }
-        }
-        catch {
-
-        }
+        document.getElementById(this.props.draft[Math.max(0, idx - 1)].id).focus();
         break;
       case 'ArrowDown':
         e.preventDefault();
-        try {
-          if (target.parentNode.nextSibling) {
-            target.parentNode.nextSibling.childNodes[1].focus();
-            // this.setEndOfContenteditable(target.parentNode.nextSibling.childNodes[1]);
-          }
-        }
-        catch {
-
-        }
+        document.getElementById(this.props.draft[Math.min(this.props.draft.length - 1, idx + 1)].id).focus();
         break;  
       default:
     }
@@ -399,7 +330,7 @@ class Draft extends Component {
     catch {
       console.log("selection error")
     }
-    // this.forceUpdate();
+    this.forceUpdate();
   }
 
   setEndOfContenteditable = (contentEditableElement) => {
