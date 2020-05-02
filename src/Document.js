@@ -92,13 +92,13 @@ class Document extends Component {
     });
   };
 
-  setDraft = (handle, id, data) => {
+  setDraft = (handle, id, data, idx) => {
     // console.log(handle, id, data);
     const { draft } = this.state;
     switch (handle) {
       case 'update':
         this.setState({
-          draft: this.state.draft.map(
+          draft: draft.map(
             content => content.id === id
               ? {...content, ...data}
               : content
@@ -106,22 +106,17 @@ class Document extends Component {
         })
         break;
       case 'add':
-        // if (insertAfter !== -1) {
-        //   console.log("content insert")
-          
-        //   this.setState({
-        //     content: this.state.content.slice(0, insertAfter+1).concat(new_body).concat(this.state.content.slice(insertAfter+1))
-        //   }, () => {
-        //     document.getElementById(id).focus();
-        //     this.props.setDraft('update', this.props.page, {content: this.state.content})
-        //   }); //TODO: list type insert before removes list tag... debug needed
-        // }
-        // break;
+        this.setState({
+          draft: draft.slice(0, idx+1).concat(data).concat(draft.slice(idx+1))
+        }, () => {
+          document.getElementById(data.id).focus();
+        });
+        break;
       case 'remove':
         this.setState({
-          content: this.state.content.filter(body => body.id !== id)
+          draft: draft.filter(content => content.id !== id)
         }, () => {
-          this.props.setDraft('update', this.props.page, {content: this.state.content})
+          document.getElementById(draft[idx].id).focus();
         })
         break;
       case "set":

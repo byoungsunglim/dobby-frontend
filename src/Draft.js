@@ -6,6 +6,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ContentEditable from "react-contenteditable";
 import uuid from "uuid";
 
+import Content from "./Content";
 import TextToolbar from "./TextToolbar";
 import tools from "./utils/tools";
 import { storage } from "./utils/Firebase";
@@ -44,6 +45,20 @@ const getListStyle = isDraggingOver => ({
 });
 
 class Draft extends Component {
+  // constructor(props) {
+  //   super(props);
+
+  //   this.handleChange = this.handleChange.bind(this);
+  //   this.handleClick = this.handleClick.bind(this);
+  //   this.handleDoubleClick = this.handleDoubleClick.bind(this);
+  //   this.handleFocus = this.handleFocus.bind(this);
+  //   this.handleKeyDown = this.handleKeyDown.bind(this);
+  //   this.handleMouseOut = this.handleMouseOut.bind(this);
+  //   this.handleMouseOver = this.handleMouseOver.bind(this);
+  //   this.handlePaste = this.handlePaste.bind(this);
+  //   this.handleSelect = this.handleSelect.bind(this);
+  // }
+
   state = {
     draft: [],
     showToolbar: false,
@@ -86,19 +101,22 @@ class Draft extends Component {
         id: "content_" + uuid(),
         placeholder: "문서 제목을 적어볼까요?",
         html: "",
-        type: "h1",
+        type: "h",
+        level: 1,
+        indent: null,
+        start: null,
         disabled: false
       }]);
     }
   } 
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log("Draft Did Update...");
-    this.orderContent();
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log("Draft Did Update...");
+  //   this.orderContent();
+  // }
 
   shouldComponentUpdate(nextProps, nextState) {  
-    if (this.state.draft.length === this.props.draft.length) {
+    if (this.props.draft.length === nextProps.draft.length) {
       return false;
     }
 
@@ -216,143 +234,129 @@ class Draft extends Component {
     }
   }
 
+  handleFocus = (e) => {
+    // console.log("handleFocus", e.target);
+    this.setEndOfContenteditable(e.target);
+  }
+
   handleKeyDown = (e) => {
-    // const id = e.currentTarget.id;
-    // const target = e.currentTarget;
-    // const type = target.getAttribute('type');
-    // const value = target.innerHTML;
-    // const idx = this.state.content.findIndex(body => body.id === id);
-    // const selection = window.getSelection();
+    const target = e.target;
+    const value = target.innerHTML;
+    const idx = this.props.draft.findIndex(content => content.id === target.id);
+    const { id, placeholder, html, type, level, indent, start, disabled } = this.props.draft[idx];
+    const selection = window.getSelection();
 
-    // switch (e.key) {
-    //   case 'Enter':
-    //     e.preventDefault();
-    //     let new_id = `body_${uuid()}`;
-    //     let default_html = "";
-    //     if (value.includes("</li>")) {
-    //       if (target.firstChild.firstChild.innerHTML.length === 0) {
-    //         let indent = parseInt(target.firstChild.getAttribute('indent'));
-    //         if (indent > 1) {
-    //           target.firstChild.setAttribute('indent', indent - 1);
-    //         }
-    //         else {
-    //           target.innerHTML = "";
-    //         }
-    //         return;
-    //       }
-    //       // let div = target.cloneNode(true);
-    //       // div.firstChild.key = new_id;
-    //       // div.firstChild.firstChild.key = new_id;
-    //       // div.firstChild.firstChild.id = `list_item_${uuid()}`;
-    //       // div.firstChild.firstChild.innerHTML = "";
-    //       // default_html = div.innerHTML;
+    switch (e.key) {
+      case 'Enter':
+        e.preventDefault();
+        if (selection.anchorOffset === 0 && selection.focusOffset === 0 && idx > 1) {
+          this.props.setDraft("add", null, {
+            id: "content_" + uuid(),
+            placeholder: placeholder,
+            html: "",
+            type: type,
+            level: level,
+            indent: indent,
+            start: start,
+            disabled: disabled
+          }, idx - 1)
+        }
+        else {
+          this.props.setDraft("add", null, {
+            id: "content_" + uuid(),
+            placeholder: "",
+            html: "",
+            type: type,
+            level: Math.max(2, level),
+            indent: indent,
+            start: start,
+            disabled: disabled
+          }, idx)
+        }
 
-    //       let item = React.createElement('li', {key: new_id, id: `list_item_${uuid()}`});
-    //       let list = React.createElement(target.firstChild.tagName.toLowerCase(), {key: new_id, className: "list_item", indent: target.firstChild.getAttribute('indent'), start: 1}, item);
-    //       default_html = ReactDOMServer.renderToStaticMarkup(list);
-    //     }
+        break;
+      case 'Tab':
+        e.preventDefault();
+        if (e.shiftKey) {
+          if (type === 'h') {
+            target.setAttribute("level", Math.max(1, level - 1))
+            this.props.setDraft('update', id, {level: Math.max(1, level - 1)});
+          }
+          else {
+            target.setAttribute("indent", Math.max(1, indent - 1))
+            this.props.setDraft('update', id, {indent: Math.max(1, indent - 1)});
+          }
+        }
+        else {
+          if (type === 'h') {
+            target.setAttribute("level", Math.min(6, level + 1))
+            this.props.setDraft('update', id, {level: Math.min(6, level + 1)});
+          }
+          else {
+            target.setAttribute("indent", Math.min(6, level + 1))
+            this.props.setDraft('update', id, {indent: Math.min(6, level + 1)});
+          }
+        }
 
-    //     if (selection.anchorOffset === 0 && selection.focusOffset === 0) {
-    //       // console.log("cursor front");
-    //       if (idx === 0) {
-    //         this.setContent("add", new_id, "", default_html, type === "h1" ? "h2" : type, false, idx);
-    //       }
-    //       else {
-    //         this.setContent("add", new_id, "", default_html, type, false, idx - 1);
-    //       }
-    //     }
-    //     else {
-    //       // console.log("cursor back");
-    //       this.setContent("add", new_id, "", default_html, type === "h1" ? "h2" : type, false, idx);
-    //     }
+        break;
+      case ' ':
+        if (value === "-") {
+          e.preventDefault();
+          this.props.setDraft('update', id, {html: '', type: 'ul', indent: this.props.draft[Math.max(0, idx - 1)].indent || 1, start: null});
+        }
+        else if (value.endsWith(".")) {
+          let start = value.substring(0, value.length - 1);
+          if (/^\d+$/.test(start)) {
+            e.preventDefault();
+            this.props.setDraft('update', id, {html: '', type: 'ol', indent: this.props.draft[Math.max(0, idx - 1)].indent || 1, start: start});
+          }
+        }
+        this.forceUpdate();
+        break;
+      case 'Backspace':
+        if (idx > 0 && html.trim().length === 0) {
+          e.preventDefault();
+          this.props.setDraft('remove', id, null, idx - 1);
+        }
+        // else if (value.includes("</li>") && selection.anchorOffset === 0 && selection.focusOffset === 0) {
+        //   e.preventDefault();
+        //   // this.setContent('update', id, "", target.innerText.trim(), type, false);
+        // }
+        break;
+      case 'Delete':
+        if (target.parentNode.nextSibling) {
+          if (target.parentNode.nextSibling.childNodes[1].innerText.trim() === 0) {
+            e.preventDefault();
+            this.props.setDraft('remove', target.parentNode.nextSibling.childNodes[1].id);
+          }
+        }
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        try {
+          if (target.parentNode.previousSibling) {
+            target.parentNode.previousSibling.childNodes[1].focus();
+            // this.setEndOfContenteditable(target.parentNode.previousSibling.childNodes[1]);
+          }
+        }
+        catch {
 
-    //     this.forceUpdate();
-    //     break;
-    //   case 'Tab':
-    //     e.preventDefault();
-    //     if (value.includes("</li>")) {
-    //       let indent = parseInt(target.firstChild.getAttribute('indent'));
-    //       if (e.shiftKey) {
-    //         target.firstChild.setAttribute('indent', Math.max(indent - 1, 1));
-    //       }
-    //       else {
-    //         target.firstChild.setAttribute('indent', Math.min(indent + 1, 6));
-    //       }
-    //       this.orderContent();
-    //     }
-    //     else {
-    //       if (e.shiftKey) {
-    //         target.setAttribute('type', 'h' + Math.max(parseInt(type.substring(1)) - 1, 1));
-    //         this.setContent('update', id, "", value, 'h' + Math.max(parseInt(type.substring(1)) - 1, 1), false);
-    //       }
-    //       else {
-    //         target.setAttribute('type', 'h' + Math.min(parseInt(type.substring(1)) + 1, 6));
-    //         this.setContent('update', id, "", value, 'h' + Math.min(parseInt(type.substring(1)) + 1, 6), false);
-    //       }
-    //       // this.forceUpdate();
-    //     }
-    //     break;
-    //   case ' ':
-    //     if (value === "-") {
-    //       e.preventDefault();
-    //       let item = React.createElement('li', {key: id, id: `list_item_${uuid()}`}, '');
-    //       let list = React.createElement('ul', {key: id, className: "list_item", indent: 1, start: 1}, item);
-    //       this.setContent('update', id, "",  ReactDOMServer.renderToStaticMarkup(list), type, false);
-    //     }
-    //     else if (value.endsWith(".")) {
-    //       if (/^\d+$/.test(value.substring(0, value.length - 1))) {
-    //         e.preventDefault();
-    //         let item = React.createElement('li', {key: id, id: `list_item_${uuid()}`}, '');
-    //         let list = React.createElement('ol', {key: id, className: "list_item", indent: 1, start: 1}, item);
-    //         this.setContent('update', id, "",  ReactDOMServer.renderToStaticMarkup(list), type, false);
-    //       }
-    //     }
-    //     break;
-    //   case 'Backspace':
-    //     if (idx > 0 && target.innerText.trim().length === 0) {
-    //       e.preventDefault();
-    //       this.setContent('remove', id);
-    //       this.setEndOfContenteditable(target.parentNode.previousSibling.childNodes[1]);
-    //     }
-    //     else if (value.includes("</li>") && selection.anchorOffset === 0 && selection.focusOffset === 0) {
-    //       e.preventDefault();
-    //       this.setContent('update', id, "", target.innerText.trim(), type, false);
-    //     }
-    //     break;
-    //   case 'Delete':
-    //     if (target.parentNode.nextSibling) {
-    //       if (target.parentNode.nextSibling.childNodes[1].innerText.trim() === 0) {
-    //         e.preventDefault();
-    //         this.setContent('remove', target.parentNode.nextSibling.childNodes[1].id);
-    //       }
-    //     }
-    //     break;
-    //   case 'ArrowUp':
-    //     e.preventDefault();
-    //     try {
-    //       if (target.parentNode.previousSibling) {
-    //         target.parentNode.previousSibling.childNodes[1].focus();
-    //         this.setEndOfContenteditable(target.parentNode.previousSibling.childNodes[1]);
-    //       }
-    //     }
-    //     catch {
+        }
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        try {
+          if (target.parentNode.nextSibling) {
+            target.parentNode.nextSibling.childNodes[1].focus();
+            // this.setEndOfContenteditable(target.parentNode.nextSibling.childNodes[1]);
+          }
+        }
+        catch {
 
-    //     }
-    //     break;
-    //   case 'ArrowDown':
-    //     e.preventDefault();
-    //     try {
-    //       if (target.parentNode.nextSibling) {
-    //         target.parentNode.nextSibling.childNodes[1].focus();
-    //         this.setEndOfContenteditable(target.parentNode.nextSibling.childNodes[1]);
-    //       }
-    //     }
-    //     catch {
-
-    //     }
-    //     break;  
-    //   default:
-    // }
+        }
+        break;  
+      default:
+    }
   }
 
   handleMouseOver = (e) => {
@@ -506,7 +510,7 @@ class Draft extends Component {
                       <div className="dragBtn" style={{visibility: 'hidden'}}>
                         <tools.DragBtn id="dragBtn"/>
                       </div>
-                      <ContentEditable key={content.id} id={content.id} placeholder={content.placeholder} html={content.html} type={content.type} disabled={content.disabled} onChange={(e) => this.handleChange(e)} onKeyDown={(e) => this.handleKeyDown(e)} onPaste={(e) => this.handlePaste(e)} onSelect={(e) => this.handleSelect(e)}/>
+                      <Content content={content} {...this}/>
                     </div>
                   )}
                 </Draggable>
