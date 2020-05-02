@@ -32,13 +32,13 @@ export const DocumentLoader = () => {
 	)
 };
 
-export const ImageLoader = () => {
+export const ImageLoader = ({ loading }) => {
 	return (
     <FadeLoader
       css={override}
       size={100}
 			color={"gray"}
-			loading={true}
+			loading={loading}
     />
   );
 }

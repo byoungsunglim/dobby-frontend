@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 import ContentEditable from "react-contenteditable";
+import { ImageLoader } from "./utils/getLoader";
 
 import "./assets/css/Content.css";
 
 function Content({ content, ...props }) {
+  const [loading, setLoading] = useState(true);
+
   switch (content.type) {
     case 'h':
       return (
@@ -27,6 +30,24 @@ function Content({ content, ...props }) {
         </ol>
       );
     case 'img':
+      if (content.src) {
+        return (
+          <div key={content.id} id={content.id}>
+            <div className="imgholder">
+              <ImageLoader loading={loading}/>
+              <img style={{display: loading ? "none" : "block"}} src={content.src} width={content.width} height={content.height} onLoad={() => setLoading(false)}></img>
+            </div>
+          </div>
+        )
+      }
+      else {
+        return (
+          <div key={content.id} id={content.id}>
+            <ImageLoader loading={loading}/>
+          </div>
+        )
+      }
+      
     default:
   }
 }

@@ -13,8 +13,7 @@ import { getTextHeights } from "./getTextHeight";
 
 export const getDesign = (props) => {
   const { cur_page, draft, setDraft, setDesign } = props;
-  const content = draft[draft.findIndex(page => page.id === cur_page)];
-  console.log(content);
+  console.log(draft);
   var design = [];
   // var title = content[0];
   // var [imgs, texts, levels] = parseContent(content.slice(1));

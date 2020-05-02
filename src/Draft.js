@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import ReactDOMServer from 'react-dom/server';
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ContentEditable from "react-contenteditable";
@@ -9,9 +7,8 @@ import uuid from "uuid";
 import Content from "./Content";
 import TextToolbar from "./TextToolbar";
 import tools from "./utils/tools";
-import { storage } from "./utils/Firebase";
 import { orderList } from "./utils/orderList";
-import { ImageLoader } from "./utils/getLoader";
+import { queryDB } from "./utils/queryDB";
 
 import "./assets/css/Draft.css";
 
@@ -47,10 +44,6 @@ const getListStyle = isDraggingOver => ({
 class Draft extends Component {
   state = {
     showToolbar: false,
-  }
-
-  handleChange = (e) => {
-    this.props.setTitle(e.target.value);
   }
 
   onDragEnd = (result) => {
@@ -138,12 +131,22 @@ class Draft extends Component {
       e.target.parentNode.style.border = '2px solid blue';
       e.target.parentNode.style.borderRadius = '5px';
     }
+    else {
+      let holders = document.getElementsByClassName('imgholder');
+      for (let holder of holders) {
+        holder.style.border = 'none'
+      }
+    }
+
+    if ((window.getSelection().toString().length === 0 && this.state.showToolbar) || this.state.cur_id !== e.target.id) {
+      this.setTextToolbar();
+    }
   }
 
   handleDoubleClick = (e) => {
     // console.log("handleDoubleClick", e.target);
     if (e.target.tagName === "IMG") {
-      this.setContent('remove', e.target.parentNode.parentNode.id);
+      this.props.setDraft('remove', e.target.parentNode.parentNode.id);
     }
   }
 
@@ -367,10 +370,11 @@ class Draft extends Component {
 
   handlePaste = (e) => {
     e.preventDefault();
-    const id = e.currentTarget.id;
     const target = e.currentTarget;
-    const value = target.innerHTML;
-    const idx = this.state.content.findIndex(content => content.id === id);
+    const value = target.innerText;
+    const idx = this.props.draft.findIndex(content => content.id === target.id);
+    const { id, placeholder, html, type, level, indent, start, disabled } = this.props.draft[idx];
+    var ref_id = id;
     var items = e.clipboardData.items;
 
     if(items === undefined){
@@ -388,54 +392,59 @@ class Draft extends Component {
         if (items[i].type.indexOf("image") === -1) continue;
         // Retrieve image on clipboard as blob
         
-        var ref_id = id;
         if (value.length !== 0) {
-          ref_id = 'body_' + uuid();
-          this.setContent("add", ref_id, null, ReactDOMServer.renderToStaticMarkup(<ImageLoader/>), "img", true, idx);
-          this.forceUpdate();
+          ref_id = "content_" + uuid();
+          this.props.setDraft("add", null, {
+            id: ref_id,
+            placeholder: "",
+            html: "",
+            type: "img",
+            src: null,
+            width: null,
+            height: null,
+            level: level,
+            indent: indent,
+            start: start + 1,
+            disabled: true
+            
+          }, idx);
         }
         else {
-          ReactDOM.hydrate(<ImageLoader/>, target);
+          this.props.setDraft("update", id, {
+            placeholder: "",
+            html: "",
+            type: "img",
+            src: null,
+            width: null,
+            height: null,
+            level: level,
+            indent: indent,
+            start: start + 1,
+            disabled: true
+          });
         }
+        this.forceUpdate();
 
         var blob = items[i].getAsFile();
-        // eslint-disable-next-line no-loop-func
-        storage.child(`images/${uuid()}`).put(blob).then(function(snapshot) {
-          console.log('Uploaded a blob or file!');
-          snapshot.ref.getDownloadURL().then(function(downloadURL) { 
-            console.log('File available at', downloadURL);
-            let img = new Image;
-            img.id = 'img_' + uuid();
-            img.src = downloadURL;
-            img.onload = function() {
-              console.log("img loaded...");
-              img.setAttribute('width', img.width);
-              img.setAttribute('height', img.height);
-              let div = document.createElement("div");
-              div.className = 'imgholder'
-              let body = document.createElement("div");
-              div.appendChild(img);
-              body.appendChild(div);
-              this.setContent('update', ref_id, null, body.innerHTML, "img", true); //TODO: image doubleclick not working right after added
-              this.forceUpdate();
-            }.bind(this)
-          }.bind(this))
-        }.bind(this));
+        queryDB('put', 'img', this.props.owner, blob).then((img) => {
+          this.props.setDraft('update', ref_id, img);
+          this.forceUpdate();
+        })
       }
     }
   }
 
   render() {
     return (
-      <div id="draft">
+      <div id="draft" onClick={(e) => this.handleClick(e)} onDoubleClick={(e) => this.handleDoubleClick(e)}>
         <div id="header">
-          <ContentEditable placeholder="문서 제목" html={this.props.title} onChange={(e) => this.handleChange(e)} spellCheck={false}/>
+          <ContentEditable placeholder="문서 제목" html={this.props.title} onChange={(e) => this.props.setTitle(e.target.value)} spellCheck={false}/>
           <span>{this.props.updatedAt.toDate().toString().split(" ").slice(0, 5).join(" ")}</span>
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
-            <div className="content" {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)} onClick={(e) => this.handleClick(e)} onDoubleClick={(e) => this.handleDoubleClick(e)}>
+            <div className="content" {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
               {this.props.draft.map((content, index) => (
                 <Draggable key={content.id} draggableId={content.id} index={index}>
                   {(provided, snapshot) => (

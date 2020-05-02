@@ -1,4 +1,4 @@
-import { db } from "./Firebase";
+import { db, storage } from "./Firebase";
 
 export const queryDB = (handle, type, doc_id, data) => new Promise(function (resolve, reject) {
   switch (handle) {
@@ -63,6 +63,23 @@ export const queryDB = (handle, type, doc_id, data) => new Promise(function (res
         })
         .catch(function (error) {
           alert(error);
+        })
+      }
+      else if (type === "img") {
+        storage.child(`images/${doc_id}/${new Date()}`).put(data).then(function(snapshot) {
+          console.log('Uploaded Image!');
+          snapshot.ref.getDownloadURL().then(function(downloadURL) { 
+            console.log('File available at', downloadURL);
+            let img = new Image;
+            img.src = downloadURL;
+            img.onload = function() {
+              resolve({
+                src: downloadURL,
+                width: img.width,
+                height: img.height
+              })
+            }
+          })
         })
       }
       break;

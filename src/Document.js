@@ -23,7 +23,6 @@ class Document extends Component {
 
     this.state = {
       view: "draft",
-      cur_page: "title",
       draft: [],
       design: [],
       initialized: false,
