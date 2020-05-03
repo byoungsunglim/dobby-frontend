@@ -31,6 +31,10 @@ html {
   display: inline-block;
 }
 
+[contentEditable=true]:empty:not(:focus):before{
+  content: attr(placeholder);
+  color: grey;
+}
 
 [data-rbd-drag-handle-draggable-id^='content'] {
   display: flex;
