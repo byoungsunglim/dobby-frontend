@@ -9,7 +9,7 @@ html {
   background-color: lightgrey;
 }
 
-#logo {
+#navigation #logo {
   margin: 10%;
   text-align: center;
   height: 5%;

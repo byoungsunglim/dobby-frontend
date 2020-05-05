@@ -29,11 +29,13 @@ function Login({ login, logout }) {
 
   return (
     <div id="login">
-      <button id="kakao_login_btn" onClick={() => {handleLogin('kakao')}}>
-        <img className="login_btn" src={kakao_login_btn} alt="kakao_login_btn"></img>
+      <button className="login_btn" id="kakao_login_btn" onClick={() => {handleLogin('kakao')}}>
+        {/* <img className="login_btn" src={kakao_login_btn} alt="kakao_login_btn"></img> */}
+        카카오 로그인
       </button>
-      <button id="google_login_btn" onClick={() => {handleLogin('google')}}>
-        <img className="login_btn" src={google_login_btn} alt="google_login_btn"></img>
+      <button className="login_btn" id="google_login_btn" onClick={() => {handleLogin('google')}}>
+        {/* <img className="login_btn" src={google_login_btn} alt="google_login_btn"></img> */}
+        구글 로그인
       </button>
     </div>
   );
