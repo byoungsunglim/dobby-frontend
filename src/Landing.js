@@ -7,10 +7,10 @@ import "./assets/css/Landing.css";
 function Landing({ login, logout }) {
   return (
     <div id="landing">
+      <div id="logo">
+        <brand.Logo style={{width: '100%'}}/>
+      </div>
       <div id="intro">
-        <div id="logo">
-          <brand.Logo style={{width: '100%'}}/>
-        </div>
         <div className="msg">
           <div id="lead_msg">
             문서작업,<br/>

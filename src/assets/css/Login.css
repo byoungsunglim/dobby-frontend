@@ -3,21 +3,16 @@ html {
 }
 
 #login {
-  /* position: absolute; */
-  /* top: 50%; */
-  /* left: 50%; */
-  /* transform: translate(-50%, -50%); */
-  /* width: 30%; */
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 960px;
+  min-width: 720px;
 }
 
 .login_btn {
   width: 222px;
   height: 49px;
-  /* margin: auto; */
 }
 
 #kakao_login_btn {
@@ -38,6 +33,7 @@ html {
   border: none;
   background: none;
   /* width: 100%; */
+  background-color: white;
   color: #444;
   border-radius: 5px;
   border: thin solid #888;
