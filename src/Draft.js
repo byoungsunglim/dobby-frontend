@@ -97,18 +97,8 @@ class Draft extends Component {
   setTextToolbar = () => {
     this.setState({
       showToolbar: false
-    }, () => {
-      if (window.getSelection) {
-        if (window.getSelection().empty) {  // Chrome
-          window.getSelection().empty();
-        } else if (window.getSelection().removeAllRanges) {  // Firefox
-          window.getSelection().removeAllRanges();
-        }
-      } else if (document.selection) {  // IE?
-        document.selection.empty();
-      }
-      this.forceUpdate();
     })
+    this.forceUpdate();
   }
 
   orderContent = (draft, idx) => {
@@ -138,7 +128,7 @@ class Draft extends Component {
       }
     }
 
-    if ((window.getSelection().toString().length === 0 && this.state.showToolbar) || this.state.cur_id !== e.target.id) {
+    if (!e.target.id.startsWith("content")) {
       this.setTextToolbar();
     }
   }
