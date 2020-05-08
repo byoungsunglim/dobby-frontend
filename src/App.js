@@ -65,7 +65,7 @@ function App() {
           : <Landing login={login} logout={logout}/>}
         </Route>
         <Route exact path="/login">
-          <Login login={login} logout={logout}/>
+          <Landing login={login} logout={logout}/>
         </Route>
         <PrivateRoute path="/doc/:id" component={Document}>
         </PrivateRoute>

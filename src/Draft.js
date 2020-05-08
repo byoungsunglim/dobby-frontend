@@ -44,6 +44,9 @@ const getListStyle = isDraggingOver => ({
 class Draft extends Component {
   state = {
     showToolbar: false,
+    cur_id: null,
+    x: null,
+    y: null,
   }
 
   onDragEnd = (result) => {
@@ -128,7 +131,7 @@ class Draft extends Component {
       }
     }
 
-    if (!e.target.id.startsWith("content")) {
+    if (window.getSelection().toString().length === 0) {
       this.setTextToolbar();
     }
   }
@@ -143,6 +146,7 @@ class Draft extends Component {
   handleFocus = (e) => {
     // console.log("handleFocus", e.target);
     this.setEndOfContenteditable(e.target);
+    this.props.setCurId(e.target.id);
   }
 
   handleKeyDown = (e) => {
@@ -194,7 +198,7 @@ class Draft extends Component {
             placeholder: "",
             html: "",
             type: type,
-            level: level,
+            level: Math.max(level, 2),
             indent: indent,
             start: start + 1,
             disabled: disabled
@@ -255,7 +259,6 @@ class Draft extends Component {
 
         break;
       case 'Backspace':
-        console.log(idx);
         if (idx === 0 && value.trim().length === 0 && type !== 'h') {
           this.props.setDraft('update', id, {type: 'h', indent: null, start: null});
           this.forceUpdate(() => {
@@ -307,6 +310,7 @@ class Draft extends Component {
 
   handleSelect = (e) => {
     try {
+      const cur_id = e.target.id;
       const selection = window.getSelection();
       // console.log("selection", selection.toString());
       const range = selection.getRangeAt(0);
@@ -318,7 +322,7 @@ class Draft extends Component {
       if (selection.toString().length > 0) {
         this.setState({
           showToolbar: true,
-          cur_id: e.target.id,
+          cur_id: cur_id,
           x: x,
           y: y,
         })
@@ -326,11 +330,12 @@ class Draft extends Component {
       else {
         this.setState({
           showToolbar: false,
-          cur_id: e.target.id,
+          cur_id: cur_id,
           x: x,
           y: y,
         })
       }
+      this.props.setCurId(cur_id);
     }
     catch {
       console.log("selection error")

@@ -17,12 +17,13 @@ class Document extends Component {
 
     this.setView = this.setView.bind(this);
     this.setTitle = this.setTitle.bind(this);
-    this.setPage = this.setPage.bind(this);
+    this.setCurId = this.setCurId.bind(this);
     this.setDraft = this.setDraft.bind(this);
     this.setDesign = this.setDesign.bind(this);
 
     this.state = {
       view: "draft",
+      cur_id: null,
       draft: [],
       design: [],
       initialized: false,
@@ -85,9 +86,9 @@ class Document extends Component {
     })
   }
 
-  setPage = (cur_page) => {
+  setCurId = (id) => {
     this.setState({
-      cur_page: cur_page
+      cur_id: id
     });
   };
 
@@ -97,6 +98,7 @@ class Document extends Component {
     switch (handle) {
       case 'update':
         this.setState({
+          cur_id: id,
           draft: draft.map(
             content => content.id === id
               ? {...content, ...data}
