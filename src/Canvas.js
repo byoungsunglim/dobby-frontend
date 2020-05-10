@@ -12,8 +12,8 @@ class Canvas extends Component {
   }
   
   componentDidMount() {
-    const [contents, levels] = parseContents(this.props.draft, this.props.cur_id);
-    console.log(contents, levels);
+    const [contents, levels, counter] = parseContents(this.props.draft, this.props.cur_id);
+    console.log(contents, levels, counter);
     // const title = contents[0];
     // const blocks = parseBlocks(contents.slice(1));
     // console.log(blocks);
