@@ -8,20 +8,27 @@ import "./assets/css/Canvas.css";
 
 class Canvas extends Component {
   state = {
-    design: null
+    design: null,
   }
   
   componentDidMount() {
     const [contents, levels, counter] = parseContents(this.props.draft, this.props.cur_id);
     console.log(contents, levels, counter);
-    const title = contents[0];
-    const blocks = parseBlocks(contents.slice(1), 2);
+    const blocks = parseBlocks(contents, 2);
     console.log(blocks);
-    // let design = getDesign(this.props);
-    // this.props.setDesign("update", this.props.cur_page, {design: design})
-    // this.setState({
-    //   design: design
-    // })
+    let design = getDesign(blocks);
+    this.props.setDesign("update", this.props.cur_page, {design: design})
+    this.setState({
+      design: design
+    })
+    // document.getElementById('canvas').style.width = `${window.screen.width * 0.7 * 0.8}px`;
+    // document.getElementById('canvas').style.height = `${window.screen.width * 0.7 * 0.8 * 0.5625}px`;
+    window.addEventListener("resize", this.canvasResize);
+  }
+
+  canvasResize() {
+    console.log(window.screen.height, window.innerHeight, window.screen.width, window.innerWidth)
+    document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width})`;
   }
 
   render() {

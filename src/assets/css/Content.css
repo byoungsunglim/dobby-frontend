@@ -16,7 +16,7 @@ html {
 [indent="5"] { --listindent: 5; --ultype: circle; --oltype: lower-alpha;}
 [indent="6"] { --listindent: 6; --ultype: square; --oltype: lower-roman;}
 
-[id^='content'] {
+.content [id^='content'] {
   width: calc(100% - var(--dragBtnWidth));
   /* height: 10%; */
   /* flex-grow: 1; */
