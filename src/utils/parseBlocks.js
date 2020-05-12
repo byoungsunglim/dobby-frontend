@@ -1,20 +1,22 @@
-export const parseBlocks = (contents, levels, counter, parent_level) => {
-  var children = [];
+export const parseBlocks = (contents, level) => {
+  var blocks = [];
+  var block = [];
 
-  for (let i = 0; i < contents.length; i++) {
-    if (contents[i].level > parent_level) {
-      children.push(contents[i]);
+  for (let content of contents) {
+    if (content.level === level) {
+      if (block.length > 0) {
+        blocks.push(block);
+      }
+      block = [content];
     }
     else {
-      return {
-        parent: contents[i],
-        children: parseBlocks(contents.slice(i), levels, counter, contents[i].level)
-      }
+      block.push(content);
     }
   }
 
-  return {
-    parent: contents[0],
-    children: parseBlocks(children, levels, counter, contents[0].level)
+  if (block.length > 0) {
+    blocks.push(block);
   }
+
+  return blocks;
 }
