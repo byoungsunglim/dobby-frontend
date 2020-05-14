@@ -439,7 +439,7 @@ class Draft extends Component {
         <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
-            <div className="content" {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+            <div id="contents" {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
               {this.props.draft.map((content, index) => (
                 <Draggable key={content.id} draggableId={content.id} index={index}>
                   {(provided, snapshot) => (

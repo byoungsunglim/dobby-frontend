@@ -42,8 +42,17 @@ export const putStyle = (blocks) => {
 
 const title = [
   {
-    marginTop: '10px',
-    marginLeft: '10px'
+    marginTop: '20%',
+    marginLeft: '15%',
+    marginRight: '5%',
+    width: '40%',
+    maxHeight: '30%',
+    fontSize: '84pt',
+    overflow: 'hidden'
+  },
+  {
+    // width: '1080px',
+    margin: '50px'
   }
 ]
 
@@ -51,8 +60,12 @@ const style = [
   [
     [
       {
-        top: '10%',
-        left: '10%',
+        position: 'absolute',
+        top: '80%',
+        marginLeft: '15%',
+        marginRight: '5%',
+        width: '40%',
+        textAlign: 'right'
       }
     ], //블록 1개 컨텐트 1개
     [

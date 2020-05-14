@@ -21,18 +21,19 @@ class Canvas extends Component {
     this.setState({
       design: design
     })
-    document.getElementById('canvas').style.width = `${window.innerWidth * 0.7 * 0.8}px`;
-    document.getElementById('canvas').style.height = `${window.innerWidth * 0.7 * 0.8 * 0.5625}px`;
+    document.getElementById('canvas').style.width = `1920px`;
+    document.getElementById('canvas').style.height = `1080px`;
+    document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width * 0.5625})`;
     window.addEventListener("resize", this.canvasResize);
   }
 
   canvasResize() {
     console.log(window.screen.height, window.innerHeight, window.screen.width, window.innerWidth)
     if (window.innerWidth > 1120) {
-      document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width})`;
+      document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width * 0.5625})`;
     }
     else {
-      document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width * 1.5})`;
+      document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width * 0.7})`;
     }
   }
 

@@ -16,7 +16,7 @@ html {
 [indent="5"] { --listindent: 5; --ultype: circle; --oltype: lower-alpha;}
 [indent="6"] { --listindent: 6; --ultype: square; --oltype: lower-roman;}
 
-.content [id^='content'] {
+.content {
   width: calc(100% - var(--dragBtnWidth));
   /* height: 10%; */
   /* flex-grow: 1; */
@@ -107,14 +107,3 @@ img {
   display: block;
   cursor: default;
 }
-
-/* [id^='img_'] {
-  width: auto;
-  height: auto;
-  max-width: 320px;
-  max-height: 240px;
-  margin: auto;
-  display: block;
-  cursor: default;
-} */
-
