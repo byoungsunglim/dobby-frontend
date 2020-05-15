@@ -1,5 +1,5 @@
 export const parseBlocks = (contents, level) => {
-  var blocks = [contents[0]];
+  var blocks = [[contents[0]]];
   var block = [];
 
   for (let content of contents.slice(1)) {

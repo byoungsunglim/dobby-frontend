@@ -6,12 +6,12 @@ html, *{
   --canvasRatio: 0.5625;
 }
 
-#canvas [level="1"] { --font-size: 60pt; }
-#canvas [level="2"] { --font-size: 48pt; }
-#canvas [level="3"] { --font-size: 36pt; }
-#canvas [level="4"] { --font-size: 24pt; }
-#canvas [level="5"] { --font-size: 24pt; }
-#canvas [level="6"] { --font-size: 24pt; }
+[class="textbox"][level="1"] { --font-size: 60pt; }
+[class="textbox"][level="2"] { --font-size: 48pt; }
+[class="textbox"][level="3"] { --font-size: 36pt; }
+[class="textbox"][level="4"] { --font-size: 24pt; }
+[class="textbox"][level="5"] { --font-size: 24pt; }
+[class="textbox"][level="6"] { --font-size: 24pt; }
 
 @media (max-width: 1120px) {
   #backgroundCanvas {
@@ -45,7 +45,6 @@ html, *{
   overflow: hidden;
 }
 
-#canvas [id^="content"] {
-  /* position: absolute; */
+.textbox {
   font-size: var(--font-size);
 }

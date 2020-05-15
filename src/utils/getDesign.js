@@ -11,16 +11,15 @@ import { addLineBreak } from "./addLineBreak";
 import { getFontSize } from "./getFontSize";
 import { getTextHeights } from "./getTextHeight";
 
-export const getDesign = (blocks) => {
+export const getDesign = (blocks, props) => {
   var design = [];
   var blocks = getStyle(blocks);
   
-  design.push(<ContentEditable key={blocks[0].id} id={blocks[0].id} html={blocks[0].html} level={blocks[0].level} style={blocks[0].style}/>)
-  for (let block of blocks.slice(1)) {
+  for (let block of blocks) {
     let part = [];
     for (let content of block) {
       part.push(
-        <ContentEditable key={content.id} id={content.id} html={content.html} level={content.level} style={content.style}/>
+        <TextBox content={content} {...props}/>
       )
     }
     design.push(part);

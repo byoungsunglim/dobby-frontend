@@ -1,10 +1,10 @@
 export const getStyle = (blocks) => {
   if (blocks.length === 1) {
-    blocks[0].style = title[0];
+    blocks[0][0].style = title[0];
   }
   else if (blocks.length === 2) {
     if (blocks[1].length === 1) {
-      blocks[0].style = title[0];
+      blocks[0][0].style = title[0];
       blocks.slice(1).map((block, i) => {
         block.map((content, j) => {
           content.style = style[0][i][j];

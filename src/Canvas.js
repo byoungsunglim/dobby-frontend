@@ -16,7 +16,7 @@ class Canvas extends Component {
     console.log(contents, levels, counter);
     const blocks = parseBlocks(contents, 2);
     console.log(blocks);
-    let design = getDesign(blocks);
+    let design = getDesign(blocks, this.props);
     this.props.setDesign("update", this.props.cur_page, {design: design})
     this.setState({
       design: design

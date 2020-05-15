@@ -15,6 +15,9 @@ export const parseContents = (draft, id) => {
         contents = [content];
         levels = [content.level];
         counter[content.level - 1] += 1;
+        if (content.id === id || id === null) {
+          check = true;
+        }
       }
     }
     else {
