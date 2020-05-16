@@ -17,11 +17,6 @@ html, *{
   #backgroundCanvas {
     width: 100% !important;
   }
-
-  #canvas {
-    width: calc(100vw * 0.8) !important;
-    height: calc(100vw * 0.8 * var(--canvasRatio)) !important;
-  }
 }
 
 #backgroundCanvas {
@@ -32,18 +27,20 @@ html, *{
   height: 100%;
   background-color: grey;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #canvas {
   /* position: absolute; */
-  width: calc(70vw * 0.8);
-  height: calc(70vw * 0.8 * var(--canvasRatio));
-  min-width: var(--minCanvasWidth);
-  min-height: calc(var(--minCanvasWidth) * var(--canvasRatio));
+  /* width: calc(70vw * 0.9);
+  height: calc(70vw * 0.9 * var(--canvasRatio)); */
+  /* min-width: var(--minCanvasWidth);
+  min-height: calc(var(--minCanvasWidth) * var(--canvasRatio)); */
   /* top: 50%;
   left: 50%; */
   /* transform: translate(-50%, -50%); */
-  margin: auto;
+  flex-shrink: 0;
   background: white;
 }
 
