@@ -6,23 +6,28 @@ import TextBox from "./TextBox";
 import { getLineBreak } from "./getLineBreak";
 import { parseContent } from "./parseContent";
 import { groupTexts } from "./groupTexts";
-import { getStyle } from "./getStyle";
+import { getStyles } from "./getStyles";
 import { addLineBreak } from "./addLineBreak";
 import { getFontSize } from "./getFontSize";
 import { getTextHeights } from "./getTextHeight";
 
 export const getDesign = (blocks, props) => {
   var design = [];
-  var blocks = getStyle(blocks);
+  let styles = getStyles(blocks);
+  console.log(styles)
   
-  for (let block of blocks) {
+  for (let i = 0; i < blocks.length; i++) {
     let part = [];
-    for (let content of block) {
+    for (let content of blocks[i]) {
       part.push(
         <TextBox content={content} {...props}/>
       )
     }
-    design.push(part);
+    design.push(
+      <div className="block" style={styles[i]}>
+        {part}
+      </div>
+    );
   }
 
   return design;
