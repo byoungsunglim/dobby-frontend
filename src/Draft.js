@@ -259,18 +259,27 @@ class Draft extends Component {
 
         break;
       case 'Backspace':
-        if (idx === 0 && value.trim().length === 0 && type !== 'h') {
-          this.props.setDraft('update', id, {type: 'h', indent: null, start: null});
-          this.forceUpdate(() => {
-            document.getElementById(this.props.draft[0].id).focus();
-          });
-        }
-        else if (idx > 0 && value.trim().length === 0) {
-          e.preventDefault();
+        if (idx > 0) {
           let draft = this.props.draft;
-          draft = draft.filter(content => content.id !== id)
-          this.orderContent(draft, idx-1)
+          if (value.trim().length === 0) {
+            e.preventDefault();
+            draft = draft.filter(content => content.id !== id)
+            this.orderContent(draft, idx-1)
+          }
+          else if (selection.anchorOffset === 0 && selection.focusOffset === 0) {
+            if (draft[idx].type === 'ul' || draft[idx].type === 'ol') {
+              e.preventDefault();
+              draft[idx].type = 'h';
+              this.orderContent(draft, Math.max(0, idx-1));
+            }
+            else {
+              draft[idx - 1].html += draft[idx].html;
+              draft = draft.filter(content => content.id !== id);
+              this.orderContent(draft, idx-1);
+            }
+          }
         }
+        
 
         break;
       case 'Delete':
