@@ -34,25 +34,12 @@ function ContentBox({ content, ...props }) {
         </ol>
       );
     case 'img':
-      if (content.src) {
-        return (
-          <div key={content.id} id={content.id}>
-            <div className="imgholder">
-              <ImageLoader loading={loading}/>
-              <img style={{display: loading ? "none" : "block"}} src={content.src} width={content.width} height={content.height} onLoad={() => setLoading(false)}></img>
-            </div>
-          </div>
-        )
-      }
-      else {
-        return (
-          <div key={content.id} id={content.id}>
-            <ImageLoader loading={loading}/>
-          </div>
-        )
-      }
-      
-    default:
+      return (
+        <div className="imgholder">
+          <ImageLoader loading={loading}/>
+          <img style={{display: loading ? "none" : "block"}} src={content.src} width={content.width} height={content.height} onLoad={() => setLoading(false)}></img>
+        </div>
+      )
   }
 }
 
