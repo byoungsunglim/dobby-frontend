@@ -6,12 +6,12 @@ html, *{
   --canvasRatio: 0.5625;
 }
 
-[class="textbox"][level="1"] { --font-size: 60pt; }
-[class="textbox"][level="2"] { --font-size: 48pt; }
-[class="textbox"][level="3"] { --font-size: 36pt; }
-[class="textbox"][level="4"] { --font-size: 24pt; }
-[class="textbox"][level="5"] { --font-size: 24pt; }
-[class="textbox"][level="6"] { --font-size: 24pt; }
+[class="contentbox"][level="1"] { --font-size: 60pt; }
+[class="contentbox"][level="2"] { --font-size: 48pt; }
+[class="contentbox"][level="3"] { --font-size: 36pt; }
+[class="contentbox"][level="4"] { --font-size: 24pt; }
+[class="contentbox"][level="5"] { --font-size: 24pt; }
+[class="contentbox"][level="6"] { --font-size: 24pt; }
 
 @media (max-width: 1120px) {
   #backgroundCanvas {
@@ -45,6 +45,7 @@ html, *{
   overflow: hidden;
 }
 
-.textbox {
+.contentbox {
+  /* position: absolute; */
   font-size: var(--font-size);
 }

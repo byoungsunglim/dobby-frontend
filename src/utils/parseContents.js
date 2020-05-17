@@ -5,7 +5,7 @@ export const parseContents = (draft, id) => {
   var check = false;
 
   for(let content of draft) {
-    if (content.html.length === 0) continue;
+    if (content.html.length === 0 && content.type !== "img") continue;
     
     if (content.level === 1) {
       if (check) {

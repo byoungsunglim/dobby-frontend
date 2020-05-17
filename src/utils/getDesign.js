@@ -2,7 +2,8 @@ import React from "react";
 import ContentEditable from "react-contenteditable";
 import { Textfit } from "react-textfit";
 
-import TextBox from "./TextBox";
+import Content from "../Content";
+import ContentBox from "./ContentBox";
 import { getLineBreak } from "./getLineBreak";
 import { parseContent } from "./parseContent";
 import { groupTexts } from "./groupTexts";
@@ -15,12 +16,12 @@ export const getDesign = (blocks, props) => {
   var design = [];
   let styles = getStyles(blocks);
   console.log(styles)
-  
+
   for (let i = 0; i < blocks.length; i++) {
     let part = [];
     for (let content of blocks[i]) {
       part.push(
-        <TextBox content={content} {...props}/>
+        <ContentBox content={content} {...props}/>
       )
     }
     design.push(

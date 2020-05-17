@@ -28,7 +28,7 @@ class Canvas extends Component {
   }
 
   canvasResize() {
-    console.log(window.screen.height, window.innerHeight, window.screen.width, window.innerWidth)
+    // console.log(window.screen.height, window.innerHeight, window.screen.width, window.innerWidth)
     if (window.innerWidth > 1120) {
       document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width * 0.5625})`;
     }

@@ -12,7 +12,6 @@ export const getStyles = (blocks) => {
   }
   else {
     let diffDepth = diff(blocks.slice(1));
-    console.log(diffDepth);
     if (diffDepth > 4) {
       return styles[blocks.length - 1][0];
     }
