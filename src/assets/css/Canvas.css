@@ -21,9 +21,9 @@ html, *{
 
 #backgroundCanvas {
   /* position: absolute; */
-  left: var(--navigationWidth);
-  width: var(--mainWidth);
-  min-width: var(--minMainWidth);
+  /* left: var(--navigationWidth); */
+  width: 50%;
+  /* min-width: var(--minMainWidth); */
   height: 100%;
   background-color: grey;
   display: flex;
@@ -40,9 +40,9 @@ html, *{
   /* top: 50%;
   left: 50%; */
   /* transform: translate(-50%, -50%); */
-  flex-shrink: 0;
-  background: white;
-  overflow: hidden;
+  width: 50%;
+  height: 100%;
+  display: flex;
 }
 
 .contentbox {

@@ -38,10 +38,10 @@ class Navigation extends Component {
       <button key="importantFilesBtn" id="importantFilesBtn" onClick={(e) => this.handleClick(e)}><b>중요한 파일</b></button>
     ],
     draft: [
-      <button key="designBtn" id="designBtn" onClick={() => this.props.setView()}>DESIGN</button>
+      // <button key="designBtn" id="designBtn" onClick={() => this.props.setView()}>DESIGN</button>
     ],
     canvas: [
-      <button key="draftBtn" id="draftBtn" onClick={() => this.props.setView()}>DRAFT</button>
+      // <button key="draftBtn" id="draftBtn" onClick={() => this.props.setView()}>DRAFT</button>
     ]
   }
 

@@ -1,7 +1,7 @@
 #draft {
-  left: var(--navigationWidth);
-  width: var(--mainWidth);
-  min-width: var(--minMainWidth);
+  /* left: var(--navigationWidth); */
+  width: 50%;
+  /* min-width: var(--minMainWidth); */
   height: 100%;
   background-color: white;
 }

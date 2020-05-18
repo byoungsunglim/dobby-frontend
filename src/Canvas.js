@@ -12,19 +12,19 @@ class Canvas extends Component {
   }
   
   componentDidMount() {
-    const [contents, levels, counter] = parseContents(this.props.draft, this.props.cur_id);
-    console.log(contents, levels, counter);
-    const blocks = parseBlocks(contents, 2);
-    console.log(blocks);
-    let design = getDesign(blocks, this.props);
-    this.props.setDesign("update", this.props.cur_page, {design: design})
-    this.setState({
-      design: design
-    })
-    document.getElementById('canvas').style.width = `1920px`;
-    document.getElementById('canvas').style.height = `1080px`;
-    document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width * 0.5625})`;
-    window.addEventListener("resize", this.canvasResize);
+    // const [contents, levels, counter] = parseContents(this.props.draft, this.props.cur_id);
+    // console.log(contents, levels, counter);
+    // const blocks = parseBlocks(contents, 2);
+    // console.log(blocks);
+    // let design = getDesign(blocks, this.props);
+    // this.props.setDesign("update", this.props.cur_page, {design: design})
+    // this.setState({
+    //   design: design
+    // })
+    // document.getElementById('canvas').style.width = `1920px`;
+    // document.getElementById('canvas').style.height = `1080px`;
+    // document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width * 0.5625})`;
+    // window.addEventListener("resize", this.canvasResize);
   }
 
   canvasResize() {
@@ -39,11 +39,9 @@ class Canvas extends Component {
 
   render() {
     return (
-        <div id="backgroundCanvas" onClick={this.handleClick}>
-            <div id="canvas">
-               {this.state.design}
-            </div>
-        </div>
+      <div id="canvas">
+          {this.state.design}
+      </div>
     );
   }
 }

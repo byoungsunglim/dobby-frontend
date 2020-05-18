@@ -1,0 +1,15 @@
+#resizer {
+  width: 5px;
+  height: 100%;
+  background-color: grey;
+}
+
+#resizer #handle {
+  width: 5px;
+  height: 10px;
+  background-color: blue;
+}
+
+#resizer:hover {
+  cursor: col-resize;
+}

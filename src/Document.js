@@ -4,6 +4,7 @@ import Navigation from "./Navigation";
 import Information from "./Information";
 import Draft from "./Draft";
 import Canvas from "./Canvas";
+import Resizer from "./Resizer";
 import Toolbar from "./Toolbar";
 import { DocumentLoader, ImageLoader } from './utils/getLoader';
 import { makeCancelable } from './utils/makeCancelable';
@@ -150,16 +151,22 @@ class Document extends Component {
     }
   };
 
+  setResizer = (x) => {
+    this.setState({
+      resizer_pos: x
+    })
+  }
+
   render() {
     return (
       <div id="document">
         <Navigation view={this.state.view} setView={this.setView} />
-        {this.state.initialized ? 
-          (this.state.view === "draft" ? 
-            <Draft {...this} {...this.state} /> : <Canvas {...this} {...this.state} />)
-           : <DocumentLoader/>
+        {this.state.initialized ? [
+          <Draft {...this} {...this.state} />,
+          <Resizer/>,
+          <Canvas {...this} {...this.state} />
+        ]: <DocumentLoader/>
         }
-        <Information />
         <Toolbar />
       </div>
     );
