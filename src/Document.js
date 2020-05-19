@@ -83,27 +83,30 @@ class Document extends Component {
     switch (handle) {
       case 'update':
         this.setState({
-          cur_id: id,
           draft: draft.map(
             content => content.id === id
               ? {...content, ...data}
               : content
-          )
+          ),
+          updateDB: true
         })
         break;
       case 'add':
         this.setState({
-          draft: draft.slice(0, idx+1).concat(data).concat(draft.slice(idx+1))
+          draft: draft.slice(0, idx+1).concat(data).concat(draft.slice(idx+1)),
+          updateDB: true
         });
         break;
       case 'remove':
         this.setState({
-          draft: draft.filter(content => content.id !== id)
+          draft: draft.filter(content => content.id !== id),
+          updateDB: true
         })
         break;
       case "set":
         this.setState({
-          draft: data
+          draft: data,
+          updateDB: true
         })
       default:
     }

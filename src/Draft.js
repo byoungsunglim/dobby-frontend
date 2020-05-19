@@ -345,7 +345,6 @@ class Draft extends Component {
           y: y,
         })
       }
-      this.props.setCurId(cur_id);
     }
     catch {
       console.log("selection error")
