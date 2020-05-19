@@ -15,7 +15,7 @@ import { getTextHeights } from "./getTextHeight";
 export const getDesign = (blocks, props) => {
   var design = [];
   let styles = getStyles(blocks);
-  console.log(styles)
+  // console.log(styles)
 
   for (let i = 0; i < blocks.length; i++) {
     let part = [];

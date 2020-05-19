@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Navigation from "./Navigation";
 import Information from "./Information";
 import Draft from "./Draft";
-import Canvas from "./Canvas";
+import Design from "./Design";
 import Resizer from "./Resizer";
 import Toolbar from "./Toolbar";
 import { DocumentLoader, ImageLoader } from './utils/getLoader';
@@ -24,7 +24,6 @@ class Document extends Component {
 
     this.state = {
       view: "draft",
-      cur_id: null,
       draft: [],
       design: [],
       initialized: false,
@@ -151,12 +150,6 @@ class Document extends Component {
     }
   };
 
-  setResizer = (x) => {
-    this.setState({
-      resizer_pos: x
-    })
-  }
-
   render() {
     return (
       <div id="document">
@@ -164,7 +157,7 @@ class Document extends Component {
         {this.state.initialized ? [
           <Draft {...this} {...this.state} />,
           <Resizer/>,
-          <Canvas {...this} {...this.state} />
+          <Design {...this} {...this.state} />
         ]: <DocumentLoader/>
         }
         <Toolbar />

@@ -3,10 +3,10 @@ html {
 }
 
 #navigation {
-  /* position: absolute; */
-  width: var(--navigationWidth);
+  width: 200px;
   height: 100%;
   background-color: lightgrey;
+  flex-shrink: 0;
 }
 
 #navigation #logo {
@@ -14,21 +14,6 @@ html {
   text-align: center;
   height: 5%;
   user-select: none;
-}
-
-#newFileBtn {
-  /* margin-left: auto;
-  width: 80%;
-  padding: 0;
-  height: 30px;
-  border: none;
-  border-radius: 5px;
-  outline: none;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center; */
-  /* background-color: rgb(80, 80, 80); */
-  /* color: white; */
 }
 
 #allFilesBtn {

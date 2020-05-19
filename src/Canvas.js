@@ -6,41 +6,19 @@ import { getDesign } from './utils/getDesign';
 
 import "./assets/css/Canvas.css";
 
-class Canvas extends Component {
-  state = {
-    design: null,
-  }
-  
+class Canvas extends Component {  
   componentDidMount() {
-    // const [contents, levels, counter] = parseContents(this.props.draft, this.props.cur_id);
-    // console.log(contents, levels, counter);
-    // const blocks = parseBlocks(contents, 2);
-    // console.log(blocks);
-    // let design = getDesign(blocks, this.props);
-    // this.props.setDesign("update", this.props.cur_page, {design: design})
-    // this.setState({
-    //   design: design
-    // })
-    // document.getElementById('canvas').style.width = `1920px`;
-    // document.getElementById('canvas').style.height = `1080px`;
-    // document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width * 0.5625})`;
-    // window.addEventListener("resize", this.canvasResize);
-  }
-
-  canvasResize() {
-    // console.log(window.screen.height, window.innerHeight, window.screen.width, window.innerWidth)
-    if (window.innerWidth > 1120) {
-      document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width * 0.5625})`;
-    }
-    else {
-      document.getElementById('canvas').style.transform = `scale(${window.innerWidth / window.screen.width * 0.7})`;
-    }
+    console.log("Canvas Mounted...")
   }
 
   render() {
+    const width = 1920;
+    const height = width * 0.5625;
+    const scale = document.getElementById("design").clientWidth / 1920;
+
     return (
-      <div id="canvas">
-          {this.state.design}
+      <div className="canvas" style={{width: width, height: height, transform: `scale(${scale})`, transformOrigin: 'top left'}}>
+          {this.props.design}
       </div>
     );
   }

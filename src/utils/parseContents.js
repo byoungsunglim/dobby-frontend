@@ -1,34 +1,24 @@
-export const parseContents = (draft, id) => {
+export const parseContents = (draft) => {
   var contents = [];
-  var levels = [];
-  var counter = [0,0,0,0,0];
-  var check = false;
+  var page = [];
 
   for(let content of draft) {
     if (content.html.length === 0 && content.type !== "img") continue;
     
     if (content.level === 1) {
-      if (check) {
-        return [contents, levels, counter];
+      if (page.length > 0) {
+        contents.push(page);
       }
-      else {
-        contents = [content];
-        levels = [content.level];
-        counter[content.level - 1] += 1;
-        if (content.id === id || id === null) {
-          check = true;
-        }
-      }
+      page = [content];
     }
     else {
-      contents.push(content);
-      levels.push(content.level);
-      counter[content.level - 1] += 1;
-      if (content.id === id || id === null) {
-        check = true;
-      }
+      page.push(content);
     }
   }
+  
+  if (page.length > 0) {
+    contents.push(page);
+  }
 
-  return [contents, levels, counter];
+  return contents;
 }

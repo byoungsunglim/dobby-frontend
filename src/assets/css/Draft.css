@@ -1,9 +1,8 @@
 #draft {
-  /* left: var(--navigationWidth); */
   width: 50%;
-  /* min-width: var(--minMainWidth); */
   height: 100%;
   background-color: white;
+  overflow: hidden;
 }
 
 #draft #header {
