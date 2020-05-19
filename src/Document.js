@@ -5,7 +5,6 @@ import Information from "./Information";
 import Draft from "./Draft";
 import Design from "./Design";
 import Resizer from "./Resizer";
-import Toolbar from "./Toolbar";
 import { DocumentLoader, ImageLoader } from './utils/getLoader';
 import { makeCancelable } from './utils/makeCancelable';
 
@@ -160,7 +159,6 @@ class Document extends Component {
           <Design {...this} {...this.state} />
         ]: <DocumentLoader/>
         }
-        <Toolbar />
       </div>
     );
   }

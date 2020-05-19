@@ -9,9 +9,15 @@
   margin: 20px;
 }
 
-#draft #header div {
-  min-width: 100px;
+#draft #header {
+  min-width: 200px;
   width: fit-content;
+}
+
+#draft #footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #draft #header span {

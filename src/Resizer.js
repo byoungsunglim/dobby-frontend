@@ -17,7 +17,18 @@ function Resizer({}) {
       document.querySelectorAll("[class=canvas]").forEach((node) => {
         node.style.transform = `scale(${(window_width - e.pageX) / 1920})`;
       });
-      
+    }
+
+    if (e.pageX - navigation_width < 200) {
+      document.getElementById("toolbar").style.visibility = 'hidden';
+    }
+    else if (e.pageX - navigation_width < 500) {
+      document.getElementById("toolbar").style.visibility = 'visible';
+      document.getElementById("toolbar").style.width = '150px';
+    }
+    else {
+      document.getElementById("toolbar").style.visibility = 'visible';
+      document.getElementById("toolbar").style.width = '450px';
     }
   }
 

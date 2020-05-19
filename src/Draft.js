@@ -6,6 +6,8 @@ import uuid from "uuid";
 
 import Content from "./Content";
 import TextToolbar from "./TextToolbar";
+import Toolbar from "./Toolbar";
+
 import tools from "./utils/tools";
 import { orderList } from "./utils/orderList";
 import { queryDB } from "./utils/queryDB";
@@ -446,37 +448,40 @@ class Draft extends Component {
           <span>{this.props.updatedAt.toDate().toString().split(" ").slice(0, 5).join(" ")}</span>
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <div id="contents" {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-              {this.props.draft.map((content, index) => (
-                <Draggable key={content.id} draggableId={content.id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
-                    )}
-                    onMouseOver={(e) => this.handleMouseOver(e)}
-                    onMouseOut={(e) => this.handleMouseOut(e)}
-                    >
-                      <div className="dragBtn" style={{visibility: 'hidden'}}>
-                        <tools.DragBtn id="dragBtn"/>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div id="contents" {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+                {this.props.draft.map((content, index) => (
+                  <Draggable key={content.id} draggableId={content.id} index={index}>
+                    {(provided, snapshot) => (
+                      <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      )}
+                      onMouseOver={(e) => this.handleMouseOver(e)}
+                      onMouseOut={(e) => this.handleMouseOut(e)}
+                      >
+                        <div className="dragBtn" style={{visibility: 'hidden'}}>
+                          <tools.DragBtn id="dragBtn"/>
+                        </div>
+                        <Content content={content} {...this}/>
                       </div>
-                      <Content content={content} {...this}/>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-              {this.state.showToolbar ? <TextToolbar {...this} {...this.state} {...this.props}/> : null}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+                {this.state.showToolbar ? <TextToolbar {...this} {...this.state} {...this.props}/> : null}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+        <div id="footer">
+          <Toolbar/>
+        </div>
       </div>
     );
   }
