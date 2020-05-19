@@ -14,8 +14,8 @@ function Resizer({}) {
     if (e.pageX >= navigation_width && e.pageX <= window_width) {
       document.getElementById("draft").style.width = `${e.pageX - navigation_width}px`;
       document.getElementById("design").style.width = `${window_width - e.pageX}px`;
-      document.querySelectorAll("[class=canvas]").forEach((node) => {
-        node.style.transform = `scale(${(window_width - e.pageX) / 1920})`;
+      document.querySelectorAll("[class=canvas]").forEach((node, idx) => {
+        node.style.transform = `scale(${(window_width - e.pageX - 40 * (window_width - e.pageX)/1920) / 1920}) translate(0, ${idx * (-1080 * 1920 / (window_width - e.pageX - 40 * (window_width - e.pageX)/1920) + 1080 + 20)}px)`;
       });
     }
 

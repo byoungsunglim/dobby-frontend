@@ -1,5 +1,11 @@
 #design {
-  width: 50%;
-  height: 100%;
-  display: flex;
+  margin: 10px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+
+#design::-webkit-scrollbar {
+  width: 0px;
+  display: none;
+  background: transparent;
 }

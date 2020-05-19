@@ -15,9 +15,7 @@ class Document extends Component {
   constructor(props) {
     super(props);
 
-    this.setView = this.setView.bind(this);
     this.setTitle = this.setTitle.bind(this);
-    this.setCurId = this.setCurId.bind(this);
     this.setDraft = this.setDraft.bind(this);
     this.setDesign = this.setDesign.bind(this);
 
@@ -73,23 +71,11 @@ class Document extends Component {
     }
   }
 
-  setView = () => {
-    this.setState({
-      view: this.state.view === "draft" ? "canvas" : "draft"
-    });
-  };
-
   setTitle = (title) => {
     this.setState({
       title: title
     })
   }
-
-  setCurId = (id) => {
-    this.setState({
-      cur_id: id
-    });
-  };
 
   setDraft = (handle, id, data, idx) => {
     // console.log(handle, id, data);

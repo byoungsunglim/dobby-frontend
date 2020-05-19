@@ -148,7 +148,6 @@ class Draft extends Component {
   handleFocus = (e) => {
     // console.log("handleFocus", e.target);
     this.setEndOfContenteditable(e.target);
-    this.props.setCurId(e.target.id);
   }
 
   handleKeyDown = (e) => {
@@ -442,7 +441,7 @@ class Draft extends Component {
 
   render() {
     return (
-      <div id="draft" onClick={(e) => this.handleClick(e)} onDoubleClick={(e) => this.handleDoubleClick(e)}>
+      <div id="draft" onClick={(e) => this.handleClick(e)} onDoubleClick={(e) => this.handleDoubleClick(e)} style={{width: `${(window.innerWidth - 200 - 5)/2}px`}}>
         <div id="header">
           <ContentEditable placeholder="문서 제목" html={this.props.title} onChange={(e) => this.props.setTitle(e.target.value)} spellCheck={false}/>
           <span>{this.props.updatedAt.toDate().toString().split(" ").slice(0, 5).join(" ")}</span>

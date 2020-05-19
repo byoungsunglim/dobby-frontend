@@ -6,15 +6,15 @@ html, *{
 }
 
 @media (max-width: 1120px) {
-  #navigation {
+  #home #navigation {
     display: none;
   }
 
-  #information {
+  #home #information {
     display: none;
   }
 
-  #main {
+  #home #main {
     width: 100% !important;
   }
 }
