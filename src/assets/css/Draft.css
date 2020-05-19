@@ -1,7 +1,14 @@
 #draft {
   height: 100%;
   background-color: white;
-  overflow: hidden;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+
+#draft::-webkit-scrollbar {
+  width: 0px;
+  display: none;
+  background: transparent;
 }
 
 #draft #header {

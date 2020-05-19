@@ -83,14 +83,6 @@ class Draft extends Component {
     }
   } 
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log("Draft Did Update...");
-    // orderList(this.props.draft).then((data) => {
-      // console.log(data);
-      // this.props.setDraft('set', null, data);
-    // })
-  }
-
   shouldComponentUpdate(nextProps, nextState) {  
     if (this.props.draft.length === nextProps.draft.length) {
       return false;
