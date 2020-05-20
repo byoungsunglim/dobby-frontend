@@ -2,8 +2,8 @@ import React from "react";
 import ContentEditable from "react-contenteditable";
 import { Textfit } from "react-textfit";
 
-import Content from "../Content";
-import ContentBox from "./ContentBox";
+import Content from "../components/Content";
+import ContentBox from "../components/ContentBox";
 import { getLineBreak } from "./getLineBreak";
 import { parseContent } from "./parseContent";
 import { groupTexts } from "./groupTexts";

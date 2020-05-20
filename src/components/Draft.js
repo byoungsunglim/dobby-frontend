@@ -8,11 +8,11 @@ import Content from "./Content";
 import TextToolbar from "./TextToolbar";
 import Toolbar from "./Toolbar";
 
-import tools from "./utils/tools";
-import { orderList } from "./utils/orderList";
-import { queryDB } from "./utils/queryDB";
+import tools from "../utils/tools";
+import { orderList } from "../utils/orderList";
+import { queryDB } from "../utils/queryDB";
 
-import "./assets/css/Draft.css";
+import "../assets/css/Draft.css";
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);

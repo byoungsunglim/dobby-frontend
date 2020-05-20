@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { queryDB } from "./utils/queryDB";
+import { queryDB } from "../utils/queryDB";
 import uuid from "uuid";
 
 import "./assets/css/Main.css";

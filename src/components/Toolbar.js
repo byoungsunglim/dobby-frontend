@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import tools from "./utils/tools";
+import tools from "../utils/tools";
 
-import "./assets/css/Toolbar.css";
+import "../assets/css/Toolbar.css";
 
 class Toolbar extends Component {
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "./assets/css/Information.css";
+import "../assets/css/Information.css";
 
 class Information extends Component {
   state = {};

@@ -1,8 +1,8 @@
 import React from "react";
 
 import Login from "./Login";
-import brand from "./utils/brand";
-import "./assets/css/Landing.css";
+import brand from "../utils/brand";
+import "../assets/css/Landing.css";
 
 function Landing({ login, logout }) {
   return (

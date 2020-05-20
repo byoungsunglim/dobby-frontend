@@ -9,7 +9,7 @@ import Logout from "./Logout";
 import NotFound from "./NotFound";
 import Profile from "./Profile";
 
-import "./assets/css/App.css";
+import "../assets/css/App.css";
 
 class App extends Component {
   // const [user, setUser] = useState(null);

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import tools from "./utils/tools";
+import tools from "../utils/tools";
 
-import "./assets/css/TextToolbar.css";
+import "../assets/css/TextToolbar.css";
 
 class Toolbar extends Component {
   state = {

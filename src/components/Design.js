@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Canvas from "./Canvas";
 
-import { parseContents } from "./utils/parseContents";
-import { parseBlocks } from "./utils/parseBlocks";
-import { getDesign } from './utils/getDesign';
+import { parseContents } from "../utils/parseContents";
+import { parseBlocks } from "../utils/parseBlocks";
+import { getDesign } from '../utils/getDesign';
 
-import "./assets/css/Design.css";
+import "../assets/css/Design.css";
 
 class Design extends Component {
   constructor({ draft }){

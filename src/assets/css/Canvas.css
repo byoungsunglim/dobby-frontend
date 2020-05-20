@@ -7,8 +7,3 @@
   -ms-sizing:border-box;
   box-sizing:border-box;
 }
-
-.contentbox {
-  /* position: absolute; */
-  font-size: var(--font-size);
-}

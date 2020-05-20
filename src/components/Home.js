@@ -5,8 +5,8 @@ import Navigation from "./Navigation";
 import Information from "./Information";
 import Documents from "./Documents";
 
-import "./assets/css/Home.css";
-import { queryDB } from "./utils/queryDB";
+import "../assets/css/Home.css";
+import { queryDB } from "../utils/queryDB";
 
 class Home extends Component {
   constructor(props) {

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 
-import "./assets/css/Navigation.css";
-import { queryDB } from "./utils/queryDB";
+import "../assets/css/Navigation.css";
+import { queryDB } from "../utils/queryDB";
 
 class Navigation extends Component {
   state = {

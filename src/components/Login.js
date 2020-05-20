@@ -1,12 +1,10 @@
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-import { KakaoLogin } from "./utils/KakaoLogin";
-import { GoogleLogin } from "./utils/GoogleLogin";
+import { KakaoLogin } from "../utils/KakaoLogin";
+import { GoogleLogin } from "../utils/GoogleLogin";
 
-import "./assets/css/Login.css";
-import google_login_btn from "./assets/icons/google_login_btn.png";
-import kakao_login_btn from "./assets/icons/kakao_login_btn.png";
+import "../assets/css/Login.css";
 
 function Login({ login, logout }) {
   let history = useHistory();

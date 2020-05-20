@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "./assets/css/Canvas.css";
+import "../assets/css/Canvas.css";
 
 class Canvas extends Component {  
   componentDidMount() {

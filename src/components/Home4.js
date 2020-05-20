@@ -6,7 +6,7 @@ import Information from "./Information";
 import Document from "./Document";
 import Canvas from "./Canvas";
 import Toolbar from "./Toolbar";
-import { DocumentLoader, ImageLoader } from './utils/getLoader';
+import { DocumentLoader, ImageLoader } from '../utils/getLoader';
 
 import "./assets/css/Home.css";
 

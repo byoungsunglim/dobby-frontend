@@ -1,7 +1,7 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
-import "./assets/css/Resizer.css";
+import "../assets/css/Resizer.css";
 
 function Resizer({}) {
   const handleStart = (e) => {

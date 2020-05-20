@@ -7,12 +7,12 @@ import ContentEditable from "react-contenteditable";
 import uuid from "uuid";
 
 import TextToolbar from "./TextToolbar";
-import tools from "./utils/tools";
-import { storage } from "./utils/Firebase";
-import { orderList } from "./utils/orderList";
-import { ImageLoader } from "./utils/getLoader";
+import tools from "../utils/tools";
+import { storage } from "../utils/Firebase";
+import { orderList } from "../utils/orderList";
+import { ImageLoader } from "../utils/getLoader";
 
-import "./assets/css/Contents.css";
+import "./assets/css/Content.css";
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -44,7 +44,7 @@ const getListStyle = isDraggingOver => ({
   // width: 250
 });
 
-class Contents extends Component {
+class Content extends Component {
   constructor(props) {
     super(props);
 
@@ -89,7 +89,7 @@ class Contents extends Component {
 
     // let data = this.props.content;
     if (this.props.content.length === 0) {
-      if (this.props.page === "title") {
+      if (this.props.page === "page_title") {
         // content.push(this.addContent(null, "문서 제목을 적어볼까요?", "", "h1", false, null, true));
         content.push({
           id: "body_" + uuid(),
@@ -127,13 +127,13 @@ class Contents extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {  
-    if (this.state.content.length === this.props.content.length && this.state.showToolbar === nextState.showToolbar) {
-      return false;
-    }
-    console.log("should content update", this.state.content.length, this.props.content.length)
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {  
+  //   if (this.state.content.length === this.props.content.length && this.state.showToolbar === nextState.showToolbar) {
+  //     return false;
+  //   }
+  //   console.log("should content update", this.state.content.length, this.props.content.length)
+  //   return true;
+  // }
 
   setTextToolbar = () => {
     this.setState({
@@ -435,7 +435,7 @@ class Contents extends Component {
       const range = selection.getRangeAt(0);
       const bodyRect = range.getBoundingClientRect();
       // const refRect = e.target.getBoundingClientRect();
-      const x = `${bodyRect.right}px`;
+      const x = `${bodyRect.right}px - 15%`;
       const y = `${bodyRect.bottom}px`;
 
       if (selection.toString().length > 0) {
@@ -580,4 +580,4 @@ class Contents extends Component {
   }
 }
 
-export default Contents;
+export default Content;

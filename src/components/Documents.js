@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
-import { queryDB } from "./utils/queryDB";
+import { queryDB } from "../utils/queryDB";
 
-import "./assets/css/Documents.css";
+import "../assets/css/Documents.css";
 
 class Documents extends Component {
   state = {

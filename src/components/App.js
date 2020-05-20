@@ -6,8 +6,8 @@ import Login from "./Login";
 import Home from "./Home";
 import Document from "./Document";
 
-import "./assets/css/App.css";
-import { queryDB } from "./utils/queryDB";
+import "../assets/css/App.css";
+import { queryDB } from "../utils/queryDB";
 
 function App() {
   const [cookies, setCookie] = useCookies(['auth', 'user']);

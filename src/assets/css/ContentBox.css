@@ -1,0 +1,61 @@
+#design [level="1"] { --indent: 0; --font-size: 72pt; }
+#design [level="2"] { --indent: 1; --font-size: 48pt; }
+#design [level="3"] { --indent: 2; --font-size: 36pt; }
+#design [level="4"]  { --indent: 3; --font-size: 24pt; }
+#design [level="5"]  { --indent: 4; --font-size: 24pt; }
+#design [level="6"]  { --indent: 5; --font-size: 24pt; }
+
+#design [indent="1"] { --listindent: 1; --ultype: disc; --oltype: decimal;}
+#design [indent="2"] { --listindent: 2; --ultype: circle; --oltype: lower-alpha;}
+#design [indent="3"] { --listindent: 3; --ultype: square; --oltype: lower-roman;}
+#design [indent="4"] { --listindent: 4; --ultype: disc; --oltype: decimal;}
+#design [indent="5"] { --listindent: 5; --ultype: circle; --oltype: lower-alpha;}
+#design [indent="6"] { --listindent: 6; --ultype: square; --oltype: lower-roman;}
+
+#design .contentbox {
+  font-size: var(--font-size);
+}
+
+#design ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: var(--ultype);
+  list-style-position: outside;
+  padding-left: calc(30px * (var(--indent) + var(--listindent)));
+  font-size: calc(var(--font-size) - 4pt);
+}
+
+#design ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: var(--oltype);
+  list-style-position: outside;
+  padding-left: calc(30px * (var(--indent) + var(--listindent)));
+  font-size: calc(var(--font-size) - 4pt);
+}
+
+#design li div[id^="content"] {
+  padding-left: 0;
+  vertical-align:middle;
+}
+
+#design .imgholder {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: default;
+}
+
+#design img {
+  width: auto;
+  height: auto;
+  max-width: 320px;
+  max-height: 240px;
+  margin: auto;
+  display: block;
+  cursor: default;
+}

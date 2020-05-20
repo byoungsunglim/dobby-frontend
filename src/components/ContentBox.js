@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
 import ContentEditable from "react-contenteditable";
-import { ImageLoader } from "./getLoader";
+import { ImageLoader } from "../utils/getLoader";
+
+import "../assets/css/ContentBox.css";
 
 function ContentBox({ content, ...props }) {
   const [loading, setLoading] = useState(true);
