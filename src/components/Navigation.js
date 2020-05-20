@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import "../assets/css/Navigation.css";
 import { queryDB } from "../utils/queryDB";
+import { queryDrive } from "../utils/queryDrive";
 
 class Navigation extends Component {
   state = {
@@ -24,7 +25,7 @@ class Navigation extends Component {
       case "allFilesBtn":
       case "sharedFilesBtn":
       case "importantFilesBtn":
-      case "designBtn":
+      case "importFilesBtn":
         
       default:
     }
@@ -35,7 +36,8 @@ class Navigation extends Component {
       <button key="newFileBtn" id="newFileBtn" onClick={(e) => this.handleClick(e)}><span></span><b>신규 문서 작성</b></button>,
       <button key="allFilesBtn" id="allFilesBtn" onClick={(e) => this.handleClick(e)}><b>모든 파일</b></button>,
       <button key="sharedFilesBtn" id="sharedFilesBtn" onClick={(e) => this.handleClick(e)}><b>공유 파일</b></button>,
-      <button key="importantFilesBtn" id="importantFilesBtn" onClick={(e) => this.handleClick(e)}><b>중요한 파일</b></button>
+      <button key="importantFilesBtn" id="importantFilesBtn" onClick={(e) => this.handleClick(e)}><b>중요한 파일</b></button>,
+      <button key="importFilesBtn" id="importFilesBtn" onClick={(e) => this.handleClick(e)}><b>불러오기</b></button>
     ],
     draft: [
       // <button key="designBtn" id="designBtn" onClick={() => this.props.setView()}>DESIGN</button>
