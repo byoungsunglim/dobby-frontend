@@ -74,14 +74,11 @@ class Documents extends Component {
   }
 
   render() {
-    return [
-      <div id="header">
-        <b>HOME</b>
-      </div>,
+    return (
       <div id="docs">
         {this.state.docs}
       </div>
-    ];
+    )
   }
 }
 
