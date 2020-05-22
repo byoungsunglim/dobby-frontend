@@ -20,6 +20,10 @@ class Design extends Component {
     window.addEventListener("resize", this.handleResize);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+
   componentWillReceiveProps({ draft }) {
     let design = [];
     const contents = parseContents(draft);
