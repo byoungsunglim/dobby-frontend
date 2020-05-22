@@ -1,8 +1,10 @@
-import { google_drive } from "./GoogleDrive";
+import { GoogleDrive } from "./GoogleDrive";
 
-export const queryDrive = (handle, type, doc_id, data) => new Promise(function (resolve, reject) {
+export const queryDrive = (handle) => new Promise(function(resolve, reject) {
   switch (handle) {
-    case "get":
+    case "init":
+      const gFiles = GoogleDrive("get");
+      resolve(gFiles);
       break;
     default:
   }
