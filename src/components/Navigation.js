@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+
 import { withRouter } from "react-router-dom";
 
 
@@ -26,7 +28,30 @@ class Navigation extends Component {
       case "sharedFilesBtn":
       case "importantFilesBtn":
       case "importFilesBtn":
-        
+        queryDrive("init").then((docs) => {
+          let nodes = [];
+          for (let doc of docs) {
+            let child = (
+              <div className="doc" key={doc.id} id={doc.id} onClick={() => window.open(doc.webViewLink)}>
+                <div className="thumbnail">
+                  <img src={doc.iconLink}></img>
+                </div>
+                <span></span>
+                <div className="info">
+                  <span>{doc.name}</span><br/>
+                  <span>owner : {doc.owners ? doc.owners.map(owner => owner.displayName).join() : ""}</span><br/>
+                  <span>shared : {doc.permissions ? doc.permissions.map(permission => permission.displayName).join() : ""}</span><br/>
+                  <span>modified : {doc.modifiedTime}</span>
+                </div>
+              </div>
+            );
+            nodes.push(child);
+          }
+          let gdocs = document.createElement("div");
+          gdocs.id = "docs";
+          document.getElementById("main").appendChild(gdocs);
+          ReactDOM.hydrate(nodes, gdocs);
+        });
       default:
     }
   };
