@@ -1,4 +1,4 @@
-export const KakaoLogin = (login) => new Promise(function(resolve, reject) {
+export const kakaoLogin = (login) => new Promise(function(resolve, reject) {
   window.Kakao.init("345e316fada913303239e9e721168000");
   window.Kakao.Auth.login({
     success: function(authObj) {

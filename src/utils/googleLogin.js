@@ -2,7 +2,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import * as firebase from "firebase/app";
 
-export const GoogleLogin = (login) => new Promise(function(resolve, reject) {
+export const googleLogin = (login) => new Promise(function(resolve, reject) {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase
   .auth()

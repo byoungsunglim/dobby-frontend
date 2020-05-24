@@ -1,6 +1,6 @@
 import credentials from './credentials.json';
 
-export const GoogleDrive = (handle) => new Promise(function(resolve, reject) {
+export const googleDrive = (handle) => new Promise(function(resolve, reject) {
   switch (handle) {
     case "get":
       window.gapi.load('client:auth2', () => {
@@ -10,9 +10,9 @@ export const GoogleDrive = (handle) => new Promise(function(resolve, reject) {
           discoveryDocs: DISCOVERY_DOCS,
           scope: SCOPES
         }).then(function () {
-          if (!window.gapi.auth2.getAuthInstance().isSignedIn.get()) {
+          // if (!window.gapi.auth2.getAuthInstance().isSignedIn.get()) {
             window.gapi.auth2.getAuthInstance().signIn();
-          }
+          // }
       
           window.gapi.client.drive.files.list({
             'pageSize': 1000,
