@@ -1,3 +1,6 @@
+import { ReactComponent as GoogleDrive } from "../assets/icons/gDrive.svg";
+import { ReactComponent as Dropbox } from "../assets/icons/dBox.svg";
+
 import { ReactComponent as Image } from "../assets/icons/image.svg";
 import { ReactComponent as Media } from "../assets/icons/media.svg";
 import { ReactComponent as Table } from "../assets/icons/table.svg";
@@ -24,6 +27,9 @@ import { ReactComponent as DragBtn } from "../assets/icons/dragBtn.svg";
 
 
 export default {
+  GoogleDrive,
+  Dropbox,
+
   Image,
   Media,
   Table,
