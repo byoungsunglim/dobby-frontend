@@ -1,8 +1,8 @@
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-import { KakaoLogin } from "../utils/KakaoLogin";
-import { GoogleLogin } from "../utils/GoogleLogin";
+import { kakaoLogin } from "../utils/kakaoLogin";
+import { googleLogin } from "../utils/googleLogin";
 
 import "../assets/css/Login.css";
 
@@ -14,12 +14,12 @@ function Login({ login, logout }) {
 
   function handleLogin(provider) {
     if (provider === 'kakao') {
-      KakaoLogin(login).then((user) => {
+      kakaoLogin(login).then((user) => {
         history.replace(from);
       });
     }
     else if (provider === 'google') {
-      GoogleLogin(login).then((user) => {
+      googleLogin(login).then((user) => {
         history.replace(from);
       });
     }

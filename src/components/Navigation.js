@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-
 import { withRouter } from "react-router-dom";
 
+import Modal from "./Modal";
 
 import "../assets/css/Navigation.css";
 import { queryDB } from "../utils/queryDB";
@@ -10,8 +10,8 @@ import { queryDrive } from "../utils/queryDrive";
 
 class Navigation extends Component {
   state = {
-    // history: useHistory()
-  } 
+    showModal: false
+  }
 
   handleClick(e) {
     console.log(e.currentTarget.id);
@@ -28,33 +28,29 @@ class Navigation extends Component {
       case "sharedFilesBtn":
       case "importantFilesBtn":
       case "importFilesBtn":
-        queryDrive("init").then((docs) => {
-          let nodes = [];
-          for (let doc of docs) {
-            let child = (
-              <div className="doc" key={doc.id} id={doc.id} onClick={() => window.open(doc.webViewLink)}>
-                <div className="thumbnail">
-                  <img src={doc.iconLink}></img>
-                </div>
-                <span></span>
-                <div className="info">
-                  <span>{doc.name}</span><br/>
-                  <span>owner : {doc.owners ? doc.owners.map(owner => owner.displayName).join() : ""}</span><br/>
-                  <span>shared : {doc.permissions ? doc.permissions.map(permission => permission.displayName).join() : ""}</span><br/>
-                  <span>modified : {doc.modifiedTime}</span>
-                </div>
-              </div>
-            );
-            nodes.push(child);
-          }
-          let gdocs = document.createElement("div");
-          gdocs.id = "docs";
-          document.getElementById("main").appendChild(gdocs);
-          ReactDOM.hydrate(nodes, gdocs);
-        });
+        this.setState({
+          showModal: true
+        })
       default:
     }
   };
+
+  handleImport = (type) => {
+    queryDrive("init", type, this.props.user.email).then(result => {
+      if (result) {
+        queryDrive("get", "files", this.props.user.email, )
+      }
+      else {
+        
+      }
+    })
+  }
+
+  handleModal = () => {
+    this.setState({
+      showModal: false
+    })
+  }
 
   navigations = {
     home: [
@@ -79,6 +75,10 @@ class Navigation extends Component {
           <b>Docgabi</b>
         </div>
         {this.navigations[this.props.view]}
+        {this.state.showModal ? 
+          <Modal handleImport={this.handleImport} handleModal={this.handleModal}/>
+          : null
+        }
       </div>
     );
   }
