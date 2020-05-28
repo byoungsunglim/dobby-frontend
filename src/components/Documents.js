@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
+import { makeCancelable } from '../utils/makeCancelable';
 import { queryDB } from "../utils/queryDB";
+import { queryDrive } from "../utils/queryDrive";
 
 import "../assets/css/Documents.css";
 
@@ -12,7 +14,8 @@ class Documents extends Component {
 
   componentDidMount() {
     console.log("Documents Mounted...");
-    queryDB("get", "docs", this.props.user.email).then((docs) => {
+    this.queryDB = makeCancelable(queryDB("get", "docs", this.props.user.email));
+    this.queryDB.promise.then((docs) => {
       if (docs) {
         let boxes = [];
         for (let doc of docs) {
@@ -28,6 +31,11 @@ class Documents extends Component {
         })
       }
     });
+  }
+
+  componentWillUnmount() {
+    console.log("Documents Unmounting...");
+    this.queryDB.cancel();
   }
 
   handleClick = (e) => {
