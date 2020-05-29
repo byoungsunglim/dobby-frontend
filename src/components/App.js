@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import Landing from "./Landing";
-import Login from "./Login";
 import Home from "./Home";
 import Document from "./Document";
+import AuthRoute from "./AuthRoute";
 
 import "../assets/css/App.css";
 import { queryDB } from "../utils/queryDB";
@@ -67,8 +67,8 @@ function App() {
         <Route exact path="/login">
           <Landing login={login} logout={logout}/>
         </Route>
-        <PrivateRoute path="/doc/:id" component={Document}>
-        </PrivateRoute>
+        <PrivateRoute path="/doc/:id" component={Document}/>
+        <PrivateRoute path="/auth" component={AuthRoute}/>
       </Switch>
     </Router>
   );
