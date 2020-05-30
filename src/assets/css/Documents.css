@@ -5,12 +5,31 @@
   flex-wrap: wrap;
 }
 
+#gFiles {
+  /* width: calc(100% - 60px); */
+  margin: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#dFiles {
+  /* width: calc(100% - 60px); */
+  margin: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .thumbnail {
   margin: 10px;
   width: 180px;
   height: 100px;
   background-color: white;
-  /* flex-grow: 1; */
+  display: flex;
+  justify-content: center;
+}
+
+.thumbnail img {
+  object-fit: contain;
 }
 
 .info {

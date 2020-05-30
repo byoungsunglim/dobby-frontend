@@ -13,6 +13,7 @@
 # production
 /build
 *credentials.json
+*config.json
 
 # misc
 .DS_Store

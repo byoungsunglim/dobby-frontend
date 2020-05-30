@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 
 import Navigation from "./Navigation";
-import Information from "./Information";
 import Draft from "./Draft";
 import Design from "./Design";
 import Resizer from "./Resizer";
 import { DocumentLoader, ImageLoader } from '../utils/getLoader';
+import { queryDB } from "../utils/queryDB";
 import { makeCancelable } from '../utils/makeCancelable';
 
 import "../assets/css/Document.css";
-import { queryDB } from "../utils/queryDB";
 
 class Document extends Component {
   constructor(props) {

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import { withRouter } from "react-router-dom";
 
 import Modal from "./Modal";
@@ -13,7 +12,7 @@ class Navigation extends Component {
     showModal: false
   }
 
-  handleClick(e) {
+  handleClick = (e) => {
     console.log(e.currentTarget.id);
     switch (e.currentTarget.id) {
       case 'logo':
@@ -21,24 +20,30 @@ class Navigation extends Component {
         break;
       case "newFileBtn":
         queryDB('put', 'doc', this.props.user.email).then((doc_id) => {
-          console.log(doc_id);
+          // console.log(doc_id);
           this.props.history.push(`/doc/${doc_id}`)
         });
+        break;
       case "allFilesBtn":
+        break;
       case "sharedFilesBtn":
+        break;
       case "importantFilesBtn":
+        break;
       case "importFilesBtn":
         this.setState({
           showModal: true
-        })
+        });
+        break;
       default:
     }
   };
 
   handleImport = (type) => {
-    queryDrive("init", type, this.props.user.email).then(result => {
-      if (result) {
-        queryDrive("get", "files", this.props.user.email, )
+    queryDrive("init", type, this.props.user.email).then(auth_url => {
+      console.log(auth_url);
+      if (auth_url) {
+        window.open(auth_url, 'Sync Cloud Storage', 'width=auto, height=auto, toolbar=no, menubar=no, ');
       }
       else {
         

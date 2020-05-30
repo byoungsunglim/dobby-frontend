@@ -9,7 +9,9 @@ import "../assets/css/Documents.css";
 
 class Documents extends Component {
   state = {
-    docs: []
+    docs: [],
+    gFiles: [],
+    dFiles: []
   }
 
   componentDidMount() {
@@ -30,6 +32,48 @@ class Documents extends Component {
           docs: [this.docBox("newFile", "새로운 문서 만들기", null, null, null, null)]
         })
       }
+
+      queryDrive("get", null, this.props.user.email).then(result => {
+        let gFiles = [];
+        let dFiles = [];
+
+        for (let [uid, value] of Object.entries(result.gDrive)) {
+          for (let item of value.items) {
+            gFiles.push(
+              <div className="doc" key={item.id} id={item.id} onClick={() => window.open(item.alternateLink)}>
+                <div className="thumbnail">
+                  <img src={item.thumbnailLink || item.iconLink}></img>
+                </div>
+                <span></span>
+                <div className="info" style={{textAlign: "center"}}>
+                  <span>{item.title}</span><br/>
+                </div>
+              </div>
+            )
+          }
+        }
+
+        for (let [uid, value] of Object.entries(result.dBox)) {
+          for (let item of value.items) {
+            gFiles.push(
+              <div className="doc" key={item.id} id={item.id}>
+                <div className="thumbnail">
+                  <img></img>
+                </div>
+                <span></span>
+                <div className="info" style={{textAlign: "center"}}>
+                  <span>{item.name}</span><br/>
+                </div>
+              </div>
+            )
+          }
+        }
+
+        this.setState({
+          gFiles: gFiles,
+          dFiles: dFiles
+        })
+      })
     });
   }
 
@@ -58,7 +102,6 @@ class Documents extends Component {
           <div className="thumbnail">
             <img src={thumbnail}></img>
           </div>
-          <span></span>
           <div className="info" style={{textAlign: "center"}}>
             <h3>{title}</h3>
           </div>
@@ -70,7 +113,6 @@ class Documents extends Component {
         <div className="thumbnail">
           <img src={thumbnail}></img>
         </div>
-        <span></span>
         <div className="info">
           <span>{title}</span><br/>
           <span>owner : {owner}</span><br/>
@@ -82,11 +124,17 @@ class Documents extends Component {
   }
 
   render() {
-    return (
+    return [
       <div id="docs">
         {this.state.docs}
+      </div>,
+      <div id="gFiles">
+        {this.state.gFiles}
+      </div>,
+      <div id="dFiles">
+        {this.state.dFiles}
       </div>
-    )
+    ]
   }
 }
 
