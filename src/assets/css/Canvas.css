@@ -6,4 +6,5 @@
   -webkit-box-sizing:border-box;
   -ms-sizing:border-box;
   box-sizing:border-box;
+  overflow: hidden;
 }

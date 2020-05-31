@@ -1,36 +1,80 @@
 export const getStyles = (blocks) => {
-  if (blocks.length === 1) {
-    return styles[0][0]
-  }
-  else if (blocks.length === 2) {
-    if (blocks[1].length === 1) {
-      return styles[0][0]
-    }
-    else {
-      return styles[blocks.length - 1][0];
-    }
+  let styles = [];
+
+  if (blocks.length === 1 || (blocks.length === 2 && blocks[1].length === 1)) {
+    return tStyles;
   }
   else {
-    let diffDepth = diff(blocks.slice(1));
-    if (diffDepth > 4) {
-      return styles[blocks.length - 1][0];
+    styles = [
+      {
+        margin: '75px',
+      },
+    ]
+
+    for (let i = 0; i < blocks.length - 1; i ++) {
+      styles.push({
+        marginTop: '100px',
+        marginLeft: '100px',
+        marginRight: '100px',
+        width: 'calc(100% - 200px)',
+        flexGrow: 1
+      })
     }
-    else {
-      return styles[blocks.length - 1][1 + Math.floor(Math.random() * (styles[blocks.length - 1].length - 1))];
-    } 
-  }
-}
 
-const diff = (blocks) => {
-  var minDepth = Infinity;
-  var maxDepth = 0;
-  for (let block of blocks) {
-    if (block.length < minDepth) minDepth = block.length;
-    if (block.length > maxDepth) maxDepth = block.length;
+    return styles;
   }
 
-  return maxDepth - minDepth;
+  // if (blocks.length === 1) {
+  //   return styles[0][0]
+  // }
+  // else if (blocks.length === 2) {
+  //   if (blocks[1].length === 1) {
+  //     return styles[0][0]
+  //   }
+  //   else {
+  //     return styles[blocks.length - 1][0];
+  //   }
+  // }
+  // else {
+  //   let diffDepth = diff(blocks.slice(1));
+  //   if (diffDepth > 4) {
+  //     return styles[blocks.length - 1][0];
+  //   }
+  //   else {
+  //     return styles[blocks.length - 1][1 + Math.floor(Math.random() * (styles[blocks.length - 1].length - 1))];
+  //   } 
+  // }
 }
+
+// const diff = (blocks) => {
+//   var minDepth = Infinity;
+//   var maxDepth = 0;
+//   for (let block of blocks) {
+//     if (block.length < minDepth) minDepth = block.length;
+//     if (block.length > maxDepth) maxDepth = block.length;
+//   }
+
+//   return maxDepth - minDepth;
+// }
+
+const tStyles = [
+  {
+    marginTop: '20%',
+    marginLeft: '15%',
+    marginRight: '5%',
+    width: '40%',
+    maxHeight: '30%',
+    // overflow: 'hidden'
+  },
+  {
+    marginTop: '30px',
+    marginLeft: '15%',
+    marginRight: '5%',
+    width: '40%',
+    maxHeight: '10%',
+    // overflow: 'hidden'
+  },
+]
 
 const styles = [
   [ 
