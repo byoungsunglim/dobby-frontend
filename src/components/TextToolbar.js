@@ -13,7 +13,7 @@ class Toolbar extends Component {
   handleTooltip = (e) => {
     this.setState({
       text_tooltip: this.state.text_tooltip ? null
-        : <div className="text_tooltip">
+        : <div id="text_tooltip">
           <tools.Bold id="text_tools_bold" onClick={(e) => this.handleStyle(e)} />
           <tools.Italic id="text_tools_italic" onClick={(e) => this.handleStyle(e)} />
           <tools.Underline id="text_tools_underline" onClick={(e) => this.handleStyle(e)} />
@@ -25,7 +25,7 @@ class Toolbar extends Component {
   handleHighlight = (e) => {
     this.setState({
       text_highlight_options: this.state.text_highlight_options ? null
-        : <div className="text_highlight_options">
+        : <div id="text_highlight_options">
             <button id="highlight_pink_hiliteColor" onClick={(e) => this.handleStyle(e, 'rgb(255, 191, 181)')}></button>
             <button id="highlight_orange_hiliteColor" onClick={(e) => this.handleStyle(e, 'rgb(247, 204, 98)')}></button>
             <button id="highlight_green_hiliteColor" onClick={(e) => this.handleStyle(e, 'rgb(181, 220, 175)')}></button>
@@ -82,7 +82,7 @@ class Toolbar extends Component {
 
   render() {
     return (
-      <div className="text_toolbar" style={{ left: `calc(${this.props.x})`, top: `calc(${this.props.y})`}}>
+      <div id="text_toolbar" style={{ left: `calc(${this.props.x})`, top: `calc(${this.props.y})`}}>
         <tools.Text id="text_tools_text" onClick={(e) => this.handleTooltip(e)}/>
         {this.state.text_tooltip}
         <tools.Highlight id="text_tools_hiliteColor" onClick={(e) => this.handleHighlight(e)}/>
