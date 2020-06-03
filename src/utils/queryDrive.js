@@ -1,7 +1,7 @@
 export const queryDrive = (handle, type, doc_id, data) => new Promise(function(resolve, reject) {
   switch (handle) {
     case "init":
-      fetch(`http://localhost:8000/imports/${type}/init`, {
+      fetch(`https://dobby-is-free.appspot.com/imports/${type}/init`, {
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
           'Content-Type': 'application/json'
@@ -10,7 +10,7 @@ export const queryDrive = (handle, type, doc_id, data) => new Promise(function(r
       .then(data => resolve(data.auth_url));
       break;
     case "auth":
-      fetch(`http://localhost:8000/imports/${type}/auth`, {
+      fetch(`https://dobby-is-free.appspot.com/imports/${type}/auth`, {
         method: 'POST',
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
@@ -26,7 +26,7 @@ export const queryDrive = (handle, type, doc_id, data) => new Promise(function(r
       });
       break;
     case "get":
-      fetch(`http://localhost:8000/imports/${doc_id}`, {
+      fetch(`https://dobby-is-free.appspot.com/imports/${doc_id}`, {
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
           'Content-Type': 'application/json'
