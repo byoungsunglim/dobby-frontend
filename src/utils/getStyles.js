@@ -7,18 +7,57 @@ export const getStyles = (blocks) => {
   else {
     styles = [
       {
-        margin: '75px',
+        marginTop: '75px',
+        marginLeft: '75px',
+        marginRight: '75px',
+        minWidth: 'calc(100% - 150px)',
+        maxHeight: '200px'
       },
     ]
 
     for (let i = 0; i < blocks.length - 1; i ++) {
-      styles.push({
-        marginTop: '100px',
-        marginLeft: '100px',
-        marginRight: '100px',
-        width: 'calc(100% - 200px)',
-        flexGrow: 1
-      })
+      if (blocks[0][0].display === 'table') {
+        if (blocks.length - 1 <= 4) {
+          styles.push({
+            marginTop: '75px',
+            marginLeft: '75px',
+            marginRight: '75px',
+            padding: '25px',
+            width: '200px',
+            flexGrow: 1
+          })
+        }
+        else if (blocks.length - 1 <= 6) {
+          styles.push({
+            marginTop: '75px',
+            marginLeft: '75px',
+            marginRight: '75px',
+            padding: '25px',
+            width: '300px',
+            flexGrow: 1
+          })
+        }
+        else {
+          styles.push({
+            marginTop: '75px',
+            marginLeft: '75px',
+            marginRight: '75px',
+            padding: '25px',
+            width: '200px',
+            flexGrow: 1
+          })
+        }
+      }
+      else {
+        styles.push({
+          marginTop: '75px',
+          marginLeft: '75px',
+          marginRight: '75px',
+          padding: '25px',
+          width: 'calc(100% - 150px)',
+          flexGrow: 1
+        })
+      }
     }
 
     return styles;

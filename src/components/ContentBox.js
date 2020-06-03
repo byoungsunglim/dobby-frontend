@@ -8,22 +8,22 @@ import "../assets/css/ContentBox.css";
 function ContentBox({ content, ...props }) {
   const [loading, setLoading] = useState(true);
 
-  const handleChange = (e) => {
-    props.setDraft('update', e.currentTarget.id, {
-      html: e.target.value
-    })
-  }
+  // const handleChange = (e) => {
+  //   props.setDraft('update', e.currentTarget.id, {
+  //     html: e.target.value
+  //   })
+  // }
 
   switch (content.type) {
     case 'h':
       return (
-        <ContentEditable className="contentbox" key={content.id} id={content.id} html={content.html} type={content.type} level={content.level} disabled={content.disabled} onChange={(e) => handleChange(e)}/>
+        <ContentEditable className="contentbox" key={content.id} id={content.id} html={content.html} type={content.type} level={content.level} disabled={true}/>
       );
     case 'ul':
       return (
         <ul indent={content.indent} level={content.level}>
           <li>
-            <ContentEditable className="contentbox" key={content.id} id={content.id} html={content.html} type={content.type} level={content.level} disabled={content.disabled} onChange={(e) => handleChange(e)}/>
+            <ContentEditable className="contentbox" key={content.id} id={content.id} html={content.html} type={content.type} level={content.level} disabled={true}/>
           </li>
         </ul>
       );
@@ -31,7 +31,7 @@ function ContentBox({ content, ...props }) {
       return (
         <ol indent={content.indent} level={content.level} start={content.start}>
           <li>
-            <ContentEditable className="contentbox" key={content.id} id={content.id} html={content.html} type={content.type} level={content.level} disabled={content.disabled} onChange={(e) => handleChange(e)}/>
+            <ContentEditable className="contentbox" key={content.id} id={content.id} html={content.html} type={content.type} level={content.level} disabled={true}/>
           </li>
         </ol>
       );

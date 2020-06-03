@@ -3,7 +3,6 @@ import Canvas from "./Canvas";
 
 import { parseContents } from "../utils/parseContents";
 import { parseBlocks } from "../utils/parseBlocks";
-import { getDesign } from '../utils/getDesign';
 
 import "../assets/css/Design.css";
 
@@ -30,7 +29,7 @@ class Design extends Component {
     for (let i = 0; i < contents.length; i++) {
       const blocks = parseBlocks(contents[i], 2);
       // console.log(blocks);
-      design.push(<Canvas page={i} design={getDesign(blocks, this.props)}/>);
+      design.push(<Canvas page={i} blocks={blocks} {...this.props}/>);
     }
     
     this.setState({

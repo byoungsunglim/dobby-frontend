@@ -1,8 +1,4 @@
-html {
-
-}
-
-.text_toolbar {
+#text_toolbar {
   position: absolute;
   height: 40px;
   background-color: rgb(36, 33, 53);
@@ -14,14 +10,14 @@ html {
   -ms-user-select: none; 
 }
 
-.text_tooltip {
+#text_tooltip {
   position: absolute;
   height: 40px;
   background-color: rgb(36, 33, 53);
   border-radius: 10px;
 }
 
-.text_highlight_options {
+#text_highlight_options {
   position: absolute;
   height: 40px;
   background-color: rgb(36, 33, 53);
