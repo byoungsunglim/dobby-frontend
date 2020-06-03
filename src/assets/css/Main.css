@@ -1,4 +1,15 @@
-#home #header {
+#main {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+
+#main::-webkit-scrollbar {
+  width: 0px;
+  display: none;
+  background: transparent;
+}
+
+#main #header {
   /* width: calc(100% - 60px); */
   font-size: 20pt;
   margin: 30px;
