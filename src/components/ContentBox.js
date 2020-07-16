@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 
 import ContentEditable from "react-contenteditable";
+import MediaToolbar from "./MediaToolbar";
 import { ImageLoader } from "../utils/getLoader";
 
 import "../assets/css/ContentBox.css";
 
 function ContentBox({ content, ...props }) {
   const [loading, setLoading] = useState(true);
-
-  // const handleChange = (e) => {
-  //   props.setDraft('update', e.currentTarget.id, {
-  //     html: e.target.value
-  //   })
-  // }
+  const [showToolbar, setShowToolbar] = useState(false);
 
   switch (content.type) {
     case 'h':
@@ -37,11 +33,13 @@ function ContentBox({ content, ...props }) {
       );
     case 'img':
       return (
-        <div className="imgholder">
+        <div className="imgholder" onClick={() => setShowToolbar(true)} onMouseLeave={() => setShowToolbar(false)}>
           <ImageLoader loading={loading}/>
-          <img style={{display: loading ? "none" : "block"}} src={content.src} width={content.width} height={content.height} onLoad={() => setLoading(false)}></img>
+          <img alt="contentbox" style={{display: loading ? "none" : "block"}} src={content.src} width={content.width} height={content.height} onLoad={() => setLoading(false)}></img>
+          {showToolbar ? <MediaToolbar/> : null}
         </div>
       )
+    default:
   }
 }
 

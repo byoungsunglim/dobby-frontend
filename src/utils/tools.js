@@ -25,6 +25,10 @@ import { ReactComponent as Comment } from "../assets/icons/comment.svg";
 
 import { ReactComponent as DragBtn } from "../assets/icons/dragBtn.svg";
 
+import { ReactComponent as LeftAlign } from "../assets/icons/leftAlign.svg";
+import { ReactComponent as TopAlign } from "../assets/icons/topAlign.svg";
+import { ReactComponent as RightAlign } from "../assets/icons/rightAlign.svg";
+import { ReactComponent as FullWidth } from "../assets/icons/fullWidth.svg";
 
 export default {
   GoogleDrive,
@@ -52,5 +56,10 @@ export default {
   Numlist,
   Comment,
 
-  DragBtn
+  DragBtn,
+
+  LeftAlign,
+  TopAlign,
+  RightAlign,
+  FullWidth,
 };
