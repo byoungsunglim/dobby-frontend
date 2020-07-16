@@ -1,7 +1,6 @@
 #media_toolbar {
   position: absolute;
-  /* bottom: 20px; */
-  /* width: 450px; */
+  margin-top: 20px;
   background-color: rgb(36, 33, 53);
   border-radius: 10px;
   display: flexbox;

@@ -19,7 +19,7 @@ export const getStyles = (blocks) => {
       if (blocks[0][0].display === 'table') {
         if (blocks.length - 1 <= 4) {
           styles.push({
-            marginTop: '75px',
+            // marginTop: '75px',
             marginLeft: '75px',
             marginRight: '75px',
             padding: '25px',
@@ -29,7 +29,7 @@ export const getStyles = (blocks) => {
         }
         else if (blocks.length - 1 <= 6) {
           styles.push({
-            marginTop: '75px',
+            // marginTop: '75px',
             marginLeft: '75px',
             marginRight: '75px',
             padding: '25px',
@@ -39,7 +39,7 @@ export const getStyles = (blocks) => {
         }
         else {
           styles.push({
-            marginTop: '75px',
+            // marginTop: '75px',
             marginLeft: '75px',
             marginRight: '75px',
             padding: '25px',
