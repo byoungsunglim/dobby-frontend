@@ -398,7 +398,7 @@ class Draft extends Component {
             src: null,
             width: null,
             height: null,
-            level: level,
+            level: null,
             indent: indent,
             start: start + 1,
             disabled: true
@@ -413,7 +413,7 @@ class Draft extends Component {
             src: null,
             width: null,
             height: null,
-            level: level,
+            level: null,
             indent: indent,
             start: start + 1,
             disabled: true

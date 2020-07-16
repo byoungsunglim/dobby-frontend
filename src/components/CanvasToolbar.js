@@ -12,7 +12,6 @@ class CanvasToolbar extends Component {
     else {
       this.props.handleAlign('table');
     }
-    
   }
 
   render() {
