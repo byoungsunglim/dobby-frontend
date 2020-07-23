@@ -51,8 +51,7 @@
 
 #design img {
   width: 100%;
-  min-height: 300px;
-  height: auto;
+  height: 500px;  
   object-fit: cover;
   margin: auto;
   display: block;

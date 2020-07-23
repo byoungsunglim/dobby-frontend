@@ -4,6 +4,10 @@
   src: url('../fonts/나눔스퀘어 Regular.woff') format('woff');
 }
 
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
+
 /* Shared */
 .loginBtn {
   box-sizing: border-box;
