@@ -1,0 +1,21 @@
+.checkbox {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: none;
+  outline: none;
+  display: inline-block;
+}
+
+.checkbox button {
+  width: 20px;
+  height: 20px;
+  background-color: #ffb700;
+  border: none;
+  outline: none;
+  display: inline-block;
+}

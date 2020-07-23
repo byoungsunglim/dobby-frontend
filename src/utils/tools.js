@@ -24,11 +24,17 @@ import { ReactComponent as Numlist } from "../assets/icons/numlist.svg";
 import { ReactComponent as Comment } from "../assets/icons/comment.svg";
 
 import { ReactComponent as DragBtn } from "../assets/icons/dragBtn.svg";
+import { ReactComponent as Selected } from "../assets/icons/selected.svg";
 
 import { ReactComponent as LeftAlign } from "../assets/icons/leftAlign.svg";
 import { ReactComponent as TopAlign } from "../assets/icons/topAlign.svg";
 import { ReactComponent as RightAlign } from "../assets/icons/rightAlign.svg";
 import { ReactComponent as FullWidth } from "../assets/icons/fullWidth.svg";
+
+import Google from "../assets/icons/google.svg";
+import Kakao from "../assets/icons/kakao.svg";
+
+import Search from "../assets/icons/search.svg";
 
 export default {
   GoogleDrive,
@@ -57,9 +63,15 @@ export default {
   Comment,
 
   DragBtn,
+  Selected,
 
   LeftAlign,
   TopAlign,
   RightAlign,
   FullWidth,
+
+  Google, 
+  Kakao,
+
+  Search,
 };
