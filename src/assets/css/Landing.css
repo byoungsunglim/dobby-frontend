@@ -1,55 +1,87 @@
-@media (max-width: 1020px) {
-  #character {
-    display: none;
-  }
-
-  .msg {
-    width: 100% !important;
-  }
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 
 #landing {
   width: 100%;
   height: 100%;
-  min-height: 840px;
-  display: flex;
-  flex-direction: column;
+  background-color: #fafafa;
 }
 
 #landing #logo {
   position: absolute;
-  margin-left: 70px;
-  width: 200px;
+  margin-left: 520px;
+  margin-top: 179px;
+  width: 147px;
+  height: 38px;
+  object-fit: contain;
+}
+
+#landing #character {
+  position: absolute;
+  margin-left: 520px;
+  margin-top: 345px;
+  width: 440px;
+  height: 578px;
+  object-fit: contain;
 }
 
 #intro {
-  width: 100%;
+  /* width: 100%;
   height: 70%;
   min-width: 720px;
-  display: flex;
+  display: flex; */
 }
 
-.msg {
-  width: 60%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+#line_1 {
+  position: absolute;
+  margin-left: 520px;
+  margin-top: 257px;
+  width: 329px;
+  height: 32px;
+  font-family: Spoqa Han Sans;
+  font-size: 32px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.94;
+  letter-spacing: normal;
+  color: #1f1f1f;
 }
 
-#lead_msg {
-  font-size: 32pt;
-  line-height: 48pt;
+#line_2 {
+  position: absolute;
+  margin-left: 520px;
+  margin-top: 303px;
+  width: 329px;
+  height: 32px;
+  font-family: Spoqa Han Sans;
+  font-size: 32px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.94;
+  letter-spacing: normal;
+  color: #1f1f1f;
 }
 
-#sub_msg {
-  font-size: 16pt;
-  line-height: 20pt;
-}
-
-#character {
-  margin-top: 100px;
-  width: 40%;
-  height: calc(100% - 100px);
+#line_3 {
+  position: absolute;
+  margin-left: 520px;
+  margin-top: 360px;
+  width: 329px;
+  height: 56px;
+  font-family: Spoqa Han Sans;
+  font-size: 56px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.54;
+  letter-spacing: normal;
+  color: #1f1f1f;
+  z-index: 1;
 }

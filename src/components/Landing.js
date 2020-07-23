@@ -1,31 +1,28 @@
 import React from "react";
 
+import Registration from "./Registration";
 import Login from "./Login";
+
 import brand from "../utils/brand";
 import "../assets/css/Landing.css";
 
 function Landing({ login, logout }) {
   return (
     <div id="landing">
-      <div id="logo">
-        <brand.Logo style={{width: '100%'}}/>
-      </div>
+      <img id="logo" src={brand.Logo}/>
       <div id="intro">
-        <div className="msg">
-          <div id="lead_msg">
-            문서작업,<br/>
-            이제는 쉽고 빠르고 예쁘게<br/>
-            <b>뚝-딱!</b>
-          </div>
-          <div id="sub_msg">
-            프리젠테이션에 들어갈 자료와 내용만 입력하세요.<br/>
-            그 외의 귀찮은 작업은 모두 Docgabi가 하겠습니다 :)
-          </div>
-        </div>
-        <div id="character">
-          <brand.Character/>
-        </div>
+        <span className="msg" id="line_1">
+            문서작업,
+        </span>
+        <span className="msg" id="line_2">
+            이제 빠르고 쉽고 예쁘게
+        </span>
+        <span className="msg" id="line_3">
+            뚝-딱!
+        </span>
       </div>
+      <img id="character" src={brand.Character}/>
+      <Registration />
       <Login login={login} logout={logout}/>
     </div>
   );
