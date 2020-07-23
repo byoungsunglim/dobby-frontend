@@ -10,8 +10,22 @@
 }
 
 #main #header {
-  /* width: calc(100% - 60px); */
-  font-size: 20pt;
-  margin: 30px;
-  height: 50px;
+  width: 1200px;
+  height: 108px;
+}
+
+#main #header #title {
+  position: absolute;
+  margin-left: 66px;
+  margin-top: 51px;
+  width: 271px;
+  height: 30px;
+  font-family: Spoqa Han Sans;
+  font-size: 30px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #1f1f1f;
 }

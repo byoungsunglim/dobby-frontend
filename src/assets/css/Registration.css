@@ -1,0 +1,207 @@
+html {
+  user-select: none; /* standard syntax */
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit (konqueror) browsers */
+  -ms-user-select: none;
+  font-family: Spoqa Han Sans;
+}
+
+#registration {
+  position: absolute;
+  margin-left: 960px;
+  width: 960px;
+  height: 100%;
+  border-radius: 40px;
+  box-shadow: -12px 0 11px 0 rgba(0, 0, 0, 0.04);
+  background-color: #ffffff;
+}
+
+#registration #title {
+  position: absolute;
+  margin-left: 108px;
+  margin-top: 179px;
+  width: 360px;
+  height: 30px;
+
+  font-size: 30px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #1f1f1f;
+}
+
+#to_login {
+  position: absolute;
+  margin-left: 427px;
+  margin-top: 186px;
+  width: 121px;
+  height: 16px;
+
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.14;
+  letter-spacing: normal;
+  color: #29a3ef;
+}
+
+.registration_form {
+  margin-left: 108px;
+  margin-top: 20px;
+  width: 440px;
+  height: 50px;
+  border-radius: 25px;
+  border: solid 1.2px #bababa;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#last_name {
+  margin-top: 257px;
+}
+
+.registration_form input {
+  width: 400px;
+  height: 14px;
+
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #1f1f1f;
+  outline: none;
+  border: none;
+}
+
+#recaptcha {
+  position: absolute;
+  margin-left: 108px;
+  margin-top: 20px;
+  width: 440px;
+  height: 45px;
+
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.86;
+  letter-spacing: normal;
+  color: #888888;
+}
+
+#terms {
+  position: absolute;
+  margin-left: 108px;
+  margin-top: 84px;
+}
+
+#terms span {
+  width: 68px;
+  height: 18px;
+
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.86;
+  letter-spacing: normal;
+  color: #1f1f1f;
+}
+
+#to_terms {
+  width: 56px;
+  height: 18px;
+
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.86;
+  letter-spacing: normal;
+  color: #29a3ef;
+}
+
+#submit {
+  margin-left: 108px;
+  margin-top: 134px;
+  width: 440px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: #51a2e9;
+  outline: none;
+  border: none;
+
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+#others {
+  margin-left: 108px;
+  margin-top: 20px;
+  padding-top: 20px;
+  width: 441px;
+  outline: none;
+  border-top: solid 1px #bababa;
+}
+
+#others div {
+  margin-bottom: 14px;
+  width: 440px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: #0084d2;
+  outline: none;
+  border: none;
+}
+
+#others div img {
+  margin-left: 121px;
+  margin-top: 8px;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+#others div span {
+  position: absolute;
+  margin-left: 13px;
+  height: 20px;
+
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 50px;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+#rights {
+  position: absolute;
+  margin-left: 108px;
+  margin-top: 40px;
+  width: 440px;
+  height: 20px;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #888888;
+}
