@@ -8,7 +8,7 @@ import uuid from "uuid";
 
 import TextToolbar from "./TextToolbar";
 import tools from "../utils/tools";
-import { storage } from "../utils/Firebase";
+import { storage } from "../utils/Firebase";npm 
 import { orderList } from "../utils/orderList";
 import { ImageLoader } from "../utils/getLoader";
 

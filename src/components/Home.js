@@ -11,7 +11,7 @@ class Home extends Component {
     return (
       <div id="home">
         <Navigation view="home" user={this.props.user}/>
-        <Main user={this.props.user}/>
+        <Main user={this.props.user}/> 
         <Information/>
       </div>
     );

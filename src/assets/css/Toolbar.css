@@ -1,4 +1,4 @@
-#toolbar {
+/*#toolbar {
   position: absolute;
   bottom: 20px;
   width: 450px;
@@ -6,7 +6,21 @@
   border-radius: 10px;
   display: flexbox;
 }
-
+*/
+#toolbar {
+  width: 493px;
+  height: 60px;
+  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px var(--white);
+  background-color: #ffffff;
+}
+.input-copy-3 {
+  width: 312px;
+  height: 60px;
+  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px var(--white);
+  background-color: #ffffff;
+}
 .tools {
   width: 30px;
   height: 30px;
