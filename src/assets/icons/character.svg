@@ -16,7 +16,7 @@
         <mask id="prefix__b" fill="#fff">
             <use xlink:href="#prefix__a"/>
         </mask>
-        <use fill="#FAFAFA" xlink:href="#prefix__a"/>
+        
         <rect width="476" height="28" y="524" fill="#ECECEC" mask="url(#prefix__b)" rx="14"/>
         <g filter="url(#prefix__c)" mask="url(#prefix__b)">
             <g>

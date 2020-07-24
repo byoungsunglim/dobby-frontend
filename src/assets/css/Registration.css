@@ -9,17 +9,19 @@ html {
 
 #registration {
   position: absolute;
-  margin-left: 960px;
-  width: 960px;
+  margin-left: 50vw;
+  
+  width: 50vw;
   height: 100%;
   border-radius: 40px;
   box-shadow: -12px 0 11px 0 rgba(0, 0, 0, 0.04);
   background-color: #ffffff;
+  z-index: 1;
 }
 
 #registration #title {
   position: absolute;
-  margin-left: 108px;
+  margin-left: 5.65vw;
   margin-top: 179px;
   width: 360px;
   height: 30px;
@@ -35,7 +37,7 @@ html {
 
 #to_login {
   position: absolute;
-  margin-left: 427px;
+  margin-left: calc(5.65vw + 440px - 121px);
   margin-top: 186px;
   width: 121px;
   height: 16px;
@@ -50,7 +52,7 @@ html {
 }
 
 .registration_form {
-  margin-left: 108px;
+  margin-left: 5.65vw;
   margin-top: 20px;
   width: 440px;
   height: 50px;
@@ -62,7 +64,12 @@ html {
   justify-content: center;
 }
 
+.registration_form:focus-within {
+  border: solid 1.2px #1f1f1f;
+}
+
 #last_name {
+  margin-left: 5.65vw;
   margin-top: 257px;
 }
 
@@ -83,7 +90,7 @@ html {
 
 #recaptcha {
   position: absolute;
-  margin-left: 108px;
+  margin-left: 5.65vw;
   margin-top: 20px;
   width: 440px;
   height: 45px;
@@ -99,7 +106,7 @@ html {
 
 #terms {
   position: absolute;
-  margin-left: 108px;
+  margin-left: 5.65vw;
   margin-top: 84px;
 }
 
@@ -130,7 +137,7 @@ html {
 }
 
 #submit {
-  margin-left: 108px;
+  margin-left: 5.65vw;
   margin-top: 134px;
   width: 440px;
   height: 50px;
@@ -150,7 +157,7 @@ html {
 }
 
 #others {
-  margin-left: 108px;
+  margin-left: 5.65vw;
   margin-top: 20px;
   padding-top: 20px;
   width: 441px;
@@ -192,7 +199,7 @@ html {
 
 #rights {
   position: absolute;
-  margin-left: 108px;
+  margin-left: 5.65vw;
   margin-top: 40px;
   width: 440px;
   height: 20px;

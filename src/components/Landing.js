@@ -23,7 +23,7 @@ function Landing({ login, logout }) {
       </div>
       <img id="character" src={brand.Character}/>
       <Registration />
-      <Login login={login} logout={logout}/>
+      {/* <Login login={login} logout={logout}/> */}
     </div>
   );
 }
