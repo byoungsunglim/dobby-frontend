@@ -64,9 +64,6 @@ function App() {
           {auth ? <Home user={user}/> 
           : <Landing login={login} logout={logout}/>}
         </Route>
-        <Route exact path="/login">
-          <Landing login={login} logout={logout}/>
-        </Route>
         <PrivateRoute exact path="/doc/:id" component={Document}/>
         <PrivateRoute exact path="/imports/:type/auth" render={(props) => <AuthRoute {...props} user={user}/>}/>
       </Switch>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Registration from "./Registration";
 import Login from "./Login";
@@ -7,6 +7,8 @@ import brand from "../utils/brand";
 import "../assets/css/Landing.css";
 
 function Landing({ login, logout }) {
+  const [view, setView] = useState("registration");
+
   return (
     <div id="landing">
       <img id="logo" src={brand.Logo}/>
@@ -22,8 +24,7 @@ function Landing({ login, logout }) {
         </span>
       </div>
       <img id="character" src={brand.Character}/>
-      <Registration />
-      {/* <Login login={login} logout={logout}/> */}
+      {view === "registration" ? <Registration login={login} logout={logout} setView={setView}/> : <Login login={login} logout={logout} setView={setView}/>}
     </div>
   );
 }

@@ -7,13 +7,13 @@ import tools from "../utils/tools";
 
 import "../assets/css/Registration.css";
 
-function Registration({ register }) {
+function Registration({ login, logout, setView }) {
   const [selected, setSelected] = useState(false);
 
   return (
     <div id="registration">
       <span id="title">계정생성</span>
-      <Link id="to_login" to="/login">기존계정으로 로그인</Link>
+      <Link id="to_login" onClick={() => setView("login")}>기존계정으로 로그인</Link>
       <div className="registration_form" id="last_name">
         <input placeholder="성"></input>
       </div>

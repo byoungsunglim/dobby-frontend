@@ -1,12 +1,15 @@
 import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
+
+import Checkbox from "./Checkbox";
+import tools from "../utils/tools";
 
 import { kakaoLogin } from "../utils/kakaoLogin";
 import { googleLogin } from "../utils/googleLogin";
 
 import "../assets/css/Login.css";
 
-function Login({ login, logout }) {
+function Login({ login, logout, setView }) {
   let history = useHistory();
   let location = useLocation();
 
@@ -27,14 +30,33 @@ function Login({ login, logout }) {
 
   return (
     <div id="login">
-      <button className="login_btn" id="kakao_login_btn" onClick={() => {handleLogin('kakao')}}>
-        {/* <img className="login_btn" src={kakao_login_btn} alt="kakao_login_btn"></img> */}
-        카카오 로그인
-      </button>
-      <button className="login_btn" id="google_login_btn" onClick={() => {handleLogin('google')}}>
-        {/* <img className="login_btn" src={google_login_btn} alt="google_login_btn"></img> */}
-        구글 로그인
-      </button>
+      <span id="title">로그인</span>
+      <Link id="to_registration" onClick={() => setView("registration")}>신규계정으로 가입</Link>
+      <div className="login_form" id="email">
+        <input placeholder="이메일"></input>
+      </div>
+      <div className="login_form" id="password">
+        <input placeholder="비밀번호"></input>
+      </div>
+      <div id="terms">
+        <Checkbox/>
+        <span style={{marginLeft: '34px'}}>향후 </span>
+        <Link id="autologin" to="/autologin">자동로그인</Link>
+        <span>합니다.</span>
+        <Link id="forgot" to="/forgot">비밀번호를 잊으셨나요?</Link>
+      </div>
+      <button id="submit">로그인</button>
+      <div id="others">
+        <div id="google_login_btn" onClick={() => {handleLogin('google')}}>
+          <img src={tools.Google}/>
+          <span>구글로 로그인</span>
+        </div>
+        <div id="kakao_login_btn" onClick={() => {handleLogin('kakao')}}>
+          <img src={tools.Kakao}/>
+          <span>카카오톡으로 로그인</span>
+        </div>
+      </div>
+      <span id="rights">© Docabi Co.,Ltd. All rights reserved</span>
     </div>
   );
 }

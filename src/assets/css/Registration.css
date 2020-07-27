@@ -68,7 +68,7 @@ html {
   border: solid 1.2px #1f1f1f;
 }
 
-#last_name {
+#registration #last_name {
   margin-left: 5.65vw;
   margin-top: 257px;
 }
@@ -104,7 +104,7 @@ html {
   color: #888888;
 }
 
-#terms {
+#registration #terms {
   position: absolute;
   margin-left: 5.65vw;
   margin-top: 84px;
@@ -136,7 +136,7 @@ html {
   color: #29a3ef;
 }
 
-#submit {
+#registration #submit {
   margin-left: 5.65vw;
   margin-top: 134px;
   width: 440px;
