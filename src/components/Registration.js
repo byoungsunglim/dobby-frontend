@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
+
+import { kakaoLogin } from "../utils/kakaoLogin";
+import { googleLogin } from "../utils/googleLogin";
 
 import Checkbox from "./Checkbox";
 
@@ -9,6 +12,24 @@ import "../assets/css/Registration.css";
 
 function Registration({ login, logout, setView }) {
   const [selected, setSelected] = useState(false);
+
+  let history = useHistory();
+  let location = useLocation();
+
+  let { from } = location.state || { from: { pathname: "/" } };
+
+  function handleLogin(provider) {
+    if (provider === 'kakao') {
+      kakaoLogin(login).then((user) => {
+        history.replace(from);
+      });
+    }
+    else if (provider === 'google') {
+      googleLogin(login).then((user) => {
+        history.replace(from);
+      });
+    }
+  }
 
   return (
     <div id="registration">
@@ -35,11 +56,11 @@ function Registration({ login, logout, setView }) {
       </div>
       <button id="submit">회원가입</button>
       <div id="others">
-        <div id="google_register_btn">
+        <div id="google_register_btn" onClick={() => {handleLogin('google')}}>
           <img src={tools.Google}/>
           <span>구글로 회원가입</span>
         </div>
-        <div id="kakao_register_btn">
+        <div id="kakao_register_btn" onClick={() => {handleLogin('kakao')}}>
           <img src={tools.Kakao}/>
           <span>카카오톡으로 회원가입</span>
         </div>
