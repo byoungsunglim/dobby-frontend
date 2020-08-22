@@ -11,20 +11,22 @@ function Landing({ login, logout }) {
 
   return (
     <div id="landing">
-      <img id="logo" src={brand.Logo}/>
-      <div id="intro">
-        <span className="msg" id="line_1">
-            문서작업,
-        </span>
-        <span className="msg" id="line_2">
-            이제 빠르고 쉽고 예쁘게
-        </span>
-        <span className="msg" id="line_3">
-            뚝-딱!
-        </span>
-      </div>
-      <img id="character" src={brand.Character}/>
-      {view === "registration" ? <Registration login={login} logout={logout} setView={setView}/> : <Login login={login} logout={logout} setView={setView}/>}
+      <img id="logo" src={brand.Logo} />
+      <span className="msg" id="line_1">
+        문서작업,
+      </span>
+      <span className="msg" id="line_2">
+        이제 빠르고 쉽고 예쁘게
+      </span>
+      <span className="msg" id="line_3">
+        뚝-딱!
+      </span>
+      <img id="character" src={brand.Character} />
+      {view === "registration" ? (
+        <Registration login={login} logout={logout} setView={setView} />
+      ) : (
+        <Login login={login} logout={logout} setView={setView} />
+      )}
     </div>
   );
 }

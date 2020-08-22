@@ -10,16 +10,23 @@ img {
   user-drag: none;
 }
 
+::-webkit-scrollbar {
+  width: 0px;
+  display: none;
+  background: transparent;
+}
+
 #landing {
   position: absolute;
   width: 100%;
+  min-height: 920px;
   height: 100%;
   background-color: #fafafa;
 }
 
 #landing #logo {
   position: absolute;
-  top: 17.1vh;
+  top: 179px;
   left: 27.1vw;
   width: 147px;
   height: 38px;
@@ -28,23 +35,20 @@ img {
 
 #landing #character {
   position: absolute;
-  top: 33vh;
+  top: 345px;
   left: 27.1vw;
-  width: 22.9vw;
-  /* height: 578px; */
+  width: 440px;
+  height: 578px;
   object-fit: contain;
   background-color: transparent;
 }
 
-#intro {
-  position: absolute;
-  top: 24.5vh;
-  left: 27.1vw;
-  width: 329px;
-}
-
 #line_1 {
   position: absolute;
+  top: 257px;
+  left: 27.1vw;
+
+  width: 329px;
   height: 32px;
   
   font-size: 32px;
@@ -58,7 +62,10 @@ img {
 
 #line_2 {
   position: absolute;
-  margin-top: calc(1.3vh + 32px);
+  top: 303px;
+  left: 27.1vw;
+
+  width: 329px;
   height: 32px;
 
   font-size: 32px;
@@ -72,7 +79,8 @@ img {
 
 #line_3 {
   position: absolute;
-  margin-top: calc(2.6vh + 64px);
+  top: 349px;
+  left: 27.1vw;
 
   height: 56px;
   font-size: 56px;

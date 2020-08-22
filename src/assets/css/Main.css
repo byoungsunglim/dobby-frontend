@@ -39,3 +39,35 @@
   letter-spacing: normal;
   color: #1f1f1f;
 }
+
+#main #recent_files {
+  margin-top: 50px;
+  margin-left: 66px;
+  
+  width: 271px;
+  height: 20px;
+
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #1f1f1f;
+}
+
+#main #recent_files span {
+  margin-top: 50px;
+  margin-left: 66px;
+  
+  width: 271px;
+  height: 20px;
+
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #1f1f1f;
+}
