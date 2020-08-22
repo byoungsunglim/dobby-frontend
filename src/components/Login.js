@@ -47,14 +47,18 @@ function Login({ login, logout, setView }) {
       </div>
       <button id="submit">로그인</button>
       <div id="others">
-        <div id="google_login_btn" onClick={() => {handleLogin('google')}}>
-          <img src={tools.Google}/>
-          <span>구글로 로그인</span>
-        </div>
-        <div id="kakao_login_btn" onClick={() => {handleLogin('kakao')}}>
-          <img src={tools.Kakao}/>
-          <span>카카오톡으로 로그인</span>
-        </div>
+        <button id="google_login_btn" onClick={() => {handleLogin('google')}}>
+          <div style={{width: '200px', height: '50px', display: 'flex', alignItems: 'center'}}>
+            <img src={tools.Google}/>
+            <span>구글로 로그인</span>
+          </div>
+        </button>
+        <button id="kakao_login_btn" onClick={() => {handleLogin('kakao')}}>
+          <div style={{width: '200px', height: '50px', display: 'flex', alignItems: 'center'}}>
+            <img src={tools.Kakao}/>
+            <span>카카오톡으로 로그인</span>
+          </div>
+        </button>
       </div>
       <span id="rights">© Docabi Co.,Ltd. All rights reserved</span>
     </div>

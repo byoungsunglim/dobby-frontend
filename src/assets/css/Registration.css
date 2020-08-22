@@ -159,7 +159,7 @@ html {
   color: #ffffff;
 }
 
-#others {
+#registration #others {
   position: absolute;
   left: 5.65vw;
   top: 722px;
@@ -169,7 +169,7 @@ html {
   padding-top: 20px;
 }
 
-#others button {
+#registration #others button {
   margin-bottom: 14px;
   width: 22.9vw;
   height: 50px;
@@ -183,13 +183,13 @@ html {
   justify-content: center;
 }
 
-#others button div img {
+#registration #others button div img {
   width: 34px;
   height: 34px;
   object-fit: contain;
 }
 
-#others button div span {
+#registration #others button div span {
   margin-left: 13px;
   height: 20px;
 
