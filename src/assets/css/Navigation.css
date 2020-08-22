@@ -1,147 +1,102 @@
+html {
+  user-select: none; /* standard syntax */
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit (konqueror) browsers */
+  -ms-user-select: none;
+  font-family: Spoqa Han Sans;
+}
+
 #navigation {
-  width: 200px;
+  width: 352px;
   height: 100%;
-  background-color: lightgrey;
-  flex-shrink: 0;
 }
 
 #navigation #logo {
-  margin: 10%;
-  text-align: center;
-  height: 5%;
-  user-select: none;
+  position: absolute;
+  top: 45px;
+  left: 67px;
+  width: 147px;
+  height: 38px;
 }
 
-#allFilesBtn {
-  margin-top: 100px;
-  margin-left: 10%;
-  width: 80%;
+#navigation button {
+  width: 280px;
+  height: 60px;
+  background-color: #fafafa;
   padding: 0;
-  height: 50px;
-  border: none;
   outline: none;
-  background-color:transparent;
-  color: black;
-  font-size: 14pt;
-  text-align: left;
+  border: none;
+  display: flex;
 }
 
-#sharedFilesBtn {
-  margin-top: 10px;
-  margin-left: 10%;
-  width: 80%;
-  padding: 0;
-  height: 50px;
-  border: none;
-  outline: none;
-  background-color:transparent;
-  color: black;
-  font-size: 14pt;
-  text-align: left;
-}
+#navigation button img {
+  margin-top: 15px;
+  margin-left: 41px;
 
-#importantFilesBtn {
-  margin-top: 10px;
-  margin-left: 10%;
-  width: 80%;
-  padding: 0;
-  height: 50px;
-  border: none;
-  outline: none;
-  background-color:transparent;
-  color: black;
-  font-size: 14pt;
-  text-align: left;
-}
-
-#importFilesBtn {
-  margin-top: 10px;
-  margin-left: 10%;
-  width: 80%;
-  padding: 0;
-  height: 50px;
-  border: none;
-  outline: none;
-  background-color:transparent;
-  color: black;
-  font-size: 14pt;
-  text-align: left;
-}
-
-#newFileBtn {
-	--width: 100%;
-	--time: 0.7s;
-
-	position: relative;
-  display: inline-block;
-  margin: 20px;
-  width: 160px;
+  width: 30px;
   height: 30px;
-  /* line-height: 30px; */
-  border: none;
-  border-radius: 5px;
-  outline: none;
-  cursor: pointer;
-  /* text-align: center;
-  text-decoration: none; */
-
-	color: white;
-	background: rgb(80, 80, 80);
-	overflow: hidden;
+  object-fit: contain;
 }
 
-#newFileBtn b {
-  position: relative;
-	z-index: 5;
-  transition: color var(--time);
+#navigation button span {
+  margin-top: 20px;
+  margin-left: 12px;
+  width: 140px;
+  height: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #1f1f1f;
+  text-align: start;
 }
 
-#newFileBtn:hover b {
-	color: black;
-}
 
-#newFileBtn span {
-	border-radius: 100%;
-	position: absolute;
-	display: block;
-	content: "";
-	z-index: 0;
-	width: 0;
-	height: 0;
-
-	background: white;
-	transform: translate(-50%, -50%);
-	transition: width var(--time), padding-top var(--time);
-}
-
-#newFileBtn:hover span {
-	width: calc(var(--width) * 2.25);
-	padding-top: calc(var(--width) * 2.25);
-}
-
-#designBtn {
-  margin: 0;
-  padding: 0;
-  border: none;
-  outline: none;
-  width: 80%;
-  margin: 10%;
+#navigation #newFile {
+  margin-top: 143px;
+  margin-left: 40px;
+  width: 200px;
   height: 50px;
-  font-size: 12pt;
-  background-color: grey;
-  border-radius: 10px;
+  border-radius: 25px;
+  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
-#draftBtn {
-  margin: 0;
-  padding: 0;
-  border: none;
-  outline: none;
-  width: 80%;
-  margin: 10%;
-  height: 50px;
-  font-size: 12pt;
-  background-color: grey;
-  border-radius: 10px;
+#navigation #newFile img {
+  margin-top: 10px;
+  margin-left: 27px;
 }
 
+#navigation #newFile span {
+  margin-top: 17px;
+  margin-left: 9px;
+
+  width: 106px;
+  height: 16px;
+
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #1f1f1f;
+}
+
+#navigation #uploadLocalFile {
+  margin-top: 32px;
+}
+
+#navigation hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 0;
+  margin-right: 0;
+  width: 280px;
+  height: 1px;
+  background-color: #e5e5e5;
+}

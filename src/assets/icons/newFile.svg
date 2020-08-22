@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30">
+    <defs>
+        <filter id="prefix__a" width="150%" height="121.4%" x="-25%" y="-10.7%" filterUnits="objectBoundingBox">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
+        </filter>
+        <filter id="prefix__c" width="150%" height="121.4%" x="-25%" y="-10.7%" filterUnits="objectBoundingBox">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
+        </filter>
+        <path id="prefix__b" d="M15 4c1.657 0 3 1.343 3 3v11h-6V7c0-1.657 1.343-3 3-3z"/>
+        <path id="prefix__d" d="M7 4c1.657 0 3 1.343 3 3v11l-6-6V7c0-1.657 1.343-3 3-3z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd" transform="translate(4 4)">
+        <rect width="6" height="14" x="8" fill="#FFB700" rx="3"/>
+        <g transform="rotate(90 15 11)">
+            <use fill="#000" filter="url(#prefix__a)" xlink:href="#prefix__b"/>
+            <use fill="#51A2E9" xlink:href="#prefix__b"/>
+        </g>
+        <g transform="rotate(-90 7 11)">
+            <use fill="#000" filter="url(#prefix__c)" xlink:href="#prefix__d"/>
+            <use fill="#FF8F83" xlink:href="#prefix__d"/>
+        </g>
+        <path fill="#5CAF71" d="M11 22c-1.657 0-3-1.343-3-3v-5l6-6v11c0 1.657-1.343 3-3 3z"/>
+    </g>
+</svg>

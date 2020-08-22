@@ -1,6 +1,3 @@
-import { ReactComponent as GoogleDrive } from "../assets/icons/gDrive.svg";
-import { ReactComponent as Dropbox } from "../assets/icons/dBox.svg";
-
 import { ReactComponent as Image } from "../assets/icons/image.svg";
 import { ReactComponent as Media } from "../assets/icons/media.svg";
 import { ReactComponent as Table } from "../assets/icons/table.svg";
@@ -34,12 +31,18 @@ import { ReactComponent as FullWidth } from "../assets/icons/fullWidth.svg";
 import Google from "../assets/icons/google.svg";
 import Kakao from "../assets/icons/kakao.svg";
 
+import NewFile from "../assets/icons/newFile.svg";
+import UploadLocalFile from "../assets/icons/uploadLocalFile.svg";
+import UploadLocalFolder from "../assets/icons/uploadLocalFolder.svg";
+import GDrive from "../assets/icons/gDrive.svg";
+import DBox from "../assets/icons/dBox.svg";
+import AllFiles from "../assets/icons/allFiles.svg";
+import SharedFiles from "../assets/icons/sharedFiles.svg";
+import ImportantFiles from "../assets/icons/importantFiles.svg";
+
 import Search from "../assets/icons/search.svg";
 
 export default {
-  GoogleDrive,
-  Dropbox,
-
   Image,
   Media,
   Table,
@@ -72,6 +75,15 @@ export default {
 
   Google, 
   Kakao,
+
+  NewFile,
+  UploadLocalFile,
+  UploadLocalFolder,
+  GDrive,
+  DBox,
+  AllFiles,
+  SharedFiles,
+  ImportantFiles,
 
   Search,
 };

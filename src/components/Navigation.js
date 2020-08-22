@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
+import brand from "../utils/brand";
+import tools from "../utils/tools";
 import Modal from "./Modal";
 
 import "../assets/css/Navigation.css";
@@ -59,11 +61,39 @@ class Navigation extends Component {
 
   navigations = {
     home: [
-      <button key="newFileBtn" id="newFileBtn" onClick={(e) => this.handleClick(e)}><span></span><b>신규 문서 작성</b></button>,
-      <button key="allFilesBtn" id="allFilesBtn" onClick={(e) => this.handleClick(e)}><b>모든 파일</b></button>,
-      <button key="sharedFilesBtn" id="sharedFilesBtn" onClick={(e) => this.handleClick(e)}><b>공유 파일</b></button>,
-      <button key="importantFilesBtn" id="importantFilesBtn" onClick={(e) => this.handleClick(e)}><b>중요한 파일</b></button>,
-      <button key="importFilesBtn" id="importFilesBtn" onClick={(e) => this.handleClick(e)}><b>불러오기</b></button>
+      <button key="newFile" id="newFile" onClick={(e) => this.handleClick(e)}>
+        <img src={tools.NewFile}/>
+        <span>새로 만들기</span>
+      </button>,
+      <button key="uploadLocalFile" id="uploadLocalFile" onClick={(e) => this.handleClick(e)}>
+        <img src={tools.UploadLocalFile}/>
+        <span>로컬 파일 업로드</span>
+      </button>,
+      <button key="uploadLocalFolder" id="uploadLocalFolder" onClick={(e) => this.handleClick(e)}>
+        <img src={tools.UploadLocalFolder}/>
+        <span>로컬 폴더 업로드</span>
+      </button>,
+      <button key="syncGoogle" id="syncGoogle" onClick={(e) => this.handleClick(e)}>
+        <img src={tools.GDrive}/>
+        <span>Google Drive 연동하기</span>
+      </button>,
+      <button key="syncDropbox" id="syncDropbox" onClick={(e) => this.handleClick(e)}>
+        <img src={tools.DBox}/>
+        <span>Dropbox 연동하기</span>
+      </button>,
+      <hr></hr>,
+      <button key="allFiles" id="allFiles" onClick={(e) => this.handleClick(e)}>
+        <img src={tools.AllFiles}/>
+        <span>모든 파일</span>
+      </button>,
+      <button key="sharedFiles" id="sharedFiles" onClick={(e) => this.handleClick(e)}>
+        <img src={tools.SharedFiles}/>
+        <span>공유 파일</span>
+      </button>,
+      <button key="importantFiles" id="importantFiles" onClick={(e) => this.handleClick(e)}>
+        <img src={tools.ImportantFiles}/>
+        <span>중요한 파일</span>
+      </button>,
     ],
     draft: [
       // <button key="designBtn" id="designBtn" onClick={() => this.props.setView()}>DESIGN</button>
@@ -76,9 +106,7 @@ class Navigation extends Component {
   render() {
     return (
       <div id="navigation">
-        <div id="logo" onClick={(e) => this.handleClick(e)}>
-          <b>Docgabi</b>
-        </div>
+        <img id="logo" src={brand.Logo}/>
         {this.navigations[this.props.view]}
         {this.state.showModal ? 
           <Modal handleImport={this.handleImport} handleModal={this.handleModal}/>
