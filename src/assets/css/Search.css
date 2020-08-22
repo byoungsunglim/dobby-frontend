@@ -1,11 +1,13 @@
 #search {
   position: absolute;
-  margin-left: 775px;
-  margin-top: 38px;
+  right: 505px;
+  top: 38px;
   width: 360px;
   height: 50px;
   border-radius: 25px;
   border: solid 1.2px #bababa;
+
+  display: flex;
 }
 
 #search img {
@@ -17,17 +19,15 @@
 }
 
 #search input {
-  position: absolute;
   margin-left: 6px;
   margin-top: 18px;
   width: 270px;
   height: 14px;
-  font-family: Spoqa Han Sans;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: normal;
+  line-height: 14px;
   letter-spacing: normal;
   color: #888888;
 
