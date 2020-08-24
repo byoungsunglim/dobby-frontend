@@ -11,7 +11,6 @@ import { queryDrive } from "../utils/queryDrive";
 
 class Navigation extends Component {
   state = {
-    showModal: false
   }
 
   handleClick = (e) => {
@@ -20,11 +19,15 @@ class Navigation extends Component {
       case 'logo':
         this.props.history.push("/");
         break;
-      case "newFileBtn":
-        queryDB('put', 'doc', this.props.user.email).then((doc_id) => {
-          // console.log(doc_id);
-          this.props.history.push(`/doc/${doc_id}`)
-        });
+      case "create":
+        let nodes = document.querySelectorAll("[id^=new]");
+        for (let node of nodes) {
+          node.setAttribute('style', 'display:visible');
+        }
+        // queryDB('put', 'doc', this.props.user.email).then((doc_id) => {
+        //   // console.log(doc_id);
+        //   this.props.history.push(`/doc/${doc_id}`)
+        // });
         break;
       case "allFilesBtn":
         break;
@@ -53,45 +56,59 @@ class Navigation extends Component {
     })
   }
 
-  handleModal = () => {
-    this.setState({
-      showModal: false
-    })
+  handleMouseLeave = (e) => {
+    let nodes = document.querySelectorAll("[id^=new]");
+    for (let node of nodes) {
+      node.setAttribute('style', 'display:none');
+    }
   }
 
   navigations = {
     home: [
-      <button key="newFile" id="newFile" onClick={(e) => this.handleClick(e)}>
-        <img src={tools.NewFile}/>
+      <button key="create" id="create" onClick={(e) => this.handleClick(e)}>
+        <img alt="create" src={tools.Create}/>
         <span>새로 만들기</span>
       </button>,
+      <button key="newFolder" id="newFolder" onClick={(e) => this.handleClick(e)} style={{display: 'none'}}>
+        <img alt="folder" src={tools.Folder}/>
+        <span>폴더</span>
+      </button>,
+      <button key="newPresentation" id="newPresentation" onClick={(e) => this.handleClick(e)} style={{display: 'none'}}>
+        <img alt="presentation" src={tools.Presentation}/>
+        <span>Docgabi 프리젠테이션</span>
+      </button>,
+      <button key="newReport" id="newReport" onClick={(e) => this.handleClick(e)} style={{display: 'none'}}>
+        <img alt="report" src={tools.Report}/>
+        <span>Docgabi 보고서</span>
+      </button>,
+      <hr key="newSeparator" id="newSeparator" style={{display: 'none'}}></hr>,
       <button key="uploadLocalFile" id="uploadLocalFile" onClick={(e) => this.handleClick(e)}>
-        <img src={tools.UploadLocalFile}/>
+        <img alt="local file" src={tools.LocalFile}/>
         <span>로컬 파일 업로드</span>
       </button>,
       <button key="uploadLocalFolder" id="uploadLocalFolder" onClick={(e) => this.handleClick(e)}>
-        <img src={tools.UploadLocalFolder}/>
+        <img alt="local folder" src={tools.LocalFolder}/>
         <span>로컬 폴더 업로드</span>
       </button>,
       <button key="syncGoogle" id="syncGoogle" onClick={(e) => this.handleClick(e)}>
-        <img src={tools.GDrive}/>
+        <img alt="sync google" src={tools.GDrive}/>
         <span>Google Drive 연동하기</span>
       </button>,
       <button key="syncDropbox" id="syncDropbox" onClick={(e) => this.handleClick(e)}>
-        <img src={tools.DBox}/>
+        <img alt="sync dropbox" src={tools.DBox}/>
         <span>Dropbox 연동하기</span>
       </button>,
       <hr></hr>,
       <button key="allFiles" id="allFiles" onClick={(e) => this.handleClick(e)}>
-        <img src={tools.AllFiles}/>
+        <img alt="all files" src={tools.AllFiles}/>
         <span>모든 파일</span>
       </button>,
       <button key="sharedFiles" id="sharedFiles" onClick={(e) => this.handleClick(e)}>
-        <img src={tools.SharedFiles}/>
+        <img alt="shared files" src={tools.SharedFiles}/>
         <span>공유 파일</span>
       </button>,
       <button key="importantFiles" id="importantFiles" onClick={(e) => this.handleClick(e)}>
-        <img src={tools.ImportantFiles}/>
+        <img alt="important files" src={tools.ImportantFiles}/>
         <span>중요한 파일</span>
       </button>,
     ],
@@ -105,13 +122,9 @@ class Navigation extends Component {
 
   render() {
     return (
-      <div id="navigation">
-        <img id="logo" src={brand.Logo}/>
+      <div id="navigation" onMouseLeave={(e) => this.handleMouseLeave(e)}>
+        <img id="logo" src={brand.Logo} onClick={(e) => this.handleClick(e)}/>
         {this.navigations[this.props.view]}
-        {this.state.showModal ? 
-          <Modal handleImport={this.handleImport} handleModal={this.handleModal}/>
-          : null
-        }
       </div>
     );
   }

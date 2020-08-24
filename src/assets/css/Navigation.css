@@ -12,6 +12,10 @@ html {
   height: 100%;
 }
 
+#navigation button {
+  cursor: pointer;
+}
+
 #navigation #logo {
   position: absolute;
   top: 45px;
@@ -55,7 +59,7 @@ html {
 }
 
 
-#navigation #newFile {
+#navigation #create {
   margin-top: 143px;
   margin-left: 40px;
   width: 200px;
@@ -85,6 +89,10 @@ html {
   letter-spacing: normal;
   text-align: center;
   color: #1f1f1f;
+}
+
+#navigation #newFolder {
+  margin-top: 34px;
 }
 
 #navigation #uploadLocalFile {
