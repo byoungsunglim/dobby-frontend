@@ -1,4 +1,4 @@
-export const queryDrive = (handle, type, doc_id, data) => new Promise(function(resolve, reject) {
+export const queryDrive = (handle, type, uid, data) => new Promise(function(resolve, reject) {
   switch (handle) {
     case "init":
       fetch(`https://dobby-is-free.appspot.com/imports/${type}/init`, {
@@ -17,7 +17,7 @@ export const queryDrive = (handle, type, doc_id, data) => new Promise(function(r
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          uid: doc_id,
+          uid: uid,
           authorization_response: window.location.href
         })
       }).then(response => response.json())
@@ -26,7 +26,7 @@ export const queryDrive = (handle, type, doc_id, data) => new Promise(function(r
       });
       break;
     case "get":
-      fetch(`https://dobby-is-free.appspot.com/imports/${doc_id}`, {
+      fetch(`https://dobby-is-free.appspot.com/imports/${uid}`, {
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
           'Content-Type': 'application/json'

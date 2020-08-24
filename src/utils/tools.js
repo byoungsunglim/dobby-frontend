@@ -31,9 +31,12 @@ import { ReactComponent as FullWidth } from "../assets/icons/fullWidth.svg";
 import Google from "../assets/icons/google.svg";
 import Kakao from "../assets/icons/kakao.svg";
 
-import NewFile from "../assets/icons/newFile.svg";
-import UploadLocalFile from "../assets/icons/uploadLocalFile.svg";
-import UploadLocalFolder from "../assets/icons/uploadLocalFolder.svg";
+import Create from "../assets/icons/create.svg";
+import Folder from "../assets/icons/folder.svg";
+import Presentation from "../assets/icons/presentation.svg";
+import Report from "../assets/icons/report.svg";
+import LocalFile from "../assets/icons/localFile.svg";
+import LocalFolder from "../assets/icons/localFolder.svg";
 import GDrive from "../assets/icons/gDrive.svg";
 import DBox from "../assets/icons/dBox.svg";
 import AllFiles from "../assets/icons/allFiles.svg";
@@ -41,6 +44,9 @@ import SharedFiles from "../assets/icons/sharedFiles.svg";
 import ImportantFiles from "../assets/icons/importantFiles.svg";
 
 import Search from "../assets/icons/search.svg";
+
+import Important from "../assets/icons/important.svg";
+import NotImportant from "../assets/icons/notImportant.svg";
 
 export default {
   Image,
@@ -76,9 +82,12 @@ export default {
   Google, 
   Kakao,
 
-  NewFile,
-  UploadLocalFile,
-  UploadLocalFolder,
+  Create,
+  Folder,
+  Presentation,
+  Report,
+  LocalFile,
+  LocalFolder,
   GDrive,
   DBox,
   AllFiles,
@@ -86,4 +95,7 @@ export default {
   ImportantFiles,
 
   Search,
+
+  Important,
+  NotImportant,
 };
