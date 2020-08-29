@@ -32,19 +32,47 @@ html {
   outline: none;
   border: none;
   display: flex;
+  align-items: center;
+}
+
+#navigation .hoverEffect1 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 240px;
+  height: 60px;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+}
+
+#navigation .onHover1:hover .hoverEffect1 {
+  background-color: #ededed;
+}
+
+#navigation .hoverEffect2 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 190px !important;
+  height: 60px !important;
+}
+
+#navigation .onHover2:hover .hoverEffect2 {
+  background-color: #ededed;
 }
 
 #navigation button img {
-  margin-top: 15px;
+  /* margin-top: 15px; */
   margin-left: 41px;
 
   width: 30px;
   height: 30px;
   object-fit: contain;
+  z-index: 1;
 }
 
 #navigation button span {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   margin-left: 12px;
   width: 140px;
   height: 20px;
@@ -56,8 +84,15 @@ html {
   letter-spacing: normal;
   color: #1f1f1f;
   text-align: start;
+  z-index: 1;
 }
 
+#navigation button .arrow {
+  margin-left: 3px;
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
 
 #navigation #create {
   margin-top: 143px;
@@ -70,12 +105,12 @@ html {
 }
 
 #navigation #create img {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   margin-left: 27px;
 }
 
 #navigation #create span {
-  margin-top: 17px;
+  /* margin-top: 17px; */
   margin-left: 9px;
 
   width: 106px;
@@ -111,8 +146,8 @@ html {
 #navigation [id$=Types] {
   position: absolute;
   left: 280px;
-
-  z-index: 100;
+  align-self: flex-start;
+  z-index: 2;
 }
 
 #navigation [id$=Types] button {
@@ -125,13 +160,13 @@ html {
 
 #navigation [id$=Types] button span {
   width: 190px;
-  height: 14px;
+  height: 60px;
 
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: normal;
+  line-height: 60px;
   letter-spacing: normal;
   text-align: center;
   color: #1f1f1f;

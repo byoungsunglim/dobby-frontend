@@ -35,6 +35,7 @@ import Create from "../assets/icons/create.svg";
 import Folder from "../assets/icons/folder.svg";
 import Presentation from "../assets/icons/presentation.svg";
 import Report from "../assets/icons/report.svg";
+import Arrow from "../assets/icons/arrow.svg"
 import LocalFile from "../assets/icons/localFile.svg";
 import LocalFolder from "../assets/icons/localFolder.svg";
 import GDrive from "../assets/icons/gDrive.svg";
@@ -86,6 +87,7 @@ export default {
   Folder,
   Presentation,
   Report,
+  Arrow,
   LocalFile,
   LocalFolder,
   GDrive,
