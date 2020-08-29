@@ -24,6 +24,13 @@ export const queryDB = (handle, type, doc_id, data) => new Promise(function (res
         .catch(function (error) {
           alert(error);
         });
+      } else if (type === "recents") {
+        db.collection("docs").where("owner", "==", doc_id).orderBy("viewedAt", "desc").limit(data).get().then(function(querySnapshot) {
+          resolve(queryDocs(querySnapshot));
+        })
+        .catch(function (error) {
+          alert(error);
+        });
       }
       break;
     case "set":
