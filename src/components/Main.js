@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import Documents from "./Documents";
+import Recents from "./Recents";
+import Entries from "./Entries";
 import Search from "./Search";
 
 import "../assets/css/Main.css";
@@ -17,13 +18,8 @@ class Main extends Component {
           <span id="title">HOME</span>
           <Search/>
         </div>
-        <div id="recent_files">
-          <span>최근 열어본 파일</span>
-        </div>
-        <div id="files_folders">
-
-        </div>
-        <Documents user={this.props.user}/>
+        <Recents user={this.props.user}/>
+        <Entries user={this.props.user}/>
       </div>
     );
   }

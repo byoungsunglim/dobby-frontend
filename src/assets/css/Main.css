@@ -57,8 +57,9 @@
 }
 
 #main #recent_files span {
-  margin-top: 50px;
-  margin-left: 66px;
+  position: absolute;
+  top: 159px;
+  left: 66px;
   
   width: 271px;
   height: 20px;

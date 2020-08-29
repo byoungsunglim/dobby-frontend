@@ -20,14 +20,19 @@ class Navigation extends Component {
         this.props.history.push("/");
         break;
       case "create":
-        let nodes = document.querySelectorAll("[id^=new]");
-        for (let node of nodes) {
-          node.setAttribute('style', 'display:visible');
-        }
+        document.getElementById("createKinds").setAttribute('style', 'display:visible')
         // queryDB('put', 'doc', this.props.user.email).then((doc_id) => {
         //   // console.log(doc_id);
         //   this.props.history.push(`/doc/${doc_id}`)
         // });
+        break;
+      case "newPresentation":
+        document.getElementById("presentationTypes").setAttribute('style', 'display:visible')
+        document.getElementById("reportTypes").setAttribute('style', 'display:none')
+        break;
+      case "newReport":
+        document.getElementById("reportTypes").setAttribute('style', 'display:visible')
+        document.getElementById("presentationTypes").setAttribute('style', 'display:none')
         break;
       case "allFilesBtn":
         break;
@@ -56,32 +61,43 @@ class Navigation extends Component {
     })
   }
 
-  handleMouseLeave = (e) => {
-    let nodes = document.querySelectorAll("[id^=new]");
-    for (let node of nodes) {
-      node.setAttribute('style', 'display:none');
-    }
-  }
-
   navigations = {
     home: [
-      <button key="create" id="create" onClick={(e) => this.handleClick(e)}>
+      <button className="showHide" key="create" id="create" onClick={(e) => this.handleClick(e)}>
         <img alt="create" src={tools.Create}/>
         <span>새로 만들기</span>
       </button>,
-      <button key="newFolder" id="newFolder" onClick={(e) => this.handleClick(e)} style={{display: 'none'}}>
-        <img alt="folder" src={tools.Folder}/>
-        <span>폴더</span>
-      </button>,
-      <button key="newPresentation" id="newPresentation" onClick={(e) => this.handleClick(e)} style={{display: 'none'}}>
-        <img alt="presentation" src={tools.Presentation}/>
-        <span>Docgabi 프리젠테이션</span>
-      </button>,
-      <button key="newReport" id="newReport" onClick={(e) => this.handleClick(e)} style={{display: 'none'}}>
-        <img alt="report" src={tools.Report}/>
-        <span>Docgabi 보고서</span>
-      </button>,
-      <hr key="newSeparator" id="newSeparator" style={{display: 'none'}}></hr>,
+      <div className="hideOnOut" key="createKinds" id="createKinds" onClick={(e) => this.handleClick(e)} style={{display: 'none'}}>
+        <button key="newFolder" id="newFolder" onClick={(e) => this.handleClick(e)}>
+          <img alt="folder" src={tools.Folder}/>
+          <span>폴더</span>
+        </button>
+        <button className="showHide" key="newPresentation" id="newPresentation" onClick={(e) => this.handleClick(e)}>
+          <img alt="presentation" src={tools.Presentation}/>
+          <span>Docgabi 프리젠테이션</span>
+          <div className="hideOnOut" id="presentationTypes" style={{display: 'none'}}>
+            <button className="empty" onClick={(e) => this.handleClick(e)}>
+              <span>빈 드래프트에서 작성</span>
+            </button>
+            <button className="template" onClick={(e) => this.handleClick(e)}>
+              <span>템플릿으로 작성</span>
+            </button>
+          </div>
+        </button>
+        <button className="showHide" key="newReport" id="newReport" onClick={(e) => this.handleClick(e)}>
+          <img alt="report" src={tools.Report}/>
+          <span>Docgabi 보고서</span>
+          <div className="hideOnOut" id="reportTypes" style={{display: 'none'}}>
+            <button className="empty" onClick={(e) => this.handleClick(e)}>
+              <span>빈 드래프트에서 작성</span>
+            </button>
+            <button className="template" onClick={(e) => this.handleClick(e)}>
+              <span>템플릿으로 작성</span>
+            </button>
+          </div>
+        </button>
+        <hr></hr>
+      </div>,
       <button key="uploadLocalFile" id="uploadLocalFile" onClick={(e) => this.handleClick(e)}>
         <img alt="local file" src={tools.LocalFile}/>
         <span>로컬 파일 업로드</span>
@@ -122,7 +138,7 @@ class Navigation extends Component {
 
   render() {
     return (
-      <div id="navigation" onMouseLeave={(e) => this.handleMouseLeave(e)}>
+      <div id="navigation">
         <img id="logo" src={brand.Logo} onClick={(e) => this.handleClick(e)}/>
         {this.navigations[this.props.view]}
       </div>
