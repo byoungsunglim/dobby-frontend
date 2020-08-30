@@ -1,0 +1,102 @@
+html, *{
+  user-select: none; /* standard syntax */
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit (konqueror) browsers */
+  -ms-user-select: none;
+  font-family: Spoqa Han Sans;
+  --landing-top: 120px;
+
+  img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+  }
+}
+
+
+
+::-webkit-scrollbar {
+  width: 0px;
+  display: none;
+  background: transparent;
+}
+
+#landing {
+  position: absolute;
+  width: 100%;
+  min-height: 920px;
+  height: 100%;
+  background-color: #fafafa;
+
+  & #landing_container {
+    position: absolute;
+    top: var(--landing-top);
+    left: 27.1vw;
+    width: 440px;
+  }
+
+  & #logo {
+    position: absolute;
+    width: 147px;
+    height: 38px;
+    object-fit: contain;
+  }
+
+  & #character {
+    position: absolute;
+    top: 170px;
+    width: 440px;
+    height: 578px;
+    object-fit: contain;
+    background-color: transparent;
+  }
+
+  & #line_1 {
+    position: absolute;
+    top: 78px;
+
+    width: 329px;
+    height: 32px;
+
+    font-size: 32px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 32px;
+    letter-spacing: normal;
+    color: #1f1f1f;
+  }
+
+  & #line_2 {
+    position: absolute;
+    top: 126px;
+
+    width: 329px;
+    height: 32px;
+
+    font-size: 32px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 32px;
+    letter-spacing: normal;
+    color: #1f1f1f;
+  }
+
+  & #line_3 {
+    position: absolute;
+    top: 170px;
+
+    height: 56px;
+    font-size: 56px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 56px;
+    letter-spacing: normal;
+    color: #1f1f1f;
+  }
+}

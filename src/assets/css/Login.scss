@@ -1,0 +1,226 @@
+#login {
+  position: absolute;
+  left: 50vw;
+
+  width: 50vw;
+  min-height: 920px;
+  height: 100vh;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  box-shadow: -12px 0 11px 0 rgba(0, 0, 0, 0.04);
+  background-color: #ffffff;
+  z-index: 1;
+
+  & #login_container {
+    position: absolute;
+    left: 5.65vw;
+    top: var(--landing-top);
+
+    width: 22.9vw;
+    min-width: 300px;
+  }
+
+  & #login_title {
+    position: absolute;
+    /* left: 5.65vw; */
+    width: 360px;
+    height: 30px;
+
+    font-size: 30px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 30px;
+    letter-spacing: normal;
+    color: #1f1f1f;
+  }
+
+  & #to_registration {
+    position: absolute;
+    right: 0px;
+    top: 8px;
+    width: 121px;
+    height: 16px;
+
+    text-align: right;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.14;
+    letter-spacing: normal;
+    color: #29a3ef;
+  }
+
+  & #login_form {
+    position: relative;
+    margin-top: 78px;
+    width: 100%;
+
+    & .login_input_container {
+      width: 100%;
+      height: 50px;
+      border-radius: 25px;
+      border: solid 1.2px #bababa;
+      background-color: #ffffff;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+
+      & input {
+        width: 90.9%;
+        height: 14px;
+
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: 14px;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #1f1f1f;
+        outline: none;
+        border: none;
+      }
+    }
+
+    & .login_input_container:focus-within {
+      border: solid 1.2px #1f1f1f;
+    }
+
+    & #login_terms {
+      position: relative;
+      margin-top: 20px;
+      width: 100%;
+      height: 20px;
+      display: flex;
+
+      & span {
+        margin-left: 14px;
+        width: calc(100% - 20px - 14px);
+        height: 20px;
+
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 20px;
+        letter-spacing: normal;
+        color: #1f1f1f;
+      }
+
+      & #autologin {
+        width: 56px;
+        height: 20px;
+
+        font-size: 14px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 20px;
+        letter-spacing: normal;
+        color: #29a3ef;
+      }
+
+      #forgot {
+        position: absolute;
+        right: 0px;
+
+        width: 140px;
+        height: 20px;
+
+        font-size: 14px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 20px;
+        letter-spacing: normal;
+        text-align: right;
+        color: #29a3ef;
+      }
+    }
+
+    .submit {
+      margin-top: 30px;
+      width: 100%;
+      height: 50px;
+      border-radius: 25px;
+      background-color: #51a2e9;
+      outline: none;
+      border: none;
+
+      font-size: 16px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: #ffffff;
+    }
+  }
+
+  #login_with_others {
+    margin-top: 20px;
+    padding-top: 20px;
+    width: 100%;
+    border-top: solid 1px #bababa;
+
+    button {
+      width: 100%;
+      height: 50px;
+
+      margin-bottom: 14px;
+
+      border-radius: 25px;
+      background-color: #0084d2;
+      outline: none;
+      border: none;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      div {
+        min-width: 200px;
+        display: flex;
+        align-items: center;
+      }
+
+      img {
+        width: 34px;
+        height: 34px;
+        object-fit: contain;
+      }
+
+      span {
+        margin-left: 13px;
+        height: 20px;
+
+        font-size: 16px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 20px;
+        letter-spacing: normal;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .rights {
+    position: absolute;
+    top: 730px;
+    width: 100%;
+    height: 20px;
+    font-family: Open Sans;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #888888;
+  }
+}

@@ -4,11 +4,11 @@ import Navigation from "./Navigation";
 import Main from "./Main";
 import Information from "./Information";
 
-import "../assets/css/Home.css";
+import "../assets/css/Home.scss";
 
 class Home extends Component {
   handleClick = (e) => {
-    console.log(e.target.parentNode.className);
+    // console.log(e.target.parentNode.className);
     if (!e.target.parentNode.className.includes('showHide') && !e.target.id.includes('create')) {
       for (let node of document.querySelectorAll("[class=hideOnOut]")) {
         node.setAttribute('style', 'display:none');
