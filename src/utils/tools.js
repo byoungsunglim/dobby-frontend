@@ -4,7 +4,6 @@ import { ReactComponent as Table } from "../assets/icons/table.svg";
 import { ReactComponent as Graph } from "../assets/icons/graph.svg";
 import { ReactComponent as Pagination } from "../assets/icons/pagination.svg";
 import { ReactComponent as Capture } from "../assets/icons/capture.svg";
-import { ReactComponent as Etc } from "../assets/icons/etc.svg";
 
 import { ReactComponent as Text } from "../assets/icons/text.svg";
 import { ReactComponent as Bold } from "../assets/icons/bold.svg";
@@ -21,7 +20,6 @@ import { ReactComponent as Numlist } from "../assets/icons/numlist.svg";
 import { ReactComponent as Comment } from "../assets/icons/comment.svg";
 
 import { ReactComponent as DragBtn } from "../assets/icons/dragBtn.svg";
-import { ReactComponent as Selected } from "../assets/icons/selected.svg";
 
 import { ReactComponent as LeftAlign } from "../assets/icons/leftAlign.svg";
 import { ReactComponent as TopAlign } from "../assets/icons/topAlign.svg";
@@ -30,6 +28,8 @@ import { ReactComponent as FullWidth } from "../assets/icons/fullWidth.svg";
 
 import Google from "../assets/icons/google.svg";
 import Kakao from "../assets/icons/kakao.svg";
+import Checked from "../assets/icons/checked.svg";
+import Unselected from "../assets/icons/unselected.svg";
 
 import Create from "../assets/icons/create.svg";
 import Folder from "../assets/icons/folder.svg";
@@ -49,6 +49,10 @@ import Search from "../assets/icons/search.svg";
 import Important from "../assets/icons/important.svg";
 import NotImportant from "../assets/icons/notImportant.svg";
 
+import Download from "../assets/icons/download.svg";
+import Share from "../assets/icons/share.svg";
+import Etc from "../assets/icons/etc.svg";
+
 export default {
   Image,
   Media,
@@ -56,7 +60,6 @@ export default {
   Graph,
   Pagination,
   Capture,
-  Etc,
 
   Text,
   Bold,
@@ -73,7 +76,6 @@ export default {
   Comment,
 
   DragBtn,
-  Selected,
 
   LeftAlign,
   TopAlign,
@@ -82,6 +84,9 @@ export default {
 
   Google, 
   Kakao,
+
+  Checked,
+  Unselected,
 
   Create,
   Folder,
@@ -100,4 +105,8 @@ export default {
 
   Important,
   NotImportant,
+
+  Download,
+  Share,
+  Etc,
 };

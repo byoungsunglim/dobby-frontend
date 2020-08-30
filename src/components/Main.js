@@ -4,7 +4,7 @@ import Recents from "./Recents";
 import Entries from "./Entries";
 import Search from "./Search";
 
-import "../assets/css/Main.css";
+import "../assets/css/Main.scss";
 
 class Main extends Component {
   componentDidMount() {
@@ -15,7 +15,7 @@ class Main extends Component {
     return (
       <div id="main">
         <div id="header">
-          <span id="title">HOME</span>
+          <span id="main_title">HOME</span>
           <Search/>
         </div>
         <Recents user={this.props.user}/>

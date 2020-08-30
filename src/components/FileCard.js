@@ -1,32 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+import Checkbox from "./Checkbox";
 import tools from "../utils/tools";
 
-import "../assets/css/FileCard.css";
+import "../assets/css/FileCard.scss";
 
-function FileCard({ doc }) {
+function FileCard({ doc }) {  
   function handleClick(e) {}
 
   return (
     <div className="fileCard" onClick={(e) => handleClick(e)}>
-      <div className="preview">
-        <img alt="preview thumbnail" src={doc.thumbnail} />
-      </div>
-      <button className="importantBtn">
-        {doc.is_important ? (
-          <img alt="important" src={tools.Important} />
-        ) : (
-          <img alt="not important" src={tools.NotImportant} />
-        )}
-      </button>
+      <Checkbox type={"select"}/>
+      <Checkbox type={"important"} is_checked={doc.is_important}/>
+      {doc.thumbnail ? 
+        <div className="preview">
+          <img alt="preview thumbnail" className="preview_thumbnail" src={doc.thumbnail}/>
+        </div>
+      : 
+        <div className="preview_default"/>
+      }
       <div className="shared_profiles"></div>
-      <div className="title">
-        <img className="type" src />
+      <div className="file_title">
+        <img alt="doc type" className="doc_type" src={tools[`${doc.type}`]}/>
         <span>{doc.title}</span>
       </div>
-      <button className="download"></button>
-      <button className="share"></button>
-      <button className="etc"></button>
+      <div className="file_functions">
+        <button className="file_download">
+          <img alt="file download" src={tools.Download}/>
+        </button>
+        <button className="file_share">
+          <img alt="file share" src={tools.Share}/>
+        </button>
+        <button className="file_etc">
+          <img alt="file etc" src={tools.Etc}/>
+      </button>
+      </div>
     </div>
   );
 }

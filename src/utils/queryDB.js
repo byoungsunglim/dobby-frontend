@@ -61,9 +61,12 @@ export const queryDB = (handle, type, doc_id, data) => new Promise(function (res
         db.collection("docs").add({
           title: "문서 제목",
           owner: doc_id,
+          type: "Presentation",
           shared: [],
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          viewedAt: new Date(),
+          is_important: false
         }).then(function (docRef) {
           console.log(`${docRef.id} created successfully!`)
           resolve(docRef.id);

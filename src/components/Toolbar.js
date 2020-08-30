@@ -16,7 +16,7 @@ class Toolbar extends Component {
         <tools.Numlist className="tools"/>
         <tools.Pagination className="tools"/>
         <tools.Capture className="tools"/>
-        <tools.Etc className="tools"/>
+        {/* <tools.Etc className="tools"/> */}
       </div>
     );
   }

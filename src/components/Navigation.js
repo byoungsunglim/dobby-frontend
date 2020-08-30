@@ -5,30 +5,33 @@ import brand from "../utils/brand";
 import tools from "../utils/tools";
 import Modal from "./Modal";
 
-import "../assets/css/Navigation.css";
 import { queryDB } from "../utils/queryDB";
 import { queryDrive } from "../utils/queryDrive";
+
+import "../assets/css/Navigation.scss";
 
 class Navigation extends Component {
   state = {
   }
 
   handleClick = (e) => {
-    console.log(e.currentTarget.id);
+    // console.log(e.currentTarget.id);
     switch (e.currentTarget.id) {
       case 'logo':
         this.props.history.push("/");
         break;
       case "create":
         document.getElementById("createKinds").setAttribute('style', 'display:visible')
-        // queryDB('put', 'doc', this.props.user.email).then((doc_id) => {
-        //   // console.log(doc_id);
-        //   this.props.history.push(`/doc/${doc_id}`)
-        // });
         break;
       case "newPresentation":
         document.getElementById("presentationTypes").setAttribute('style', 'display:visible')
         document.getElementById("reportTypes").setAttribute('style', 'display:none')
+        break;
+      case "newPresentation_empty":
+        queryDB('put', 'doc', this.props.user.email).then((doc_id) => {
+          // console.log(doc_id);
+          this.props.history.push(`/doc/${doc_id}`)
+        });
         break;
       case "newReport":
         document.getElementById("reportTypes").setAttribute('style', 'display:visible')
@@ -79,11 +82,11 @@ class Navigation extends Component {
           <span>Docgabi 프리젠테이션</span>
           <img alt="arrow" className="arrow" src={tools.Arrow}/>
           <div className="hideOnOut" id="presentationTypes" style={{display: 'none'}}>
-            <button className="onHover2 empty" onClick={(e) => this.handleClick(e)}>
+            <button className="onHover2 empty" id="newPresentation_empty" onClick={(e) => this.handleClick(e)}>
               <span className="hoverEffect2"/>
               <span>빈 드래프트에서 작성</span>
             </button>
-            <button className="onHover2 template" onClick={(e) => this.handleClick(e)}>
+            <button className="onHover2 template" id="newPresentation_template" onClick={(e) => this.handleClick(e)}>
               <span className="hoverEffect2"/>
               <span>템플릿으로 작성</span>
             </button>
@@ -157,6 +160,9 @@ class Navigation extends Component {
       <div id="navigation">
         <img id="logo" src={brand.Logo} onClick={(e) => this.handleClick(e)}/>
         {this.navigations[this.props.view]}
+        <div id="help">
+          <span>도움말</span>
+        </div>
       </div>
     );
   }

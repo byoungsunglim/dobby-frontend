@@ -5,7 +5,7 @@ import FileCard from "./FileCard";
 import { makeCancelable } from '../utils/makeCancelable';
 import { queryDB } from "../utils/queryDB";
 
-import "../assets/css/Recents.css";
+import "../assets/css/Recents.scss";
 
 class Recents extends Component {
   state = {
@@ -53,8 +53,10 @@ class Recents extends Component {
   render() {
     return (
       <div id="recents">
-        <span>최근 열어본 파일</span>
-        {this.state.recents}
+        <span id="recents_title">최근 열어본 파일</span>
+        <div id="files">
+          {this.state.recents}
+        </div>
       </div>
     )
   }
