@@ -1,7 +1,7 @@
 #recents {
   margin-top: 50px;
   margin-left: 65px;
-  margin-right: 65px;
+  // margin-right: 65px;
   margin-bottom: 50px;
 
   #recents_title {
@@ -13,15 +13,16 @@
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    line-height: normal;
+    line-height: 20px;
     letter-spacing: normal;
     color: #1f1f1f;
   }
 
-  #files {
+  #recent_files {
     margin-top: 30px;
     margin-bottom: 30px;
 
     display: flex;
+    flex-wrap: wrap;
   }
 }

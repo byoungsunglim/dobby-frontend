@@ -14,7 +14,7 @@ class Recents extends Component {
 
   componentDidMount() {
     console.log("Recents Mounted...");
-    this.queryDB = makeCancelable(queryDB("get", "recents", this.props.user.email, 4));
+    this.queryDB = makeCancelable(queryDB("get", "recents", this.props.user.email, 5));
     this.queryDB.promise.then((docs) => {
       console.log(docs);
       if (docs) {
@@ -54,7 +54,7 @@ class Recents extends Component {
     return (
       <div id="recents">
         <span id="recents_title">최근 열어본 파일</span>
-        <div id="files">
+        <div id="recent_files">
           {this.state.recents}
         </div>
       </div>
