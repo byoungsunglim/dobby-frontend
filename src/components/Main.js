@@ -14,12 +14,14 @@ class Main extends Component {
   render() {
     return (
       <div id="main">
-        <div id="header">
+        <div id="main_header">
           <span id="main_title">HOME</span>
-          <Search/>
+          <Search />
         </div>
-        <Recents user={this.props.user}/>
-        <Entries user={this.props.user}/>
+        <div id="main_body">
+          <Recents user={this.props.user} />
+          <Entries user={this.props.user} />
+        </div>
       </div>
     );
   }

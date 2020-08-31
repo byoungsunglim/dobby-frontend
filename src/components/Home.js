@@ -21,7 +21,7 @@ class Home extends Component {
       <div id="home" onClick={(e) => this.handleClick(e)}>
         <Navigation view="home" user={this.props.user}/>
         <Main user={this.props.user}/>
-        <Information/>
+        <Information user={this.props.user}/>
       </div>
     );
   }

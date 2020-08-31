@@ -1,18 +1,15 @@
 #main {
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-
   position: absolute;
   left: var(--navigation-width);
 
-  width: calc(100% - var(--information-width));
+  width: calc(100% - var(--navigation-width) - var(--information-width));
   height: 100%;
   border-top-left-radius: 40px;
   border-bottom-left-radius: 40px;
   box-shadow: -12px 0 11px 0 rgba(0, 0, 0, 0.04);
   background-color: #ffffff;
 
-  #header {
+  #main_header {
     width: 100%;
     height: 108px;
     border-bottom: 1px solid #e3e3e3;
@@ -32,5 +29,16 @@
       letter-spacing: normal;
       color: #1f1f1f;
     }
+  }
+
+  #main_body {
+    position: absolute;
+    top: 110px;
+    width: 100%;
+    height: calc(100% - 108px);
+
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }

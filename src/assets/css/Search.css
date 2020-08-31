@@ -1,6 +1,6 @@
 #search {
   position: absolute;
-  right: 505px;
+  right: 65px;
   top: 38px;
   width: 360px;
   height: 50px;
@@ -33,4 +33,6 @@
 
   border: none;
   outline: none;
+
+  background-color: transparent;
 }

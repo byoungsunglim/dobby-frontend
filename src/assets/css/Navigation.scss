@@ -5,13 +5,22 @@ html {
   -khtml-user-select: none; /* webkit (konqueror) browsers */
   -ms-user-select: none;
   font-family: Spoqa Han Sans;
-  
+
   --button-height: 50px;
 }
 
 #navigation {
   width: var(--navigation-width);
   height: 100%;
+
+  #navigation_body {
+    position: absolute;
+    top: 143px;
+    height: calc(100% - 143px - 100px);
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 
   button {
     cursor: pointer;
@@ -92,7 +101,7 @@ html {
   }
 
   #create {
-    margin-top: 145px;
+    // margin-top: 145px;
     margin-left: 40px;
     margin-bottom: 35px;
     width: 200px;
@@ -167,7 +176,7 @@ html {
     bottom: 0;
     width: var(--navigation-width);
     height: 70px;
-    
+
     border-top: 1px solid #e5e5e5;
     display: flex;
     align-items: center;

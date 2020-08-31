@@ -159,7 +159,9 @@ class Navigation extends Component {
     return (
       <div id="navigation">
         <img id="logo" src={brand.Logo} onClick={(e) => this.handleClick(e)}/>
-        {this.navigations[this.props.view]}
+        <div id="navigation_body">
+          {this.navigations[this.props.view]}
+        </div>
         <div id="help">
           <span>도움말</span>
         </div>
