@@ -55,7 +55,7 @@ function Registration({ login, logout, setView }) {
             개인정보보호 원칙을 준수합니다.
           </span>
           <div id="registration_terms">
-            <Checkbox />
+            <Checkbox type="registration_select"/>
             <span>
               Docgabi의{" "}
               <Link id="to_terms" to="/terms">
