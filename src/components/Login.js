@@ -42,7 +42,7 @@ function Login({ login, logout, setView }) {
             <input id="password" placeholder="비밀번호" />
           </div>
           <div id="login_terms">
-            <Checkbox />
+            <Checkbox type="login_select"/>
             <span>
               향후&nbsp;
               <Link id="autologin" to="/autologin">
