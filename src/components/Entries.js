@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
-import FileCard from "./FileCard";
+import FileList from "./FileList";
 import { makeCancelable } from '../utils/makeCancelable';
 import { queryDB } from "../utils/queryDB";
 import { queryDrive } from "../utils/queryDrive";
 
-import "../assets/css/Entries.css";
+import "../assets/css/Entries.scss";
 
 class Entries extends Component {
   state = {
@@ -17,22 +17,22 @@ class Entries extends Component {
 
   componentDidMount() {
     console.log("Entries Mounted...");
-    this.queryDB = makeCancelable(queryDB("get", "docs", this.props.user.email));
+    this.queryDB = makeCancelable(queryDB("get", "recents", this.props.user.email, 5));
     this.queryDB.promise.then((docs) => {
+      console.log(docs);
       if (docs) {
         let files = [];
         for (let doc of docs) {
-          // files.push(this.docBox(doc.id, doc.title, doc.thumbnail, doc.owner, doc.shared, doc.updatedAt.toDate().toString().split(" ").slice(0, 4).join(" ")))
+          files.push(<FileList doc={doc}/>)
         }
         this.setState({
-          docs: files,
+          recents: files,
         });
       }
       else {
-        this.setState({
-          // docs: [this.docBox("newFile", "새로운 문서 만들기", null, null, null, null)]
-        })
+        //TODO: handle where there is no recent files
       }
+    });
 
       // queryDrive("get", null, this.props.user.email).then(result => {
       //   let gFiles = [];
@@ -75,7 +75,7 @@ class Entries extends Component {
       //     dFiles: dFiles
       //   })
       // })
-    });
+    // });
   }
 
   componentWillUnmount() {
@@ -99,7 +99,12 @@ class Entries extends Component {
   render() {
     return (
       <div id="entries">
-
+        <div id="entries_header">
+          <span id="entries_title">파일/폴더</span>
+        </div>
+        <div id="entries_body">
+          {this.state.recents}
+        </div>
       </div>
     )
   }
