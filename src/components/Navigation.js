@@ -15,7 +15,7 @@ class Navigation extends Component {
   }
 
   handleClick = (e) => {
-    // console.log(e.currentTarget.id);
+    console.log(e.currentTarget.id);
     switch (e.currentTarget.id) {
       case 'logo':
         this.props.history.push("/");
@@ -67,43 +67,43 @@ class Navigation extends Component {
   navigations = {
     home: [
       <button className="showHide" key="create" id="create" onClick={(e) => this.handleClick(e)}>
-        <img alt="create" src={tools.Create}/>
+        <img alt="create" key="create" src={tools.Create}/>
         <span>새로 만들기</span>
       </button>,
       <div className="hideOnOut" key="createKinds" id="createKinds" onClick={(e) => this.handleClick(e)} style={{display: 'none'}}>
         <button className="onHover1" key="newFolder" id="newFolder" onClick={(e) => this.handleClick(e)}>
-          <span className="hoverEffect1"/>
-          <img alt="folder" src={tools.Folder}/>
+          <span className="hoverEffect1" key="hoverEffect1"/>
+          <img alt="folder" key="folder" src={tools.Folder}/>
           <span>폴더</span>
         </button>
         <button className="onHover1 showHide" key="newPresentation" id="newPresentation" onClick={(e) => this.handleClick(e)}>
-          <span className="hoverEffect1"/>
-          <img alt="presentation" src={tools.Presentation}/>
+          <span className="hoverEffect1" key="hoverEffect1"/>
+          <img alt="presentation" key="presentation" src={tools.Presentation}/>
           <span>Docgabi 프리젠테이션</span>
-          <img alt="arrow" className="arrow" src={tools.Arrow}/>
-          <div className="hideOnOut" id="presentationTypes" style={{display: 'none'}}>
-            <button className="onHover2 empty" id="newPresentation_empty" onClick={(e) => this.handleClick(e)}>
-              <span className="hoverEffect2"/>
+          <img alt="arrow" className="arrow" key="arrow" src={tools.Arrow}/>
+          <div className="hideOnOut" id="presentationTypes" key="presentationTypes" style={{display: 'none'}}>
+            <button className="onHover2 empty" id="newPresentation_empty" key="newPresentation_empty" onClick={(e) => this.handleClick(e)}>
+              <span className="hoverEffect2" key="hoverEffect2"/>
               <span>빈 드래프트에서 작성</span>
             </button>
-            <button className="onHover2 template" id="newPresentation_template" onClick={(e) => this.handleClick(e)}>
-              <span className="hoverEffect2"/>
+            <button className="onHover2 template" id="newPresentation_template" key="newPresentation_template" onClick={(e) => this.handleClick(e)}>
+              <span className="hoverEffect2" key="hoverEffect2"/>
               <span>템플릿으로 작성</span>
             </button>
           </div>
         </button>
         <button className="onHover1 showHide" key="newReport" id="newReport" onClick={(e) => this.handleClick(e)}>
-          <span className="hoverEffect1"/>
-          <img alt="report" src={tools.Report}/>
+          <span className="hoverEffect1" key="hoverEffect1"/>
+          <img alt="report" key="report" src={tools.Report}/>
           <span>Docgabi 보고서</span>
-          <img alt="arrow" className="arrow" src={tools.Arrow}/>
-          <div className="hideOnOut" id="reportTypes" style={{display: 'none'}}>
-            <button className="onHover2 empty" onClick={(e) => this.handleClick(e)}>
-              <span className="hoverEffect2"/>
+          <img alt="arrow" className="arrow" key="arrow" src={tools.Arrow}/>
+          <div className="hideOnOut" id="reportTypes" key="reportTypes" style={{display: 'none'}}>
+            <button className="onHover2 empty" id="newReport_empty" key="newReport_empty" onClick={(e) => this.handleClick(e)}>
+              <span className="hoverEffect2" key="hoverEffect2"/>
               <span>빈 드래프트에서 작성</span>
             </button>
-            <button className="onHover2 template" onClick={(e) => this.handleClick(e)}>
-              <span className="hoverEffect2"/>
+            <button className="onHover2 template" id="newReport_template" key="newReport_template" onClick={(e) => this.handleClick(e)}>
+              <span className="hoverEffect2" key="hoverEffect2"/>
               <span>템플릿으로 작성</span>
             </button>
           </div>

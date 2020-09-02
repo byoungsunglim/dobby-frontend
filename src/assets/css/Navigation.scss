@@ -13,59 +13,6 @@ html {
   width: var(--navigation-width);
   height: 100%;
 
-  #navigation_body {
-    position: absolute;
-    top: 143px;
-    height: calc(100% - 143px - 100px);
-    overflow-y: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-
-  button {
-    cursor: pointer;
-
-    width: 100%;
-    height: var(--button-height);
-    background-color: #fafafa;
-    padding: 0;
-    outline: none;
-    border: none;
-    display: flex;
-    align-items: center;
-
-    img {
-      margin-left: 41px;
-
-      width: 30px;
-      height: 30px;
-      object-fit: contain;
-      z-index: 1;
-    }
-
-    span {
-      margin-left: 12px;
-      width: 140px;
-      height: 20px;
-      font-size: 14px;
-      font-weight: normal;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      color: #1f1f1f;
-      text-align: start;
-      z-index: 1;
-    }
-
-    .arrow {
-      margin-left: 3px;
-      width: 15px;
-      height: 15px;
-      object-fit: contain;
-    }
-  }
-
   #logo {
     position: absolute;
     top: 45px;
@@ -74,99 +21,153 @@ html {
     height: 38px;
   }
 
-  .hoverEffect1 {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    width: 240px;
-    height: var(--button-height);
-    border-top-right-radius: 100px;
-    border-bottom-right-radius: 100px;
-  }
-
-  .onHover1:hover .hoverEffect1 {
-    background-color: #ededed;
-  }
-
-  .hoverEffect2 {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    width: 190px !important;
-    height: var(--button-height) !important;
-  }
-
-  .onHover2:hover .hoverEffect2 {
-    background-color: #ededed;
-  }
-
-  #create {
-    // margin-top: 145px;
-    margin-left: 40px;
-    margin-bottom: 35px;
-    width: 200px;
-    height: var(--button-height);
-    border-radius: 25px;
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-
-    img {
-      /* margin-top: 10px; */
-      margin-left: 27px;
-    }
-
-    span {
-      /* margin-top: 17px; */
-      margin-left: 9px;
-
-      width: 106px;
-      height: 16px;
-
-      font-size: 14px;
-      font-weight: normal;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: 1;
-      letter-spacing: normal;
-      text-align: center;
-      color: #1f1f1f;
-    }
-  }
-
-  hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    border: 1px solid #e5e5e5;
-  }
-
-  [id$="Types"] {
-    position: absolute;
-    left: var(--navigation-width);
-    align-self: flex-start;
-    z-index: 2;
+  #navigation_body {
+    // position: relative;
+    margin-top: 143px;
+    // width: var(--navigation-width);
+    height: calc(100% - 143px - 100px);
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 
     button {
-      width: 190px;
+      cursor: pointer;
+
+      width: 100%;
       height: var(--button-height);
-      border-radius: 5px;
-      box-shadow: 2px 2px 6px 2px rgba(6, 12, 32, 0.1);
-      background-color: #ffffff;
+      background-color: #fafafa;
+      padding: 0;
+      outline: none;
+      border: none;
+      display: flex;
+      align-items: center;
+
+      img {
+        margin-left: 41px;
+
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        z-index: 1;
+      }
 
       span {
-        width: 190px;
-        height: var(--button-height);
+        margin-left: 12px;
+        width: 140px;
+        height: 20px;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #1f1f1f;
+        text-align: start;
+        z-index: 1;
+      }
+
+      .arrow {
+        margin-left: 3px;
+        width: 15px;
+        height: 15px;
+        object-fit: contain;
+      }
+    }
+
+    .hoverEffect1 {
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      width: 240px;
+      height: var(--button-height);
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+    }
+
+    .onHover1:hover .hoverEffect1 {
+      background-color: #ededed;
+    }
+
+    .hoverEffect2 {
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      width: 190px !important;
+      height: var(--button-height) !important;
+    }
+
+    .onHover2:hover .hoverEffect2 {
+      background-color: #ededed;
+    }
+
+    #create {
+      // margin-top: 145px;
+      margin-left: 40px;
+      margin-bottom: 35px;
+      width: 200px;
+      height: var(--button-height);
+      border-radius: 25px;
+      box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+
+      img {
+        /* margin-top: 10px; */
+        margin-left: 27px;
+      }
+
+      span {
+        /* margin-top: 17px; */
+        margin-left: 9px;
+
+        width: 106px;
+        height: 16px;
 
         font-size: 14px;
         font-weight: normal;
         font-stretch: normal;
         font-style: normal;
-        line-height: var(--button-height);
+        line-height: 1;
         letter-spacing: normal;
         text-align: center;
         color: #1f1f1f;
+      }
+    }
+
+    hr {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+      border: 1px solid #e5e5e5;
+    }
+
+    [id$="Types"] {
+      position: absolute;
+      left: var(--navigation-width);
+      align-self: flex-start;
+      z-index: 2;
+
+      button {
+        width: 190px;
+        height: var(--button-height);
+        border-radius: 5px;
+        box-shadow: 2px 2px 6px 2px rgba(6, 12, 32, 0.1);
+        background-color: #ffffff;
+
+        span {
+          width: 190px;
+          height: var(--button-height);
+
+          font-size: 14px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: var(--button-height);
+          letter-spacing: normal;
+          text-align: center;
+          color: #1f1f1f;
+        }
       }
     }
   }

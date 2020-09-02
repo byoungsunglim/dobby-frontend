@@ -9,9 +9,9 @@ function FileCard({ doc }) {
   function handleClick(e) {}
 
   return (
-    <div className="fileCard" onClick={(e) => handleClick(e)}>
-      <Checkbox type={"select"}/>
-      <Checkbox type={"important"} is_checked={doc.is_important}/>
+    <div className="file_card" onClick={(e) => handleClick(e)}>
+      <Checkbox type="card_select" />
+      <Checkbox type="card_important" is_checked={doc.is_important}/>
       {doc.thumbnail ? 
         <div className="preview">
           <img alt="preview thumbnail" className="preview_thumbnail" src={doc.thumbnail}/>
@@ -21,7 +21,7 @@ function FileCard({ doc }) {
       }
       <div className="shared_profiles"></div>
       <div className="file_title">
-        <img alt="doc type" className="doc_type" src={tools[`${doc.type}`]}/>
+        <img alt="file type" className="file_type" src={tools[`${doc.type}`]}/>
         <span>{doc.title}</span>
       </div>
       <div className="file_functions">

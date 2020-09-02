@@ -1,8 +1,10 @@
 #recents {
   margin-top: 50px;
   margin-left: 65px;
+
+  min-height: 350px;
   // margin-right: 65px;
-  margin-bottom: 50px;
+  // margin-bottom: 50px;
 
   #recents_title {
     width: 271px;
@@ -20,7 +22,7 @@
 
   #recent_files {
     margin-top: 30px;
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
 
     display: flex;
     flex-wrap: wrap;
