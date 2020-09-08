@@ -61,7 +61,7 @@ export const queryDB = (handle, type, doc_id, data) => new Promise(function (res
         db.collection("docs").add({
           title: "문서 제목",
           owner: doc_id,
-          type: "Presentation",
+          type: "presentation",
           shared: [],
           createdAt: new Date(),
           updatedAt: new Date(),
