@@ -1,3 +1,7 @@
+.file_list:hover {
+  background-color: #f6f6f6;
+}
+
 .file_list {
   position: relative;
   width: 100%;
@@ -19,7 +23,7 @@
 
     .file_title {
       display: flex;
-      
+
       img {
         width: 20px;
         height: 20px;
@@ -42,7 +46,7 @@
         color: #1f1f1f;
       }
     }
-   
+
     .file_updatedAt {
       margin-top: 15px;
       margin-left: 30px;
@@ -57,6 +61,16 @@
       line-height: 14px;
       letter-spacing: normal;
       color: #888888;
+    }
+  }
+
+  .shared {
+    position: absolute;
+    left: 500px;
+
+    .more_member {
+      position: absolute;
+      left: 115px;
     }
   }
 
