@@ -24,8 +24,15 @@ export const queryDB = (handle, type, doc_id, data) => new Promise(function (res
         .catch(function (error) {
           alert(error);
         });
-      } else if (type === "recents") {
+      } else if (type === "recent_files") {
         db.collection("docs").where("owner", "==", doc_id).orderBy("viewedAt", "desc").limit(data).get().then(function(querySnapshot) {
+          resolve(queryDocs(querySnapshot));
+        })
+        .catch(function (error) {
+          alert(error);
+        });
+      } else if (type === "recents") {
+        db.collection("docs").where("owner", "==", doc_id).orderBy(data.orderBy, "desc").limit(data.limit).get().then(function(querySnapshot) {
           resolve(queryDocs(querySnapshot));
         })
         .catch(function (error) {
@@ -55,7 +62,13 @@ export const queryDB = (handle, type, doc_id, data) => new Promise(function (res
       break;
     case "put":
       if (type === "user") {
-
+        db.collection("users").doc(doc_id).set(data, {merge: true}).then(function () {
+          console.log(`${doc_id} updated successfully!`);
+          resolve(true);
+        })
+        .catch(function (error) {
+          alert(error);
+        })
       }
       else if (type === "doc") {
         db.collection("docs").add({
@@ -63,9 +76,10 @@ export const queryDB = (handle, type, doc_id, data) => new Promise(function (res
           owner: doc_id,
           type: "presentation",
           shared: [],
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          modifiedByMeAt: new Date(),
+          modifiedAt: new Date(),
           viewedAt: new Date(),
+          createdAt: new Date(),
           is_important: false
         }).then(function (docRef) {
           console.log(`${docRef.id} created successfully!`)
