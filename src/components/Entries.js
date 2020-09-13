@@ -89,12 +89,21 @@ class Entries extends Component {
         }
         this.setState({
           entries: recents,
-        });
+        }, this.handleFlex);
       } else {
         //TODO: handle where there is no recent files
       }
     });
   };
+
+  handleFlex = () => {
+    if (this.state.view === 'card') {
+      document.getElementById("entries_body").setAttribute("style", "display: flex")
+    }
+    else {
+      document.getElementById("entries_body").setAttribute("style", "")
+    }
+  }
 
   render() {
     return (
