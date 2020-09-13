@@ -3,15 +3,18 @@ html {
   --card-height: 300px;
   --card-border-radius: 24px;
   --preview-height: 140px;
-  --card-margin: 35px;
+  --card-margin: 15px;
 }
 
 .file_card {
   position: relative;
   min-width: var(--card-width);
   min-height: var(--card-height);
+  width: var(--card-width);
+  height: var(--card-height);
+  margin-left: var(--card-margin);
   margin-right: var(--card-margin);
-  margin-bottom: var(--card-margin);
+  margin-top: 30px;
   border-radius: var(--card-border-radius);
   box-shadow: 5px 5px 20px 3px rgba(6, 12, 32, 0.1);
   background-color: #ffffff;

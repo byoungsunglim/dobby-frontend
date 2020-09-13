@@ -1,12 +1,30 @@
-html, *{
+html,
+* {
   ::-webkit-scrollbar {
     width: 0px;
     display: none;
     background: transparent;
   }
-  
+
   --navigation-width: 280px;
   --information-width: 440px;
+  --main-min-width: 1080px;
+}
+
+@media (max-width: 1720px) {
+  #information {
+    display: none;
+  }
+
+  #main {
+    width: calc(100% - var(--navigation-width));
+  }
+}
+
+@media (max-width: 1280px) {
+  #entries .shared {
+    display: none;
+  }
 }
 
 #home {

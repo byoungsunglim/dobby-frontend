@@ -5,16 +5,16 @@ import FileCard from "./FileCard";
 import { makeCancelable } from '../utils/makeCancelable';
 import { queryDB } from "../utils/queryDB";
 
-import "../assets/css/Recents.scss";
+import "../assets/css/RecentFiles.scss";
 
-class Recents extends Component {
+class RecentFiles extends Component {
   state = {
-    recents: [],
+    recent_files: [],
   }
 
   componentDidMount() {
-    console.log("Recents Mounted...");
-    this.queryDB = makeCancelable(queryDB("get", "recents", this.props.user.email, 4));
+    console.log("RecentFiles Mounted...");
+    this.queryDB = makeCancelable(queryDB("get", "recent_files", this.props.user.email, 4));
     this.queryDB.promise.then((docs) => {
       console.log(docs);
       if (docs) {
@@ -23,7 +23,7 @@ class Recents extends Component {
           files.push(<FileCard doc={doc}/>)
         }
         this.setState({
-          recents: files,
+          recent_files: files,
         });
       }
       else {
@@ -33,7 +33,7 @@ class Recents extends Component {
   }
 
   componentWillUnmount() {
-    console.log("Recents Unmounting...");
+    console.log("RecentFiles Unmounting...");
     this.queryDB.cancel();
   }
 
@@ -52,14 +52,14 @@ class Recents extends Component {
 
   render() {
     return (
-      <div id="recents">
-        <span id="recents_title">최근 열어본 파일</span>
-        <div id="recent_files">
-          {this.state.recents}
+      <div id="recent_files">
+        <span id="recent_files_title">최근 열어본 파일</span>
+        <div id="recent_files_body">
+          {this.state.recent_files}
         </div>
       </div>
     )
   }
 }
 
-export default withRouter(Recents);
+export default withRouter(RecentFiles);

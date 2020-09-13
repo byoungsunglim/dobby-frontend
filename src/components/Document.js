@@ -61,7 +61,7 @@ class Document extends Component {
         title: this.state.title,
         draft: this.state.draft,
         design: this.state.design,
-        updatedAt: new Date()
+        modifiedAt: new Date()
       }).then(() => {
         this.setState({
           updateDB: false

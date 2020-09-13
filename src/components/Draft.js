@@ -435,7 +435,7 @@ class Draft extends Component {
       <div id="draft" onClick={(e) => this.handleClick(e)} onDoubleClick={(e) => this.handleDoubleClick(e)} style={{width: `${(window.innerWidth - 200 - 5)/2}px`}}>
         <div id="header">
           <ContentEditable placeholder="문서 제목" html={this.props.title} onChange={(e) => this.props.setTitle(e.target.value)} spellCheck={false}/>
-          <span>{this.props.updatedAt.toDate().toString().split(" ").slice(0, 5).join(" ")}</span>
+          <span>{this.props.modifiedAt.toDate().toString().split(" ").slice(0, 5).join(" ")}</span>
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable">

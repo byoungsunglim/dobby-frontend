@@ -1,18 +1,20 @@
 #entries {
-  width: 100%;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
 
   #entries_header {
-    width: 100%;
+    width: calc(100% - 30px);
+    margin-left: 15px;
+    margin-right: 15px;
     height: 80px;
-    
 
     display: flex;
     align-items: center;
 
-    #entries_title {
-      position: absolute;
-      left: 66px;
+    border-bottom: solid 1.2px #bababa;
 
+    #entries_title {
       width: 100px;
       height: 20px;
 
@@ -24,13 +26,104 @@
       letter-spacing: normal;
       color: #1f1f1f;
     }
+
+    #entries_selection {
+      position: absolute;
+      right: 250px;
+
+      width: 200px;
+      height: 40px;
+      border-radius: 20px;
+      border: solid 1.2px #bababa;
+      background-color: #ffffff;
+
+      display: flex;
+      align-items: center;
+
+      span {
+        position: absolute;
+        left: 20px;
+        width: 26px;
+        height: 14px;
+
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 14px;
+        letter-spacing: normal;
+        color: #1f1f1f;
+      }
+
+      .arrow_down {
+        position: absolute;
+        right: 20px;
+        // width: 8px;
+        // height: 5px;
+        // background-color: #010018;
+
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid #010018;
+      }
+    }
+
+    #entries_view {
+      position: absolute;
+      right: 65px;
+
+      width: 170px;
+      height: 40px;
+
+      display: flex;
+      align-items: center;
+
+      span {
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 14px;
+        letter-spacing: normal;
+        color: #010018;
+      }
+
+      #card_view {
+        width: 84px;
+        height: 40px;
+
+        border: solid 1.2px #bababa;
+        border-top-left-radius: 100px;
+        border-bottom-left-radius: 100px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #list_view {
+        width: 84px;
+        height: 40px;
+
+        border: solid 1.2px #bababa;
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
 
   #entries_body {
-    width: calc(100% - 132px);
-    margin-left: 66px;
-    margin-right: 66px;
+    width: 100%;
+    min-height: 450px;
 
-    border-top: solid 1.2px #bababa;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 }

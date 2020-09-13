@@ -3,6 +3,7 @@
   left: var(--navigation-width);
 
   width: calc(100% - var(--navigation-width) - var(--information-width));
+  min-width: calc(960px - var(--navigation-width));
   height: 100%;
   border-top-left-radius: 40px;
   border-bottom-left-radius: 40px;
@@ -16,7 +17,7 @@
 
     #main_title {
       position: absolute;
-      left: 66px;
+      left: 65px;
       top: 51px;
       width: 271px;
       height: 30px;

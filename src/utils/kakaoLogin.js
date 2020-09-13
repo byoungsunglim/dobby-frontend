@@ -24,5 +24,5 @@ export const kakaoLogin = (login) => new Promise(function(resolve, reject) {
       alert(JSON.stringify(err));
     }
   });
-})
+}) //TODO: handle when popup closed without doing anything
 

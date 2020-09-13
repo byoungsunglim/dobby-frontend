@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Recents from "./Recents";
+import RecentFiles from "./RecentFiles";
 import Entries from "./Entries";
 import Search from "./Search";
 
@@ -19,7 +19,7 @@ class Main extends Component {
           <Search />
         </div>
         <div id="main_body">
-          <Recents user={this.props.user} />
+          <RecentFiles user={this.props.user} />
           <Entries user={this.props.user} />
         </div>
       </div>

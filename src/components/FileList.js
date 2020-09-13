@@ -20,7 +20,7 @@ function FileList({ doc }) {
 
     setMembers(owner.concat(doc.shared));
 
-    let date = doc.updatedAt.toDate();
+    let date = doc.modifiedAt.toDate();
     setDate(
       date.getUTCFullYear() +
         "." +
@@ -49,7 +49,7 @@ function FileList({ doc }) {
           />
           <span>{doc.title}</span>
         </div>
-        <span className="file_updatedAt">{date}</span>
+        <span className="file_modifiedAt">{date}</span>
       </div>
       <Shared members={members} />
       <div className="file_functions">
