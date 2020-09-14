@@ -68,6 +68,9 @@ class Entries extends Component {
           },
         });
         break;
+      case "entries_selection":
+        document.getElementById("entries_dropdown").setAttribute('style', 'display:visible')
+        break;
       default:
     }
   };
@@ -110,9 +113,15 @@ class Entries extends Component {
       <div id="entries" onClick={(e) => this.handleClick(e)}>
         <div id="entries_header">
           <span id="entries_title">파일/폴더</span>
-          <div id="entries_selection">
+          <div className="showHide" id="entries_selection">
             <span>전체</span>
             <div className="arrow_down"></div>
+            <div className="hideOnOut" id="entries_dropdown" style={{display: 'none'}}>
+              <div className="entries_options_title">순서</div>
+              <div className="entries_options">최근 변경된 파일순</div>
+              <div className="entries_options">내가 최근 변경한 파일순</div>
+              <div className="entries_options">내가 최근 열어본 파일순</div>
+            </div>
           </div>
           <div id="entries_view">
             <span id="card_view">카드</span>

@@ -9,7 +9,7 @@ import "../assets/css/Home.scss";
 class Home extends Component {
   handleClick = (e) => {
     // console.log(e.target.parentNode.className);
-    if (!e.target.parentNode.className.includes('showHide') && !e.target.id.includes('create')) {
+    if (!e.target.parentNode.className.includes('showHide') && !e.target.id.includes('create') && !e.target.id.includes('entries_selection')) {
       for (let node of document.querySelectorAll("[class=hideOnOut]")) {
         node.setAttribute('style', 'display:none');
       }
