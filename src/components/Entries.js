@@ -71,6 +71,54 @@ class Entries extends Component {
       case "entries_selection":
         document.getElementById("entries_dropdown").setAttribute('style', 'display:visible')
         break;
+      case "entries_selection_title":
+        document.getElementById("entries_dropdown").setAttribute('style', 'display:visible')
+        break;
+      case "entries_selection_arrow":
+        document.getElementById("entries_dropdown").setAttribute('style', 'display:visible')
+        break;
+      case "orderBy_modifiedAt":
+        queryDB("put", "user", this.props.user.email, {
+          setting: {
+            orderBy: "modifiedAt",
+          },
+        }).then((result) => {
+          this.setState(
+            {
+              orderBy: "modifiedAt",
+            },
+            this.handleEntries
+          );
+        });
+        break;
+      case "orderBy_modifiedByMeAt":
+        queryDB("put", "user", this.props.user.email, {
+          setting: {
+            orderBy: "modifiedByMeAt",
+          },
+        }).then((result) => {
+          this.setState(
+            {
+              orderBy: "modifiedByMeAt",
+            },
+            this.handleEntries
+          );
+        });
+        break;
+      case "orderBy_viewedAt":
+        queryDB("put", "user", this.props.user.email, {
+          setting: {
+            orderBy: "viewedAt",
+          },
+        }).then((result) => {
+          this.setState(
+            {
+              orderBy: "viewedAt",
+            },
+            this.handleEntries
+          );
+        });
+        break;
       default:
     }
   };
@@ -111,16 +159,16 @@ class Entries extends Component {
   render() {
     return (
       <div id="entries" onClick={(e) => this.handleClick(e)}>
-        <div id="entries_header">
+        <div className="showHide" id="entries_header">
           <span id="entries_title">파일/폴더</span>
           <div className="showHide" id="entries_selection">
-            <span>전체</span>
-            <div className="arrow_down"></div>
+            <span id="entries_selection_title">전체</span>
+            <div className="arrow_down" id="entries_selection_arrow"></div>
             <div className="hideOnOut" id="entries_dropdown" style={{display: 'none'}}>
               <div className="entries_options_title">순서</div>
-              <div className="entries_options">최근 변경된 파일순</div>
-              <div className="entries_options">내가 최근 변경한 파일순</div>
-              <div className="entries_options">내가 최근 열어본 파일순</div>
+              <div className="entries_options" id="orderBy_modifiedAt">최근 변경된 파일순</div>
+              <div className="entries_options" id="orderBy_modifiedByMeAt">내가 최근 변경한 파일순</div>
+              <div className="entries_options" id="orderBy_viewedAt">내가 최근 열어본 파일순</div>
             </div>
           </div>
           <div id="entries_view">

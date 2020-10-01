@@ -77,22 +77,10 @@
   }
 
   .file_functions {
-    position: absolute;
     right: 30px;
 
     button {
-      margin-left: 5px;
-      margin-right: 5px;
-
-      border: none;
-      outline: none;
-      background-color: transparent;
-
-      img {
-        width: 40px;
-        height: 40px;
-        object-fit: contain;
-      }
+      margin-left: 30px;
     }
   }
 }

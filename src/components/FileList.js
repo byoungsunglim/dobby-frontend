@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Checkbox from "./Checkbox";
 import Shared from "./Shared";
+import FileFunctions from "./FileFunctions";
 import tools from "../utils/tools";
 
 import "../assets/css/FileList.scss";
@@ -51,18 +52,8 @@ function FileList({ doc }) {
         </div>
         <span className="file_modifiedAt">{date}</span>
       </div>
-      <Shared members={members} />
-      <div className="file_functions">
-        <button className="file_download">
-          <img alt="file download" src={tools.Download} />
-        </button>
-        <button className="file_share">
-          <img alt="file share" src={tools.Share} />
-        </button>
-        <button className="file_etc">
-          <img alt="file etc" src={tools.Etc} />
-        </button>
-      </div>
+      <Shared doc={doc} members={members} />
+      <FileFunctions />
     </div>
   );
 }

@@ -46,7 +46,7 @@ html {
       bottom: 0;
     }
   }
-  
+
   .file_title {
     position: absolute;
     top: 190px;
@@ -81,7 +81,6 @@ html {
   }
 
   .file_functions {
-    position: absolute;
     bottom: 30px;
     margin-left: 30px;
     margin-right: 30px;
@@ -91,19 +90,5 @@ html {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    button {
-      border: none;
-      outline: none;
-      background-color: transparent;
-      margin: 0;
-      padding: 0;
-
-      img {
-        width: 40px;
-        height: 40px;
-        object-fit: contain;
-      }
-    }
   }
 }

@@ -66,99 +66,99 @@ class Navigation extends Component {
 
   navigations = {
     home: [
-      <button className="showHide" key="create" id="create" onClick={(e) => this.handleClick(e)}>
-        <img alt="create" key="create" src={tools.Create}/>
+      <div className="showHide" key="create" id="create" onClick={(e) => this.handleClick(e)}>
+        <img alt="create" key="create_img" src={tools.Create}/>
         <span>새로 만들기</span>
-      </button>,
+      </div>,
       <div className="hideOnOut" key="createKinds" id="createKinds" onClick={(e) => this.handleClick(e)} style={{display: 'none'}}>
-        <button className="onHover1" key="newFolder" id="newFolder" onClick={(e) => this.handleClick(e)}>
+        <div className="onHover1 navBtn" key="newFolder" id="newFolder" onClick={(e) => this.handleClick(e)}>
           <span className="hoverEffect1" key="hoverEffect1"/>
-          <img alt="folder" key="folder" src={tools.Folder}/>
-          <span>폴더</span>
-        </button>
-        <button className="onHover1 showHide" key="newPresentation" id="newPresentation" onClick={(e) => this.handleClick(e)}>
-          <span className="hoverEffect1" key="hoverEffect1"/>
-          <img alt="presentation" key="presentation" src={tools.Presentation}/>
-          <span>Docgabi 프리젠테이션</span>
+          <img className="navBtnLogo" alt="folder" key="folder" src={tools.Folder}/>
+          <span className="navBtnTitle">폴더</span>
+        </div>
+        <div className="onHover1 navBtn showHide" key="newPresentation" id="newPresentation" onClick={(e) => this.handleClick(e)}>
+          <span className="hoverEffect1" key="hoverEffect11"/>
+          <img className="navBtnLogo" alt="presentation" key="presentation" src={tools.Presentation}/>
+          <span className="navBtnTitle">Docgabi 프리젠테이션</span>
           <img alt="arrow" className="arrow" key="arrow" src={tools.Arrow}/>
           <div className="hideOnOut" id="presentationTypes" key="presentationTypes" style={{display: 'none'}}>
-            <button className="onHover2 empty" id="newPresentation_empty" key="newPresentation_empty" onClick={(e) => this.handleClick(e)}>
-              <span className="hoverEffect2" key="hoverEffect2"/>
-              <span>빈 드래프트에서 작성</span>
-            </button>
-            <button className="onHover2 template" id="newPresentation_template" key="newPresentation_template" onClick={(e) => this.handleClick(e)}>
-              <span className="hoverEffect2" key="hoverEffect2"/>
-              <span>템플릿으로 작성</span>
-            </button>
+            <div className="onHover2 empty" id="newPresentation_empty" key="newPresentation_empty" onClick={(e) => this.handleClick(e)}>
+              <span className="hoverEffect2" key="hoverEffect22"/>
+              <span className="typesTitle">빈 드래프트에서 작성</span>
+            </div>
+            <div className="onHover2 template" id="newPresentation_template" key="newPresentation_template" onClick={(e) => this.handleClick(e)}>
+              <span className="hoverEffect2" key="hoverEffect22"/>
+              <span className="typesTitle">템플릿으로 작성</span>
+            </div>
           </div>
-        </button>
-        <button className="onHover1 showHide" key="newReport" id="newReport" onClick={(e) => this.handleClick(e)}>
-          <span className="hoverEffect1" key="hoverEffect1"/>
-          <img alt="report" key="report" src={tools.Report}/>
-          <span>Docgabi 보고서</span>
+        </div>
+        <div className="onHover1 navBtn showHide" key="newReport" id="newReport" onClick={(e) => this.handleClick(e)}>
+          <span className="hoverEffect1" key="hoverEffect111"/>
+          <img className="navBtnLogo" alt="report" key="report" src={tools.Report}/>
+          <span className="navBtnTitle">Docgabi 보고서</span>
           <img alt="arrow" className="arrow" key="arrow" src={tools.Arrow}/>
           <div className="hideOnOut" id="reportTypes" key="reportTypes" style={{display: 'none'}}>
-            <button className="onHover2 empty" id="newReport_empty" key="newReport_empty" onClick={(e) => this.handleClick(e)}>
-              <span className="hoverEffect2" key="hoverEffect2"/>
-              <span>빈 드래프트에서 작성</span>
-            </button>
-            <button className="onHover2 template" id="newReport_template" key="newReport_template" onClick={(e) => this.handleClick(e)}>
-              <span className="hoverEffect2" key="hoverEffect2"/>
-              <span>템플릿으로 작성</span>
-            </button>
+            <div className="onHover2 empty" id="newReport_empty" key="newReport_empty" onClick={(e) => this.handleClick(e)}>
+              <span className="hoverEffect2" key="hoverEffect222"/>
+              <span className="typesTitle">빈 드래프트에서 작성</span>
+            </div>
+            <div className="onHover2 template" id="newReport_template" key="newReport_template" onClick={(e) => this.handleClick(e)}>
+              <span className="hoverEffect2" key="hoverEffect222"/>
+              <span className="typesTitle">템플릿으로 작성</span>
+            </div>
           </div>
-        </button>
+        </div>
         <hr></hr>
       </div>,
-      <button className="onHover1" key="uploadLocalFile" id="uploadLocalFile" onClick={(e) => this.handleClick(e)}>
+      <div className="onHover1 navBtn" key="uploadLocalFile" id="uploadLocalFile" onClick={(e) => this.handleClick(e)}>
         <span className="hoverEffect1"/>
-        <img alt="local file" src={tools.LocalFile}/>
-        <span>로컬 파일 업로드</span>
-      </button>,
-      <button className="onHover1" key="uploadLocalFolder" id="uploadLocalFolder" onClick={(e) => this.handleClick(e)}>
+        <img className="navBtnLogo" alt="local file" src={tools.LocalFile}/>
+        <span className="navBtnTitle">로컬 파일 업로드</span>
+      </div>,
+      <div className="onHover1 navBtn" key="uploadLocalFolder" id="uploadLocalFolder" onClick={(e) => this.handleClick(e)}>
         <span className="hoverEffect1"/>
-        <img alt="local folder" src={tools.LocalFolder}/>
-        <span>로컬 폴더 업로드</span>
-      </button>,
-      <button className="onHover1" key="syncGoogle" id="syncGoogle" onClick={(e) => this.handleClick(e)}>
+        <img className="navBtnLogo" alt="local folder" src={tools.LocalFolder}/>
+        <span className="navBtnTitle">로컬 폴더 업로드</span>
+      </div>,
+      <div className="onHover1 navBtn" key="syncGoogle" id="syncGoogle" onClick={(e) => this.handleClick(e)}>
         <span className="hoverEffect1"/>
-        <img alt="sync google" src={tools.GDrive}/>
-        <span>Google Drive 연동하기</span>
-      </button>,
-      <button className="onHover1" key="syncDropbox" id="syncDropbox" onClick={(e) => this.handleClick(e)}>
+        <img className="navBtnLogo" alt="sync google" src={tools.GDrive}/>
+        <span className="navBtnTitle">Google Drive 연동하기</span>
+      </div>,
+      <div className="onHover1 navBtn" key="syncDropbox" id="syncDropbox" onClick={(e) => this.handleClick(e)}>
         <span className="hoverEffect1"/>
-        <img alt="sync dropbox" src={tools.DBox}/>
-        <span>Dropbox 연동하기</span>
-      </button>,
-      <hr></hr>,
-      <button className="onHover1" key="allFiles" id="allFiles" onClick={(e) => this.handleClick(e)}>
+        <img className="navBtnLogo" alt="sync dropbox" src={tools.DBox}/>
+        <span className="navBtnTitle">Dropbox 연동하기</span>
+      </div>,
+      <hr key="nav_hr"></hr>,
+      <div className="onHover1 navBtn" key="allFiles" id="allFiles" onClick={(e) => this.handleClick(e)}>
         <span className="hoverEffect1"/>
-        <img alt="all files" src={tools.AllFiles}/>
-        <span>모든 파일</span>
-      </button>,
-      <button className="onHover1" key="sharedFiles" id="sharedFiles" onClick={(e) => this.handleClick(e)}>
+        <img className="navBtnLogo" alt="all files" src={tools.AllFiles}/>
+        <span className="navBtnTitle">모든 파일</span>
+      </div>,
+      <div className="onHover1 navBtn" key="sharedFiles" id="sharedFiles" onClick={(e) => this.handleClick(e)}>
         <span className="hoverEffect1"/>
-        <img alt="shared files" src={tools.SharedFiles}/>
-        <span>공유 파일</span>
-      </button>,
-      <button className="onHover1" key="importantFiles" id="importantFiles" onClick={(e) => this.handleClick(e)}>
+        <img className="navBtnLogo" alt="shared files" src={tools.SharedFiles}/>
+        <span className="navBtnTitle">공유 파일</span>
+      </div>,
+      <div className="onHover1 navBtn" key="importantFiles" id="importantFiles" onClick={(e) => this.handleClick(e)}>
         <span className="hoverEffect1"/>
-        <img alt="important files" src={tools.ImportantFiles}/>
-        <span>중요한 파일</span>
-      </button>,
+        <img className="navBtnLogo" alt="important files" src={tools.ImportantFiles}/>
+        <span className="navBtnTitle">중요한 파일</span>
+      </div>,
     ],
     draft: [
-      // <button key="designBtn" id="designBtn" onClick={() => this.props.setView()}>DESIGN</button>
+      // <div key="designBtn" id="designBtn" onClick={() => this.props.setView()}>DESIGN</div>
     ],
     canvas: [
-      // <button key="draftBtn" id="draftBtn" onClick={() => this.props.setView()}>DRAFT</button>
+      // <div key="draftBtn" id="draftBtn" onClick={() => this.props.setView()}>DRAFT</div>
     ]
   }
 
   render() {
     return (
       <div id="navigation">
-        <img id="logo" src={brand.Logo} onClick={(e) => this.handleClick(e)}/>
+        <img id="logo" alt="navLogo" src={brand.Logo} onClick={(e) => this.handleClick(e)}/>
         <div id="navigation_body">
           {this.navigations[this.props.view]}
         </div>

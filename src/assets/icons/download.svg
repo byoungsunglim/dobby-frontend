@@ -1,24 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
-    <defs>
-        <path id="prefix__a" d="M0 0L15.823 0 15.823 1 0 1z"/>
-        <path id="prefix__c" d="M0.412 0.054L1.412 0.054 1.412 14.896 0.412 14.896z"/>
-    </defs>
-    <g fill="none" fill-rule="evenodd" transform="translate(2 2)">
-        <rect width="42" height="42" fill="#FFF" stroke="#E4E4E4" stroke-width="1.2" rx="21"/>
-        <g>
-            <g transform="translate(13 10) translate(0 17.942)">
-                <mask id="prefix__b" fill="#fff">
-                    <use xlink:href="#prefix__a"/>
-                </mask>
-                <path stroke="#1F1F1F" d="M0 0.5L15.823 0.5" mask="url(#prefix__b)"/>
-            </g>
-            <path stroke="#1F1F1F" d="M14.822 8.921L7.912 15.832 1.002 8.921" transform="translate(13 10)"/>
-            <g transform="translate(13 10) translate(7 .942)">
-                <mask id="prefix__d" fill="#fff">
-                    <use xlink:href="#prefix__c"/>
-                </mask>
-                <path stroke="#1F1F1F" d="M0.912 14.896L0.912 0.054" mask="url(#prefix__d)"/>
-            </g>
-        </g>
+<svg width="46" height="46" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <path d="m0,0l15.823,0l0,1l-15.823,0l0,-1z" id="prefix__a"/>
+  <path d="m0.412,0.054l1,0l0,14.842l-1,0l0,-14.842z" id="prefix__c"/>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="602" width="802" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1" fill-rule="evenodd" fill="none">
+   <rect id="svg_2" x="2" y="2" rx="21" stroke-width="1.2" stroke="#E4E4E4" fill="#FFF" height="42" width="42"/>
+   <g id="svg_3">
+    <g id="svg_4" transform="translate(0,17.941999435424805) ">
+     <mask transform="translate(13,10) translate(2,2) " id="prefix__b">
+      <use id="svg_5" xlink:href="#prefix__a"/>
+     </mask>
+     <path id="svg_6" mask="url(#prefix__b)" d="m15,12.5l15.823,0" stroke="#1F1F1F"/>
     </g>
+    <path id="svg_7" d="m29.822,20.921l-6.91,6.911l-6.91,-6.911" stroke="#1F1F1F"/>
+    <g id="svg_8" transform="translate(7,0.9419999718666077) ">
+     <mask transform="translate(13,10) translate(2,2) " id="prefix__d">
+      <use id="svg_9" xlink:href="#prefix__c"/>
+     </mask>
+     <path id="svg_10" mask="url(#prefix__d)" d="m15.912,26.896l0,-14.842" stroke="#1F1F1F"/>
+    </g>
+   </g>
+  </g>
+  <line stroke="#1F1F1F" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_12" y2="12" x2="22.90991" y1="27.17411" x1="22.90991" fill="white"/>
+  <line stroke="#1F1F1F" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_15" y2="30.07207" x2="30.09009" y1="30.07207" x1="15.70268" fill-opacity="null" stroke-opacity="null" fill="none"/>
+ </g>
 </svg>

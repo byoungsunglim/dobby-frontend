@@ -22,28 +22,29 @@ html {
   }
 
   #navigation_body {
-    // position: relative;
-    margin-top: 143px;
-    // width: var(--navigation-width);
-    height: calc(100% - 143px - 100px);
+    position: absolute;
+    top: 145px;
+    width: 100%;
+    height: calc(100% - 145px - 100px);
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 
-    button {
+    .navBtn {
       cursor: pointer;
-
       width: 100%;
       height: var(--button-height);
       background-color: #fafafa;
+      margin: 0;
       padding: 0;
       outline: none;
       border: none;
       display: flex;
       align-items: center;
 
-      img {
-        margin-left: 41px;
+      .navBtnLogo {
+        position: absolute;
+        left: 40px;
 
         width: 30px;
         height: 30px;
@@ -51,8 +52,9 @@ html {
         z-index: 1;
       }
 
-      span {
-        margin-left: 12px;
+      .navBtnTitle {
+        position: absolute;
+        left: 85px;
         width: 140px;
         height: 20px;
         font-size: 14px;
@@ -67,7 +69,8 @@ html {
       }
 
       .arrow {
-        margin-left: 3px;
+        position: absolute;
+        left: 225px;
         width: 15px;
         height: 15px;
         object-fit: contain;
@@ -75,9 +78,6 @@ html {
     }
 
     .hoverEffect1 {
-      position: absolute;
-      margin: 0;
-      padding: 0;
       width: 240px;
       height: var(--button-height);
       border-top-right-radius: 100px;
@@ -90,10 +90,8 @@ html {
 
     .hoverEffect2 {
       position: absolute;
-      margin: 0;
-      padding: 0;
-      width: 190px !important;
-      height: var(--button-height) !important;
+      width: 190px;
+      height: var(--button-height);
     }
 
     .onHover2:hover .hoverEffect2 {
@@ -109,14 +107,11 @@ html {
       border-radius: 25px;
       box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.1);
       background-color: #ffffff;
-
-      img {
-        /* margin-top: 10px; */
-        margin-left: 27px;
-      }
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       span {
-        /* margin-top: 17px; */
         margin-left: 9px;
 
         width: 106px;
@@ -148,14 +143,18 @@ html {
       align-self: flex-start;
       z-index: 10;
 
-      button {
+      div {
         width: 190px;
         height: var(--button-height);
         border-radius: 5px;
         box-shadow: 2px 2px 6px 2px rgba(6, 12, 32, 0.1);
         background-color: #ffffff;
 
-        span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .typesTitle {
           width: 190px;
           height: var(--button-height);
 
@@ -167,6 +166,7 @@ html {
           letter-spacing: normal;
           text-align: center;
           color: #1f1f1f;
+          z-index: 1;
         }
       }
     }

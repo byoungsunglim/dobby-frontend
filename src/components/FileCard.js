@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Checkbox from "./Checkbox";
 import Shared from "./Shared";
+import FileFunctions from "./FileFunctions";
 import tools from "../utils/tools";
 
 import "../assets/css/FileCard.scss";
@@ -33,22 +34,12 @@ function FileCard({ doc }) {
       : 
         <div className="preview_default"/>
       }
-      <Shared members={members}/>
+      <Shared doc={doc} members={members}/>
       <div className="file_title">
         <img alt="file type" className="file_type" src={tools[`${doc.type.capitalize()}`]}/>
         <span>{doc.title}</span>
       </div>
-      <div className="file_functions">
-        <button className="file_download">
-          <img alt="file download" src={tools.Download}/>
-        </button>
-        <button className="file_share">
-          <img alt="file share" src={tools.Share}/>
-        </button>
-        <button className="file_etc">
-          <img alt="file etc" src={tools.Etc}/>
-      </button>
-      </div>
+      <FileFunctions />
     </div>
   );
 }
