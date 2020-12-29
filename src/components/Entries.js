@@ -12,6 +12,7 @@ import "../assets/css/Entries.scss";
 class Entries extends Component {
   state = {
     entries: [],
+    entries_selection_title: "전체",
     orderBy: "",
     view: "",
     limit: 5,
@@ -85,6 +86,7 @@ class Entries extends Component {
         }).then((result) => {
           this.setState(
             {
+              entries_selection_title: "최근 변경된 파일순",
               orderBy: "modifiedAt",
             },
             this.handleEntries
@@ -99,6 +101,7 @@ class Entries extends Component {
         }).then((result) => {
           this.setState(
             {
+              entries_selection_title: "내가 최근 변경한 파일순",
               orderBy: "modifiedByMeAt",
             },
             this.handleEntries
@@ -113,6 +116,7 @@ class Entries extends Component {
         }).then((result) => {
           this.setState(
             {
+              entries_selection_title: "내가 최근 열어본 파일순",
               orderBy: "viewedAt",
             },
             this.handleEntries
@@ -162,7 +166,7 @@ class Entries extends Component {
         <div className="showHide" id="entries_header">
           <span id="entries_title">파일/폴더</span>
           <div className="showHide" id="entries_selection">
-            <span id="entries_selection_title">전체</span>
+            <span id="entries_selection_title">{this.state.entries_selection_title}</span>
             <div className="arrow_down" id="entries_selection_arrow"></div>
             <div className="hideOnOut" id="entries_dropdown" style={{display: 'none'}}>
               <div className="entries_options_title">순서</div>
