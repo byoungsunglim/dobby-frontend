@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory, useLocation, Link } from "react-router-dom";
 
 import { kakaoLogin } from "../utils/kakaoLogin";
@@ -11,8 +11,6 @@ import tools from "../utils/tools";
 import "../assets/css/Registration.scss";
 
 function Registration({ login, logout, setView }) {
-  const [selected, setSelected] = useState(false);
-
   let history = useHistory();
   let location = useLocation();
 

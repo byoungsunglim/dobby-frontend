@@ -36,7 +36,7 @@ function Content({ content, ...props }) {
           <div key={content.id} id={content.id}>
             <div className="imgholder">
               <ImageLoader loading={loading}/>
-              <img style={{display: loading ? "none" : "block"}} src={content.src} width={content.width} height={content.height} onLoad={() => setLoading(false)}></img>
+              <img alt="content img" style={{display: loading ? "none" : "block"}} src={content.src} width={content.width} height={content.height} onLoad={() => setLoading(false)}></img>
             </div>
           </div>
         )

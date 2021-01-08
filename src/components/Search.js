@@ -8,7 +8,7 @@ class Search extends Component {
   render() {
     return (
       <div id="search">
-        <img src={tools.Search}></img>
+        <img alt="search" src={tools.Search}></img>
         <input placeholder="검색"></input>
       </div>
     );

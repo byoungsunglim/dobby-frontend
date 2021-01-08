@@ -12,7 +12,7 @@ function Landing({ login, logout }) {
   return (
     <div id="landing">
       <div id="landing_container">
-        <img id="logo" src={brand.Logo} />
+        <img alt="logo" id="logo" src={brand.Logo} />
         <span id="line_1">
           문서작업,
         </span>
@@ -22,7 +22,7 @@ function Landing({ login, logout }) {
         <span id="line_3">
           뚝-딱!
         </span>
-        <img id="character" src={brand.Character} />
+        <img alt="character" id="character" src={brand.Character} />
       </div>
       {view === "registration" ? (
         <Registration login={login} logout={logout} setView={setView} />
