@@ -9,7 +9,7 @@ function Checkbox({ type, is_checked }) {
 
   if (type.includes("select")) {
     return (
-      <button className={type} onClick={() => setChecked(!checked)} style={{display: "none"}}>
+      <button className={type} onClick={() => setChecked(!checked)}>
         {checked ? <img alt="checked" src={tools.Checked} /> : <img alt="unselected" src={tools.Unselected} />}
       </button>
     );
