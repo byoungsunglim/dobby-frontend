@@ -4,9 +4,11 @@
 
 .file_list {
   position: relative;
-  min-width: calc(100% - 30px);
+  min-width: calc(100% - 90px);
   margin-left: 15px;
   margin-right: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
   height: 90px;
 
   border-bottom: solid 1.2px #e4e4e4;
@@ -17,7 +19,7 @@
     position: absolute;
     width: 250px;
     height: 100%;
-    left: 180px;
+    left: 200px;
 
     display: flex;
     flex-direction: column;
