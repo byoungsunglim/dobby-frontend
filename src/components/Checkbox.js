@@ -9,24 +9,24 @@ function Checkbox({ type, is_checked }) {
 
   if (type.includes("select")) {
     return (
-      <button className={type} onClick={() => setChecked(!checked)}>
-        {checked ? <img src={tools.Checked} /> : <img src={tools.Unselected} />}
+      <button className={type} onClick={() => setChecked(!checked)} style={{display: "none"}}>
+        {checked ? <img alt="checked" src={tools.Checked} /> : <img alt="unselected" src={tools.Unselected} />}
       </button>
     );
   } else if (type.includes("important")) {
     return (
       <button className={type} onClick={() => setChecked(!checked)}>
         {checked ? (
-          <img src={tools.Important} />
+          <img alt="important" src={tools.Important} />
         ) : (
-          <img src={tools.NotImportant} />
+          <img alt="notImportant" src={tools.NotImportant} />
         )}
       </button>
     );
   } else {
     return (
       <button className="checkbox" onClick={() => setChecked(!checked)}>
-        {checked ? <img src={tools.Checked} /> : <img src={tools.Unselected} />}
+        {checked ? <img alt="checked" src={tools.Checked} /> : <img alt="unselected" src={tools.Unselected} />}
       </button>
     );
   }

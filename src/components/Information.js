@@ -1,11 +1,24 @@
 import React, { Component } from "react";
 
+import tools from "../utils/tools";
+
 import "../assets/css/Information.scss";
 
 class Information extends Component {
+  handleClick = (e) => {
+    // console.log(e.target, e.currentTarget);
+
+  }
+
+  enableSelection = () => {
+    for (let node of document.querySelectorAll("[class$=select]")) {
+      node.setAttribute("style", "display:visible");
+    }
+  }
+
   render() {
     return (
-      <div id="information">
+      <div id="information" onClick={(e) => this.handleClick(e)}>
         <div id="information_header">
           <img alt="profile" src={this.props.user.profile_image} />
           <span>{this.props.user.nickname}</span>
@@ -23,6 +36,7 @@ class Information extends Component {
           <hr />
           <div className="info_section" id="selected_files">
             <span className="info_section_title">선택 파일</span>
+            <img alt="arrow" className="arrow" src={tools.Arrow} onClick={() => this.enableSelection()}/>
             <hr />
           </div>
         </div>
