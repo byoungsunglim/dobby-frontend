@@ -28,7 +28,7 @@ import { ReactComponent as FullWidth } from "../assets/icons/fullWidth.svg";
 
 import Google from "../assets/icons/google.svg";
 import Kakao from "../assets/icons/kakao.svg";
-import Checked from "../assets/icons/checked.svg";
+import Selected from "../assets/icons/selected.svg";
 import Unselected from "../assets/icons/unselected.svg";
 
 import Create from "../assets/icons/create.svg";
@@ -52,6 +52,9 @@ import NotImportant from "../assets/icons/notImportant.svg";
 import Download from "../assets/icons/download.svg";
 import Share from "../assets/icons/share.svg";
 import Etc from "../assets/icons/etc.svg";
+
+import Expand from "../assets/icons/expand.svg";
+import Delete from "../assets/icons/delete.svg";
 
 export default {
   Image,
@@ -85,7 +88,7 @@ export default {
   Google, 
   Kakao,
 
-  Checked,
+  Selected,
   Unselected,
 
   Create,
@@ -109,4 +112,7 @@ export default {
   Download,
   Share,
   Etc,
+
+  Expand,
+  Delete
 };

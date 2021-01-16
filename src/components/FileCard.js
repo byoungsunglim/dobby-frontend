@@ -12,6 +12,7 @@ import "../assets/css/FileCard.scss";
 function FileCard({ doc }) {
   const history = useHistory();
   const [members, setMembers] = useState([]);
+  const [is_selected, setSelected] = useState(false);
   const [is_important, setImportant] = useState(doc.is_important);
 
   useEffect(() => {
@@ -35,11 +36,16 @@ function FileCard({ doc }) {
       history.push(`/doc/${doc.id}`);
     }
 
-    if (e.target.parentNode.className === "card_important") {
+    if (e.target.parentNode.className.includes("select")) {
+
+    }
+    else if (e.target.parentNode.className.includes("important")) {
+      setImportant(!is_important);
+
       queryDB("set", "doc", doc.id, {
         is_important: !is_important,
       }).then((result) => {
-        setImportant(!is_important);
+        
       });
     } //TODO: handle multiple requests at a short period
   }
@@ -50,8 +56,8 @@ function FileCard({ doc }) {
 
   return (
     <div className="file_card doc_click" onClick={(e) => handleClick(e)}>
-      <Checkbox type="card_select" />
-      <Checkbox type="card_important" is_checked={is_important} />
+      <Checkbox doc_id={doc.id} type="card_select" />
+      <Checkbox doc_id={doc.id} type="card_important" is_selected={is_important} />
       {doc.thumbnail ? (
         <div className="preview doc_click">
           <img

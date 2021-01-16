@@ -5,10 +5,19 @@ import tools from "../utils/tools";
 import "../assets/css/Information.scss";
 
 class Information extends Component {
-  handleClick = (e) => {
-    // console.log(e.target, e.currentTarget);
-
+  componentDidMount() {
+    console.log("Information Mounted...");
+    // window.addEventListener("click", this.handleClick);
+    
   }
+
+  handleClick = (e) => {
+    console.log(e.target, e.currentTarget);
+    for (let node of document.querySelectorAll("[class$=select]")) {
+      // node.addEventListener("click", this.handleClick);
+      console.log(node);
+    }
+  };
 
   render() {
     return (

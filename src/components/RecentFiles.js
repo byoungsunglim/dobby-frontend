@@ -20,7 +20,7 @@ class RecentFiles extends Component {
       if (docs) {
         let files = [];
         for (let doc of docs) {
-          files.push(<FileCard doc={doc}/>)
+          files.push(<FileCard key={doc.id} doc={doc}/>)
         }
         this.setState({
           recent_files: files,

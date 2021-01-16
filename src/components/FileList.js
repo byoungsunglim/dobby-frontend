@@ -46,8 +46,8 @@ function FileList({ doc }) {
 
   return (
     <div className="file_list doc_click" onClick={(e) => handleClick(e)}>
-      <Checkbox type="list_select" />
-      <Checkbox type="list_important" is_checked={doc.is_important} />
+      <Checkbox doc_id={doc.id} type="list_select" />
+      <Checkbox doc_id={doc.id} type="list_important" is_selected={doc.is_important} />
       <div className="file_list_info doc_click">
         <div className="file_title doc_click">
           <img

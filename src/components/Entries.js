@@ -43,7 +43,7 @@ class Entries extends Component {
   }
 
   handleClick = (e) => {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     switch (e.target.id) {
       case "card_view":
         document.getElementById("card_view").setAttribute("style", "border: solid 1.2px #51a2e9; color: #51a2e9");
@@ -137,9 +137,9 @@ class Entries extends Component {
         let recents = [];
         for (let doc of docs) {
           if (this.state.view === "list") {
-            recents.push(<FileList doc={doc} />);
+            recents.push(<FileList key={doc.id} doc={doc} />);
           } else {
-            recents.push(<FileCard doc={doc} />);
+            recents.push(<FileCard key={doc.id} doc={doc} />);
           }
         }
         this.setState({
