@@ -5,15 +5,14 @@ import Checkbox from "./Checkbox";
 import Shared from "./Shared";
 import FileFunctions from "./FileFunctions";
 import tools from "../utils/tools";
-import { queryDB } from "../utils/queryDB";
 
 import "../assets/css/FileCard.scss";
 
-function FileCard({ doc }) {
+function FileCard({ doc, is_selected, is_important, handleSelect }) {
   const history = useHistory();
   const [members, setMembers] = useState([]);
-  const [is_selected, setSelected] = useState(false);
-  const [is_important, setImportant] = useState(doc.is_important);
+  // const [is_selected, setSelected] = useState(is_selected);
+  // const [is_important, setImportant] = useState(doc.is_important);
 
   useEffect(() => {
     let owner = [
@@ -37,17 +36,11 @@ function FileCard({ doc }) {
     }
 
     if (e.target.parentNode.className.includes("select")) {
-
+      handleSelect("is_selected", doc);
     }
     else if (e.target.parentNode.className.includes("important")) {
-      setImportant(!is_important);
-
-      queryDB("set", "doc", doc.id, {
-        is_important: !is_important,
-      }).then((result) => {
-        
-      });
-    } //TODO: handle multiple requests at a short period
+      handleSelect("is_important", doc);
+    }
   }
 
   String.prototype.capitalize = function () {
@@ -56,8 +49,8 @@ function FileCard({ doc }) {
 
   return (
     <div className="file_card doc_click" onClick={(e) => handleClick(e)}>
-      <Checkbox doc_id={doc.id} type="card_select" />
-      <Checkbox doc_id={doc.id} type="card_important" is_selected={is_important} />
+      <Checkbox type="card_select" is_selected={is_selected} />
+      <Checkbox type="card_important" is_selected={is_important} />
       {doc.thumbnail ? (
         <div className="preview doc_click">
           <img

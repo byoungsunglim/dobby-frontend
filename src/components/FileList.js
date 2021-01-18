@@ -8,7 +8,7 @@ import tools from "../utils/tools";
 
 import "../assets/css/FileList.scss";
 
-function FileList({ doc }) {
+function FileList({ doc, is_selected, is_important, handleSelect }) {
   const history = useHistory();
   const [members, setMembers] = useState([]);
   const [date, setDate] = useState("");
@@ -38,6 +38,13 @@ function FileList({ doc }) {
     if (e.target.className.includes("doc_click")) {
       history.push(`/doc/${doc.id}`)
     }
+
+    if (e.target.parentNode.className.includes("select")) {
+      handleSelect("is_selected", doc);
+    }
+    else if (e.target.parentNode.className.includes("important")) {
+      handleSelect("is_important", doc);
+    }
   }
 
   String.prototype.capitalize = function () {
@@ -46,8 +53,8 @@ function FileList({ doc }) {
 
   return (
     <div className="file_list doc_click" onClick={(e) => handleClick(e)}>
-      <Checkbox doc_id={doc.id} type="list_select" />
-      <Checkbox doc_id={doc.id} type="list_important" is_selected={doc.is_important} />
+      <Checkbox type="list_select" is_selected={is_selected} />
+      <Checkbox type="list_important" is_selected={is_important} />
       <div className="file_list_info doc_click">
         <div className="file_title doc_click">
           <img

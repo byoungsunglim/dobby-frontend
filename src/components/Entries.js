@@ -134,16 +134,8 @@ class Entries extends Component {
       limit: this.state.limit,
     }).then((docs) => {
       if (docs) {
-        let recents = [];
-        for (let doc of docs) {
-          if (this.state.view === "list") {
-            recents.push(<FileList key={doc.id} doc={doc} />);
-          } else {
-            recents.push(<FileCard key={doc.id} doc={doc} />);
-          }
-        }
         this.setState({
-          entries: recents,
+          entries: docs,
         }, this.handleFlex);
       } else {
         //TODO: handle where there is no recent files
@@ -180,7 +172,13 @@ class Entries extends Component {
             <span id="list_view">리스트</span>
           </div>
         </div>
-        <div id="entries_body">{this.state.entries}</div>
+        <div id="entries_body">
+          {this.state.entries.map((doc) => (
+            this.state.view === "list" ? 
+            <FileList key={doc.id} doc={doc} is_selected={this.props.selection[doc.id] ? this.props.selection[doc.id]['is_selected'] : false} is_important={this.props.selection[doc.id] ? this.props.selection[doc.id]['is_important'] : doc.is_important} handleSelect={this.props.handleSelect} /> :
+            <FileCard key={doc.id} doc={doc} is_selected={this.props.selection[doc.id] ? this.props.selection[doc.id]['is_selected'] : false} is_important={this.props.selection[doc.id] ? this.props.selection[doc.id]['is_important'] : doc.is_important} handleSelect={this.props.handleSelect} />
+          ))}
+        </div>
       </div>
     );
   }

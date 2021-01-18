@@ -19,8 +19,8 @@ class Main extends Component {
           <Search />
         </div>
         <div id="main_body">
-          <RecentFiles user={this.props.user} />
-          <Entries user={this.props.user} />
+          <RecentFiles user={this.props.user} selection={this.props.selection} handleSelect={this.props.handleSelect}/>
+          <Entries user={this.props.user} selection={this.props.selection} handleSelect={this.props.handleSelect}/>
         </div>
       </div>
     );
