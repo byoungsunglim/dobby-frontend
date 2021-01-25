@@ -55,6 +55,7 @@
       border-right: none;
       border-bottom: 1px solid #e3e3e3;
       margin-top: 30px;
+      margin-bottom: 15px;
     }
 
     .info_section {
@@ -89,6 +90,24 @@
         // height: 2px;
         border: solid 2px #1f1f1f;
         outline: none;
+      }
+
+      #selected_files_functions {
+        display: flex;
+        align-items: right;
+        justify-content: flex-end;
+        span {
+          margin-left: 15px;
+          font-family: SpoqaHanSans;
+          font-size: 12px;
+          font-weight: bold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          color: #51a2e9;
+          text-decoration: underline;
+        }
       }
     }
   }

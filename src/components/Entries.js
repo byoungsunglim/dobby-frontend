@@ -175,8 +175,8 @@ class Entries extends Component {
         <div id="entries_body">
           {this.state.entries.map((doc) => (
             this.state.view === "list" ? 
-            <FileList key={doc.id} doc={doc} is_selected={this.props.selection[doc.id] ? this.props.selection[doc.id]['is_selected'] : false} is_important={this.props.selection[doc.id] ? this.props.selection[doc.id]['is_important'] : doc.is_important} handleSelect={this.props.handleSelect} /> :
-            <FileCard key={doc.id} doc={doc} is_selected={this.props.selection[doc.id] ? this.props.selection[doc.id]['is_selected'] : false} is_important={this.props.selection[doc.id] ? this.props.selection[doc.id]['is_important'] : doc.is_important} handleSelect={this.props.handleSelect} />
+            <FileList key={doc.id} doc={doc} is_selected={this.props.selected_files[doc.id] ? this.props.selected_files[doc.id]['is_selected'] : false} is_important={this.props.selected_files[doc.id] ? this.props.selected_files[doc.id]['is_important'] : doc.is_important} handleSelect={this.props.handleSelect} /> :
+            <FileCard key={doc.id} doc={doc} is_selected={this.props.selected_files[doc.id] ? this.props.selected_files[doc.id]['is_selected'] : false} is_important={this.props.selected_files[doc.id] ? this.props.selected_files[doc.id]['is_important'] : doc.is_important} handleSelect={this.props.handleSelect} />
           ))}
         </div>
       </div>

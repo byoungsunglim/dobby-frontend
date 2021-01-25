@@ -52,7 +52,7 @@ class RecentFiles extends Component {
         <span id="recent_files_title">최근 열어본 파일</span>
         <div id="recent_files_body">
           {this.state.recent_files.map((doc) => (
-            <FileCard key={doc.id} doc={doc} is_selected={this.props.selection[doc.id] ? this.props.selection[doc.id]['is_selected'] : false} is_important={this.props.selection[doc.id] ? this.props.selection[doc.id]['is_important'] : doc.is_important} handleSelect={this.props.handleSelect}/>
+            <FileCard key={doc.id} doc={doc} is_selected={this.props.selected_files[doc.id] ? this.props.selected_files[doc.id]['is_selected'] : false} is_important={this.props.selected_files[doc.id] ? this.props.selected_files[doc.id]['is_important'] : doc.is_important} handleSelect={this.props.handleSelect}/>
           ))}
         </div>
       </div>

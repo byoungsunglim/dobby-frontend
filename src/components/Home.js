@@ -10,7 +10,7 @@ import "../assets/css/Home.scss";
 
 class Home extends Component {
   state = {
-    selection: {},
+    selected_files: {},
   };
 
   handleClick = (e) => {
@@ -32,16 +32,18 @@ class Home extends Component {
       doc[type] = true;
     }
 
-    let new_selection = this.state.selection;
-    new_selection[doc.id] = doc;
+    let selected_files = this.state.selected_files;
+    selected_files[doc.id] = doc;
 
     this.setState({
-      selection: new_selection,
+      selected_files: selected_files,
     });
 
-    queryDB("set", "doc", doc.id, {
-      is_important: doc[type],
-    }).then((result) => {});
+    if (type === "is_important") {
+      queryDB("set", "doc", doc.id, {
+        is_important: doc[type],
+      }).then((result) => {});
+    }
   };
 
   render() {
@@ -50,10 +52,10 @@ class Home extends Component {
         <Navigation view="home" user={this.props.user} />
         <Main
           user={this.props.user}
-          selection={this.state.selection}
+          selected_files={this.state.selected_files}
           handleSelect={this.handleSelect}
         />
-        <Information user={this.props.user} />
+        <Information user={this.props.user} selected_files={this.state.selected_files} />
       </div>
     );
   }
